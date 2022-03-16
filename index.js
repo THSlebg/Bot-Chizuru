@@ -1,3 +1,4 @@
+require('dotenv').config()
 const { table } = require("console");
 const { channel } = require("diagnostics_channel");
 const Discord = require("discord.js");
@@ -1506,4 +1507,4 @@ Client.on("interactionCreate", async interaction => {
     }
 });
 
-Client.login("OTUxOTA3MDkyMzA0ODkxOTU1.YiuSkA.W7HSVDmvl2CCMpyzsRvKn8ybXT0");
+Client.login(process.env.TOKEN);
