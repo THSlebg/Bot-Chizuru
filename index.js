@@ -2,7 +2,6 @@ require('dotenv').config()
 const { table } = require("console");
 const { channel } = require("diagnostics_channel");
 const Discord = require("discord.js");
-const { isUndefined } = require("util");
 const { late } = require("zod");
 const Client = new Discord.Client({
     intents: 
@@ -21,25 +20,30 @@ var commands = "\n - date \n - hi \n - help \n - embedHelp \n - event \n - setEv
 let commandTable = ["rent!date", "rent!hi", "rent!help", "rent!event", "rent!setEvent", "rent!log", "rent!testLog", "rent!makeLog", "rent!embedHelp", "rent!duel", "rent!roll", "rent!score", "rent!setEmoji", "rent!patchnote"];
 let descrTable = ["Basic command, you can check if the bot is working", "Say Hello to Chizuru", "Display all bot's commands", "Display current event information", "Custom current event | Args : **eventTitle**|**eventPeriod**|**eventDetails**|**eventEligibilty** ", "Change the log channel for bot's logs", "Send a log", "Send a custom log. Args : **memberName** **kakeraAmount**", "Display all bot's commands into an embed form", "Commence un combat de Harem entre différents membres du serveur", "Set la valeur max pour les rolls lors des duels de Harem", "Fixe le score maximal à atteindre lors des duels de Harem", "Change l'emoji resprésentant les kakeras lorsque le bot envoie un message l'utilisant", "Display latest Version patchnote"];
 
+//Joueurs duel de hareme
 let nbPlayer = ["2P", "3P", "4P", "5P"];
 let descrPlayer = ["DUEL", "TRIANGLE AMOUREUX", "CLUB ECHANGISTE", "BATTLE ROYALE"];
 let valuePlayer = ["2", "3", "4", "5"];
 
+//Mises duel de harem
 let bets = ["100", "250", "500", "1000", "5000"];
-let descrBets = ["Petits joueurs", "Paris entre amis", "Classique", "Pari compétitif", "Tentative d'escroquerie légitime"];
+let descrBets = ["Petits joueurs", "Pari entre amis", "Classique", "Pari compétitif", "Tentative d'escroquerie légitime"];
 let valueBets = ["100", "250", "500", "1000", "5000"];
 
+//Logs
 let channelLogName = "log-event";
 let usrName = "undefinedUserName";
 let kkrValue = "undefinedKakeraAmount";
 let kkrEmoji = "<:kakera:950050987412951051>";
 
+//Évènement en cours
 let eventTitle = "Allocations";
 let eventPeriod = "14/03/2022 | 00h00 (UTC+1) - 20/03/2022 | 23h59 (UTC+1)";
 let eventDescr = "Chaque $daily octroie + 3000 " + kkrEmoji;
 let eventAva = "Tous les joueurs sauf multi-comptes.";
 let kkrValueEvent = 3000;
-    
+
+//Duel de harem
 let nbPlayers = 0;
 let nbMise = 0;
 let score = [];
@@ -53,13 +57,15 @@ let idPlayersTmp;
 let usernameTmp;
 let userIdTmp;
 
-let maxroll = 100;
-let maxscore = 5;
+let maxRoll = 100;
+let maxScore = 5;
 
 let random = 0;
 let winner = "";
 let winnerId = " ";
 
+
+//Diamond
 let userDiamondID = [];
 let userTaille = [];
 let userGenre = [];
@@ -144,6 +150,77 @@ function addSecretGirl (GFname)
     }
 }
 
+function event()
+{
+    let event = new Discord.MessageEmbed()
+        .setColor("0bd3e6")
+        .setTitle("**EVENEMENT ACTIF** : " + eventTitle)
+        .setDescription("*Informations relatives à l'évenement en cours sur le serveur...*")
+        .setThumbnail("https://www.playerone.vg/wp-content/uploads/2020/08/Critica-de-Kanojo-Okarishimasu-destacada-El-Palomitron2-e1598033037864-370x305.jpg")
+        .addField("⌛ Période de l'évènement :", eventPeriod)
+        .addField("📃 Détails de l'évènement :", eventDescr)
+        .addField("🚹 Eligibilité : ", eventAva)
+        .setTimestamp();
+    return event;
+}
+
+function setEvent(title, period, descr, ava)
+{
+    eventTitle = title.replace('rent!setEvent ', '');
+    eventPeriod = period;
+    eventAva = ava;
+    eventDescr = descr;
+}
+
+function changeRollScore(type, msg)
+{
+    let strTmp = msg.content.split(" ")[1];
+    let maxTmp = Number(strTmp);
+
+    if(isNaN(maxTmp) || !Number.isSafeInteger(maxTmp) || maxTmp <= 0)
+    {
+        if(isUndefined(strTmp))
+        {
+            let max;
+            let str;
+            if(type == "roll")
+            {
+                max = maxRoll;
+                str = "a valeur max des rolls";
+            }
+            else
+            {
+                max = maxScore;
+                str = "e score maximum";
+            }
+            msg.channel.send("Vous pouvez changer l" + str + " lors des duels de Harem avec rent!" + type + " **valeur** \n**Valeur actuelle :** " + max);
+        }
+            
+        else
+            msg.channel.send("Saisis une valeur cohérente bolos \n**Valeur saisie :** " + strTmp);
+    }
+    else 
+    {
+        let finalMsg;
+        if(type == "roll")
+        {
+            maxRoll = maxTmp;
+            finalMsg = "Rolls set on ";
+        }
+        else
+        {
+            maxScore = maxTmp;
+            finalMsg = "Score maximum : ";
+        }
+            
+        msg.channel.send(finalMsg + maxTmp);
+    }
+}
+
+function isUndefined(param)
+{
+    return param === undefined;
+}
 
 Client.on("ready", () => {
     console.log("bot on")
@@ -151,308 +228,197 @@ Client.on("ready", () => {
 });
 
 Client.on("messageCreate", message => {
-    if (message.author.bot) return;
-    if(message.content === prefix)
-    {
-        message.channel.send("Uhm, you seem lost, try running rent!help :wink: ");
-    }
-    else if(message.content === prefix + "patchnote")
-    {
-        message.channel.send("**Version 0.3.1 :**\nLatest release :\n\n> Extended Shop Interest\n> Love point System Added\n> Secret Girls (2) Added \n*Now working on :*\n\n> Multi-Instance Handling\n> LovePoint Gameplay\n> Add Own GirlFriend\n> Get married");
-    }
-    else if(message.content === prefix + "hi")
-    {
-        message.channel.send("Hey, I'm Chizuru Ichinose, nice to meet you ♥\nI would love to get to know you more, call me whenever you want 👋");
-    }
-    else if (message.content === prefix + "date")
-    {
-        message.channel.send("I'm all yours for now!");
-    }
-    else if (message.content === prefix + "secret")
-    {
-        message.channel.send("This is something that you should had never discovered ... But at this point, maybe i should let you get a try ... 💎 \nI'll we be waiting for you darling ...");
-    }
-    else if (message.content === prefix + "help")
-    {
-        message.channel.send("**__List of commands :__**" + commands);
-    }
-    else if(message.content === prefix + "event")
-    {
-        const event = new Discord.MessageEmbed()
-            .setColor("0bd3e6")
-            .setTitle("**EVENEMENT ACTIF** : " + eventTitle)
-            .setDescription("*Informations relatives à l'évenement en cours sur le serveur ...*")
-            .setThumbnail("https://www.playerone.vg/wp-content/uploads/2020/08/Critica-de-Kanojo-Okarishimasu-destacada-El-Palomitron2-e1598033037864-370x305.jpg")
-            .addField("⌛ Période de l'évènement :", eventPeriod)
-            .addField("📃 Détails de l'évènement :", eventDescr)
-            .addField("🚹 Eligibilité : ", eventAva)
-            .setTimestamp();
+    if (message.author.bot || !message.content.startsWith(prefix)) return;
 
-        message.channel.send({embeds:[event]});
-    }
-    else if(message.content.startsWith(prefix + "setEvent"))
+    switch(message.content)
     {
-        var eventPeriodTmp = message.content.split("|")[0,1];
-        var eventDescrTmp = message.content.split("|")[1,2];
-        var eventAvaTmp = message.content.split("|")[2,3];
-        var titreTest = message.content.split("|")[0];
-        console.log(titreTest);
+        case prefix:
+            message.channel.send("Uhm, you seem lost, try running rent!help :wink: ");
+            break;
+        case prefix + "patchnote":
+            message.channel.send("**Version 0.3.1 :**\nLatest release :\n\n> Extended Shop Interest\n> Love point System Added\n> Secret Girls (2) Added \n*Now working on :*\n\n> Multi-Instance Handling\n> LovePoint Gameplay\n> Add Own GirlFriend\n> Get married");
+            break;
+        case prefix + "hi":
+            message.channel.send("Hey, I'm Chizuru Ichinose, nice to meet you ♥\nI would love to get to know you more, call me whenever you want 👋");
+            break;
+        case prefix + "date":
+            message.channel.send("I'm all yours for now!");
+            break;
+        case prefix + "secret":
+            message.channel.send("This is something that you should had never discovered... But at this point, maybe i should let you get a try... 💎 \nI'll we be waiting for you darling...");
+            break;
+        case prefix + "help":
+            message.channel.send("**__List of commands :__**" + commands);
+            break;
+        case prefix + "event":
+            message.channel.send({embeds:[event()]});
+            break;
+        case prefix + "testLog":
+            Client.channels.cache.find(channel => channel.name === channelLogName ).send("J'ai autre chose à faire... Tu vois bien que ça marche non ? Abruti...");
+            break;
+        case prefix + "embedHelp":
+            let embed = new Discord.MessageEmbed()
+                .setColor("eb4034")
+                .setTitle("Command List :")
+                .setURL("https://pornhub.com")
+                .setDescription("*Chizuru-san is so greatful, she lets you use all those following interactions freely with her !* ♥")
+                .setThumbnail("https://i.pinimg.com/736x/09/06/bd/0906bdfcecb2a9665bde4d32879b92e5.jpg")
+                .setTimestamp();
 
-        if(isUndefined(message.content.split(" ")[1]) || isUndefined(eventPeriodTmp) || isUndefined(eventDescrTmp) || isUndefined(eventAvaTmp) || eventPeriodTmp === '' || eventDescrTmp === '' || eventAvaTmp === '' || titreTest === "rent!setEvent ")
-            {
-                console.log("je suis au bon endroit");
-                const eventT = new Discord.MessageEmbed()
-                    .setColor("0bd3e6")
-                    .setTitle("**EVENEMENT ACTIF** : " + eventTitle)
-                    .setDescription("*Informations relatives à l'évenement en cours sur le serveur ...*")
-                    .setThumbnail("https://www.playerone.vg/wp-content/uploads/2020/08/Critica-de-Kanojo-Okarishimasu-destacada-El-Palomitron2-e1598033037864-370x305.jpg")
-                    .addField("⌛ Période de l'évènement :", eventPeriod)
-                    .addField("📃 Détails de l'évènement :", eventDescr)
-                    .addField("🚹 Eligibilité : ", eventAva)
-                    .setTimestamp();
-
-                message.channel.send({content: "Vous pouvez paramétrer les informations de l'évenement en cours avec rent!setEvent **eventTitle**|**eventPeriod**|**eventDetails**|**eventEligibilty** \n **Evènement en cours :**", embeds:[eventT] });
-            }
-        else 
-        {
-            var eventTitleTmp = message.content.split("|")[0];
-            console.log(eventTitleTmp);
-            eventTitle = eventTitleTmp.replace('rent!setEvent ', '');
-            console.log(eventTitle);
-            eventPeriod = message.content.split("|")[0,1];
-            eventDescr = message.content.split("|")[1,2];
-            eventAva = message.content.split("|")[2,3];
-
-            const eventT = new Discord.MessageEmbed()
-                    .setColor("0bd3e6")
-                    .setTitle("**EVENEMENT ACTIF** : " + eventTitle)
-                    .setDescription("*Informations relatives à l'évenement en cours sur le serveur ...*")
-                    .setThumbnail("https://www.playerone.vg/wp-content/uploads/2020/08/Critica-de-Kanojo-Okarishimasu-destacada-El-Palomitron2-e1598033037864-370x305.jpg")
-                    .addField("⌛ Période de l'évènement :", eventPeriod)
-                    .addField("📃 Détails de l'évènement :", eventDescr)
-                    .addField("🚹 Eligibilité : ", eventAva)
-                    .setTimestamp();
-
-            message.channel.send({content:"**EVENEMENT CONFIGURE :**", embeds:[eventT] });
-        }
-    }
-    else if(message.content.startsWith(prefix + "log"))
-    {
-        if(isUndefined(message.content.split(" ")[1]))
-            {
-                message.channel.send("Vous pouvez changer le channel par défaut des logs du bot avec rent!log **nomDuChannel** \n**Channel par défaut actuel : **" + channelLogName);
-            }
-        else {
-            channelLogName = message.content.split(" ")[1];
-            const channelLogS = Client.channels.cache.find(channel => channel.name === channelLogName );
-            if(isUndefined(channelLogS))
-            {
-                message.channel.send("**Nom inapproprié**");
-            }
-            else {
-            message.channel.send("Log Channel : " + channelLogName);
-            channelLogS.send("Logs are now sent here");}
-        }
-    }
-    else if(message.content === prefix + "testLog")
-    {
-        const channelLogT = Client.channels.cache.find(channel => channel.name === channelLogName );
-        channelLogT.send("J'ai autre chose à faire ... tu vois bien que ça marche non ? abruti ...");
-    }
-    else if(message.content.startsWith(prefix + "makeLog"))
-    {
-        if(isUndefined(message.content.split(" ")[1]))
-            {
-                message.channel.send("Vous pouvez envoyé un log personnalisé avec rent!makeLog **pseudoDuMembre** **montantKakera**");
-            }
-        else
-        {
-        var time = new Date();
-        usrName = message.content.split(" ")[0,1];
-        kkrValue = message.content.split(" ")[2];
-        const channelLogP = Client.channels.cache.find(channel => channel.name === channelLogName );
-        channelLogP.send(time.toLocaleString() + " : " + usrName + " + " + kkrValue + " " + kkrEmoji);
-
-        usrName = " ";
-        kkrValue = " ";
-        }
-    }
-    else if(message.content.startsWith(prefix + "setEmoji"))
-    {
-        if(isUndefined(message.content.split(" ")[1]) || message.content.length > 45)
-            {
-                message.channel.send("Vous pouvez changer l'emoji représentant les kakeras avec rent!setEmoji **<:Emoji:ID>**");
-            }
-        else
-        {
-            kkrEmoji = message.content.split(" ")[1];
-            message.channel.send("Nouvel Emoji : " + kkrEmoji);
-        }
-    }
-    else if (message.content === prefix + "embedHelp")
-    {
-        const embed = new Discord.MessageEmbed()
-            .setColor("eb4034")
-            .setTitle("Command List :")
-            .setURL("https://pornhub.com")
-            .setDescription("*Chizuru-san is so greatful, she lets you use all those following interactions freely with her !* ♥")
-            .setThumbnail("https://i.pinimg.com/736x/09/06/bd/0906bdfcecb2a9665bde4d32879b92e5.jpg")
-            .setTimestamp();
-
-        let i = 0;
-        commandTable.forEach(element => {
-            embed.addField(element, descrTable[i]);
-            i++;
-        });
+            let nBoucle = 0;
+            commandTable.forEach(element => {
+                embed.addField(element, descrTable[nBoucle]);
+                nBoucle++;
+            });
             
-        message.channel.send({embeds:[embed]});
-    }
-    else if (message.content.startsWith(prefix + "roll"))
-    {
-        maxrolltmp = Number(message.content.split(" ")[1]);
-        console.log(message.content.split(" ")[1]);
-        console.log(maxroll);
-        if(isNaN(maxrolltmp) || !Number.isSafeInteger(maxrolltmp) || maxrolltmp <= 0)
-        {
-            if(isUndefined(message.content.split(" ")[1]))
+            message.channel.send({embeds:[embed]});
+            break;
+        case prefix + "duel":
+            let fight = new Discord.MessageActionRow()
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("Go")
+                    .setLabel("Combat !")
+                    .setStyle("SUCCESS")
+                    .setEmoji("⚔"))
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("Cancel")
+                    .setLabel("J'ai pas les couilles enfaite")
+                    .setStyle("DANGER")
+                    .setEmoji("🐓")
+                );
+                
+            nbPlayers = 0;
+            nbMise = 0;
+            score = [];
+            idPlayers = [];
+            rdyP = 0;
+            userId = [];
+            username = [];
+
+            message.channel.send({content: "Ready to fight ?", components: [fight]});
+            break;
+        case prefix + "diamond":
+            if(diamondUserConnected.includes(message.author.id))
+                message.channel.send("T'as deux vies tocard ?");
+            else
             {
-                message.channel.send("Vous pouvez changer la valeur max des rolls lors des duels de Harem avec rent!roll **valeur** \n**Valeur actuelle : **" + maxroll);
+                indexGF = 0;
+
+                let logIn = new Discord.MessageActionRow()
+                    .addComponents(new Discord.MessageButton()
+                        .setCustomId("ConnectToDiamond")
+                        .setLabel("INSTALLER DIAMOND")
+                        .setStyle("SUCCESS")
+                        .setEmoji("💎"))
+                    .addComponents(new Discord.MessageButton()
+                        .setCustomId("Disconnect")
+                        .setLabel("Mauvaise idée")
+                        .setStyle("SECONDARY")
+                        .setEmoji("❎"));
+
+                diamondUserConnected.push(message.author.id);
+                console.log(message.author.id);
+                message.channel.send({content: "*Votre télephone vibre étrangement? \nDans un grand flash blanc, votre téléphone vous propose de vous rediriger vers le lien suivant : https://diamond.app/rent \nCe lien semble innacessible, cependant il semblerait que vous puissiez installer l'application* **DIAMOND**", components: [logIn]});
             }
-            else {message.channel.send("Saisis une valeur cohérente bolos \n**Valeur saisie : **" + message.content.split(" ")[1]);}
-        }
-        else {maxroll = Number(message.content.split(" ")[1]);message.channel.send("Rolls set on " + maxroll);}
-    }
-    else if (message.content.startsWith(prefix + "score"))
-    {
-        maxscoretmp = Number(message.content.split(" ")[1]);
-        console.log(message.content.split(" ")[1]);
-        console.log(maxscore);
-        if(isNaN(maxscoretmp) || !Number.isSafeInteger(maxscoretmp) || maxscoretmp <= 0)
-        {
-            if(isUndefined(message.content.split(" ")[1]))
+            break;
+        case prefix + "work":
+            if(userDiamondID.includes(message.author.id))
             {
-                message.channel.send("Vous pouvez changer la valeur du score à atteindre lors des duels de Harem avec rent!score **valeur** \n**Valeur actuelle : **" + maxscore);
+                let index = userDiamondID.indexOf(message.author.id);
+                let alea = Math.floor(Math.random() * 21);
+    
+                if (alea < 2)
+                {
+                    userBalance[index] -= 25000;
+                    message.channel.send("Décidemment, vous faites vraiment pitié... Votre patron vous a foutu à la porte après que vous eûtes essayé d'enregistrer le numéro de votre collègue en prenant son téléphone en cachette... \nMalheureusement, ce dernier vous a échappé des mains, et il est désormais foutu !\n*Vous avez dû lui en racheter un, et en plus elle a pris le dernier modèle sorti...* - 25.000 :yen:");
+                }
+                else if (alea < 5)
+                {
+                    userBalance[index] += Math.floor(Math.random() * 5000) + 10000;
+                    message.channel.send("Vous vendez votre Tajine comme des petits pains ... Qui l’eût cru ?\n Le résultat de cette journée vous a permis d'accumuler " + userBalance[index] + " :yen: au total !");
+                }
+                else if (alea < 11)
+                {
+                    userBalance[index] += Math.floor(Math.random() * 3000) + 3000;
+                    message.channel.send("Bon boulot ça ! \nTon porte-monnaie se remplit bien ! Tu as " + userBalance[index] + " :yen:");
+                }
+                else if (alea < 20)
+                {
+                    userBalance[index] += Math.floor(Math.random() * 3000) + 1500;
+                    message.channel.send("Quel taff épuisant ... Vous avez malgré tout gagné un peu de faf\nVous possédez " + userBalance[index] + " :yen:");
+                }
+                else
+                {
+                    userBalance[index] += Math.floor(Math.random() * 10000) + 50000;
+                    message.channel.send("Travailler pour le président Macron n'a jamais été aussi fructueux ! Vous avez discrètement détourné quelques fonds publics, mais c'est pour la bonne cause...\nVotre coffre-fort compte maintenant " + userBalance[index] + " :yen: ");
+                }
             }
-            else {message.channel.send("Saisis une valeur cohérente bolos \n**Valeur saisie : **" + message.content.split(" ")[1]);}
-        }
-        else {maxscore = Number(message.content.split(" ")[1]);message.channel.send("Score Maximum : " + maxscore);}
-    }
-    else if (message.content === prefix + "duel")
-    {
-        var fight = new Discord.MessageActionRow()
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("Go")
-                .setLabel("Combat !")
-                .setStyle("SUCCESS")
-                .setEmoji("⚔"))
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("Cancel")
-                .setLabel("J'ai pas les couilles enfaite")
-                .setStyle("DANGER")
-                .setEmoji("🐓")
-            );
-            
-        nbPlayers = 0;
-        nbMise = 0;
-        score = [];
-        idPlayers = [];
-        rdyP = 0;
-        userId = [];
-        username = [];
-
-        message.channel.send({content: "Ready to fight ?", components: [fight]});
-    }
-    else if(message.content === prefix + "diamond")
-    {
-        indexGF = 0;
-
-        var logIn = new Discord.MessageActionRow()
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("ConnectToDiamond")
-                .setLabel("INSTALLER DIAMOND")
-                .setStyle("SUCCESS")
-                .setEmoji("💎"))
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("Disconnect")
-                .setLabel("Mauvaise idée")
-                .setStyle("SECONDARY")
-                .setEmoji("❎"));
-        
-        if(!diamondUserConnected.includes(message.author.id)){
-        diamondUserConnected.push(message.author.id);
-        console.log(message.author.id);
-        message.channel.send({content: "*Votre télephone vibre étrangement? \nDans un grand flash blanc, votre téléphone vous propose de vous rediriger vers le lien suivant : https://diamond.app/rent \nCe lien semble innacessible, cependant il semblerait que vous puissiez installer l'application* **DIAMOND**", components: [logIn]});
-        }
-        else{message.channel.send("T'as deux vies tocard ?")}
-}
-    else if(message.content === prefix + "work")
-    {
-        var index = userDiamondID.indexOf(message.author.id);
-
-        if(!userDiamondID.includes(message.author.id)){}
-
-        else 
-        {
-            var alea = Math.floor(Math.random() * 21);
-            console.log(alea);
-            switch(alea.toString())
+            break;
+        case prefix + "motherlode":
+            if(userDiamondID.includes(message.author.id)){}
             {
-                case '0':
-                case '1':
-                userBalance[index] = userBalance[index] - 25000;
-                message.channel.send("Décidemment, vous faites vraiment pitié ... Votre patron vous a foutu à la porte après que vous eûtes essayé d'enregistrer le numéro de votre collègue en prenant son téléphone en cachette ... \nMalheureusement, ce dernier vous a lâché des mains, et il est désomais foutu !\n*Vous avez dû lui en racheter un, et en plus elle a pris le dernier modèle sorti...* - 25.000 :yen:");
-                break
-                case '2':
-                case '3':
-                case '4':
-                var thune = Math.floor(Math.random() * 5000) + 10000;
-                userBalance[index] = userBalance[index] + thune;
-                message.channel.send("Vous vendez votre Tajine comme des petits pains ... Qui l’eût cru ?\n Le résultat de cette journée vous a permis d'accumuler " + userBalance[index] + " :yen: au total !");
-                break
-                case '5':
-                case '6':
-                case '7':
-                case '8':
-                case '9':
-                case '10':
-                var thune = Math.floor(Math.random() * 3000) + 3000;
-                userBalance[index] = userBalance[index] + thune;
-                message.channel.send("Bon boulot ça ! \nTon porte-monnaie se rempli bien ! Tu as " + userBalance[index] + " :yen:");
-                break
-                case '11':
-                case '12':
-                case '13':
-                case '14':
-                case '15':
-                case '16':
-                case '17':
-                case '18':
-                case '19':
-                var thune = Math.floor(Math.random() * 3000) + 1500;
-                userBalance[index] = userBalance[index] + thune;
-                message.channel.send("Quel taff épuisant ... Vous avez malgré tout gagné un peu de faf\nVous possédez " + userBalance[index] + " :yen:");
-                break
-                case '20':
-                var thune = Math.floor(Math.random() * 10000) + 50000;
-                userBalance[index] = userBalance[index] + thune;
-                message.channel.send("Travailler pour le président Macron n'a jamais été aussi fructueux ! Vous avez discrètement détourné quelques fonds publics, mais c'est pour la bonne cause ...\nVotre coffre-fort compte maintenant " + userBalance[index] + " :yen: ");
-                break;
-                default :
-                break
+                let index = userDiamondID.indexOf(message.author.id);
+                userBalance[index] += 100000000000000;
+                message.channel.send("<@" + message.author.id + "> t'as pas honte de tricher comme ça ! Tu te rends compte qu'avoir " + userBalance[index] + " :yen: c'est louche ?!");
             }
-        }
-    }
-    else if(message.content === prefix + "motherlode")
-    {
-        var index = userDiamondID.indexOf(message.author.id);
+            break;
+        default:
+            if(message.content.startsWith(prefix + "setEvent"))
+            {
+                let eventPeriodTmp = message.content.split("|")[0,1];
+                let eventDescrTmp = message.content.split("|")[1,2];
+                let eventAvaTmp = message.content.split("|")[2,3];
+                let eventTitleTmp = message.content.split("|")[0];
 
-        if(!userDiamondID.includes(message.author.id)){}
-
-        else 
-        {
-        userBalance[index] = userBalance[index] + 100000000000000;
-        message.channel.send("<@" + message.author.id + "> t'as pas honte de tricher comme ça ! Tu te rends compte qu'avoir " + userBalance[index] + " :yen: c'est louche ?!");
-        }
+                if(isUndefined(message.content.split(" ")[1]) || isUndefined(eventPeriodTmp) || isUndefined(eventDescrTmp) || isUndefined(eventAvaTmp) || eventPeriodTmp === '' || eventDescrTmp === '' || eventAvaTmp === '' || eventTitleTmp === "rent!setEvent ")
+                    message.channel.send({content: "Vous pouvez paramétrer les informations de l'évènement en cours avec rent!setEvent **eventTitle**|**eventPeriod**|**eventDetails**|**eventEligibilty** \n **Evènement en cours :**", embeds:[event()] });
+                else 
+                {
+                    setEvent(eventTitleTmp, eventPeriodTmp, eventDescrTmp, eventAvaTmp)
+                    message.channel.send({content:"**EVENEMENT CONFIGURE :**", embeds:[event()]});
+                }      
+            }
+            else if(message.content.startsWith(prefix + "log"))
+            {
+                let channelLogNameTmp = message.content.split(" ")[1];
+                if(isUndefined(channelLogNameTmp))
+                    message.channel.send("Vous pouvez changer le channel par défaut des logs du bot avec rent!log **nomDuChannel** \n**Channel par défaut actuel :** " + channelLogName);
+                else 
+                {
+                    channelLogName = channelLogNameTmp;
+                    let channelLogS = Client.channels.cache.find(channel => channel.name === channelLogName );
+                    if(isUndefined(channelLogS))
+                        message.channel.send("**Nom inapproprié**");
+                    else 
+                    {
+                        message.channel.send("Log Channel : " + channelLogName);
+                        channelLogS.send("Logs are now sent here.");
+                    }
+                }
+            }
+            else if(message.content.startsWith(prefix + "makeLog"))
+            {
+                if(isUndefined(message.content.split(" ")[1]))
+                    message.channel.send("Vous pouvez envoyé un log personnalisé avec rent!makeLog **pseudoDuMembre** **montantKakera**");
+                else
+                    Client.channels.cache.find(channel => channel.name === channelLogName ).send(new Date().toLocaleString() + " : " + message.content.split(" ")[0,1] + " + " + message.content.split(" ")[2] + " " + kkrEmoji);
+            }
+            else if(message.content.startsWith(prefix + "setEmoji"))
+            {
+                let kkrEmojiTmp = message.content.split(" ")[1];
+                if(isUndefined(kkrEmojiTmp) || message.content.length > 45)
+                    message.channel.send("Vous pouvez changer l'emoji représentant les kakeras avec rent!setEmoji **<:Emoji:ID>**");
+                else
+                {
+                    kkrEmoji = kkrEmojiTmp;
+                    message.channel.send("Nouvel Emoji : " + kkrEmoji);
+                }
+            }
+            else if (message.content.startsWith(prefix + "roll"))
+                changeRollScore("roll", message);
+            else if (message.content.startsWith(prefix + "score"))
+                changeRollScore("score", message);
+            break;
     }
 });
 
@@ -643,8 +609,8 @@ Client.on("interactionCreate", async interaction => {
                 .setTitle("🔪 Détails du combat : ")
                 .setDescription("Pour modifier les valeurs max de score et de rolls, utilisez respectivement les commandes **rent!score** et **rent!roll**.")
                 .setThumbnail("https://i0.wp.com/9tailedkitsune.com/wp-content/uploads/2020/08/Snimka-obrazovky-394.png")
-                .addField("Score à atteindre :", maxscore.toString())
-                .addField("Roll max :", maxroll.toString())
+                .addField("Score à atteindre :", maxScore.toString())
+                .addField("Roll max :", maxRoll.toString())
                 .addField("Mise :", nbMise.toString())
                 .addField("Joueurs :", concat)
                 .setTimestamp();
@@ -670,7 +636,7 @@ Client.on("interactionCreate", async interaction => {
             .setColor("eb4034")
             .setTitle("🔪 Progression du Duel : ")
             .setDescription("La bataille vient de commencer, voyons qui sera à la hauteur.")
-            .addField("Score à atteindre :", maxscore.toString())
+            .addField("Score à atteindre :", maxScore.toString())
             .addField("Rappel mise :", nbMise.toString());
 
             let s = 0;
@@ -694,9 +660,9 @@ Client.on("interactionCreate", async interaction => {
         {
             score[interaction.customId]++;
             console.log(score[interaction.customId]);
-            console.log(maxscore);
+            console.log(maxScore);
 
-            if(score[interaction.customId] == maxscore)
+            if(score[interaction.customId] == maxScore)
             {
                 gain = nbMise * (nbPlayers - 1);
                 const endG = new Discord.MessageEmbed()
@@ -719,13 +685,13 @@ Client.on("interactionCreate", async interaction => {
 
                 await interaction.update({content: "**FIN DE DUEL ! **", embeds: [endG], components: [victory]});
             }
-            else if (score[interaction.customId] < maxscore)
+            else if (score[interaction.customId] < maxScore)
             {
             const scoreG1 = new Discord.MessageEmbed()
             .setColor("eb4034")
             .setTitle("🔪 Progression du Duel : ")
             .setDescription("La Tension est palpable ...")
-            .addField("Score à atteindre :", maxscore.toString())
+            .addField("Score à atteindre :", maxScore.toString())
             .addField("Rappel mise :", nbMise.toString());
 
             var suivant = new Discord.MessageActionRow()
@@ -753,13 +719,13 @@ Client.on("interactionCreate", async interaction => {
             console.log(userId);
             console.log(username);
 
-            random = Math.floor(Math.random() * maxroll) + 1;
+            random = Math.floor(Math.random() * maxRoll) + 1;
 
             const test = new Discord.MessageEmbed()
             .setColor("eb4034")
             .setTitle("🔪 Progression du Duel : ")
             .setDescription("La Tension est palpable ...")
-            .addField("Score à atteindre :", maxscore.toString())
+            .addField("Score à atteindre :", maxScore.toString())
             .addField("Rappel mise :", nbMise.toString());
 
             let o = 0;
