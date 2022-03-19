@@ -15,7 +15,7 @@ const Client = new Discord.Client({
 
 
 const prefix = "rent!";
-const botVersion = "0.4.1";
+const botVersion = "0.4.2";
 
 var commands = "\n - date \n - hi \n - help \n - version \n - embedHelp \n - event \n - setEvent \n - duel \n - roll \n - score \n - log \n - testLog \n - makeLog \n - setEmoji \n - patchnote";
 
@@ -112,7 +112,7 @@ let likeRoseSecret = ["Neutral", "Happy", "Neutral", "Angry", "Happy"];
 let likeKnifeSecret = ["Angry", "Neutral", "Angry", "Happy", "Happy"];
 let likeTeddyBearSecret = ["Neutral", "Happy", "Happy", "Angry", "Happy"];
 let priceGFLPSecret = [1500, 1765, 1445, 1495, 1830];
-let marryGFSecret = ["https://i.pinimg.com/736x/7c/6a/5b/7c6a5b57ebbbaf24b5c39df2e7f441c7.jpg", "https://static.zerochan.net/Yukinoshita.Yukino.full.2253104.jpg", "https://s3.zerochan.net/240/01/06/2812801.jpg", "", "", ""];
+let marryGFSecret = ["https://i.pinimg.com/736x/7c/6a/5b/7c6a5b57ebbbaf24b5c39df2e7f441c7.jpg", "https://static.zerochan.net/Yukinoshita.Yukino.full.2253104.jpg", "https://images5.alphacoders.com/103/1032303.jpg", "https://i.pinimg.com/236x/56/36/76/563676ea833afb5e22ee3fce83e14510--anime-meme-mom.jpg", "https://s3.zerochan.net/240/01/06/2812801.jpg"];
 let rentedImageGFHappySecret =["https://i.pinimg.com/originals/8d/3c/26/8d3c26c691419c47c45c49b521b39568.gif", "https://38.media.tumblr.com/1008d0881e5e92fa9c8f18eb91c766df/tumblr_np52popXiM1u9f4wvo1_540.gif", "https://c.tenor.com/SND5birWDXkAAAAC/hajimete-no-gal-smile.gif", "https://i.pinimg.com/originals/49/fd/f9/49fdf9e93bd214542be60ab9c5c4ac7e.gif", "https://64.media.tumblr.com/5964c7f87f60aad9863777bf9092609c/1f50096f9d1b8dbc-6d/s540x810/ebb90503170e9b106ffd1a16a012aa3f32899564.gif"];
 let rentedImageGFAngrySecret =["https://pa1.narvii.com/7097/dfcc2b8bc6c5818a78e320375a5b5cc7c51384f6r1-498-282_hq.gif", "https://64.media.tumblr.com/f7a62821963ea57b2e1510e667590591/tumblr_nmxml3T5Td1rcufwuo1_500.gif", "https://c.tenor.com/JDY8KhMlynwAAAAC/hajimete-no-gal-gal.gif", "https://c.tenor.com/JljBKC9XpawAAAAC/aki-adagaki.gif", "https://64.media.tumblr.com/975fa03a89c8ed737808d11a0a18d4a1/49f4ceb2ed5f82f6-5c/s400x600/1bde87deace3ce7be0cfba40ca8b49973f8759e7.gif"];
 
@@ -135,7 +135,7 @@ let userCasinoToken = [];
 
 let dice = 0;
 
-let admin =  "<@238332449367654401>";
+let admin =  "<@366970506462887937>";
 let diamondUserConnected = [];
 
 function addSecretGirl (GFname)
@@ -1044,7 +1044,7 @@ Client.on("interactionCreate", async interaction => {
             .setFooter("Diamond Inc. © - Bringing the best for you")
             .setTimestamp();
 
-        if(userOwnedChocolate[place] > 0 || userOwnedBook[place] > 0 || userOwnedScarf[place] > 0 || userOwnedRing[place] > 0)
+        if(userOwnedChocolate[place] > 0 || userOwnedBook[place] > 0 || userOwnedScarf[place] > 0 || userOwnedRing[place] > 0 || userOwnedRose[place] > 0 || userOwnedKnife[place] > 0 || userOwnedTeddyBear > 0 || userFreeRentTicket[place] > 0)
         {
             Profile.addField("Inventaire :", stuff);
         }  
@@ -1152,12 +1152,12 @@ Client.on("interactionCreate", async interaction => {
         {
             paidDate = 1;
         }
-        else if(userFreeRentTicket[index] > 0)
+        else if(userFreeRentTicket[index] > 0 && !paidDate)
         {
             paidDate = 1;
             userFreeRentTicket[index] = userFreeRentTicket[index] -1;
         }
-        else if(userBalance[index] >= priceGF[indexGF] && paidDate == 0)
+        else if(userBalance[index] >= priceGF[indexGF] && !paidDate)
         {
             paidDate = 1;
             userBalance[index] = userBalance[index] - priceGF[indexGF]
@@ -1465,6 +1465,7 @@ Client.on("interactionCreate", async interaction => {
             case 'KnifeG':
                 feelingGFtmp = likeKnife[indexGF];
                 gift = "un couteau";
+                break
             case 'TeddyBearG':
                 feelingGFtmp = likeTeddyBear[indexGF];
                 gift = "une peluche";
@@ -1655,7 +1656,7 @@ Client.on("interactionCreate", async interaction => {
     }
     else if((interaction.customId === "Casino" &&  userBalance[userDiamondID.indexOf(interaction.user.id)] > 9999) || interaction.customId === "CasinoFree")
     {
-        var casinoRoll = Math.floor(Math.random() * 99);
+        var casinoRoll = Math.floor(Math.random() * 100);
         console.log("CasinoRoll alea : " + casinoRoll);
         var place = userDiamondID.indexOf(interaction.user.id);
 
