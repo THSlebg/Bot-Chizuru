@@ -20,7 +20,7 @@ const botVersion = "0.4.2";
 var commands = "\n - date \n - hi \n - help \n - version \n - embedHelp \n - event \n - setEvent \n - duel \n - roll \n - score \n - log \n - testLog \n - makeLog \n - setEmoji \n - patchnote";
 
 let commandTable = ["rent!date", "rent!hi", "rent!help", "rent!version", "rent!event", "rent!setEvent", "rent!log", "rent!testLog", "rent!makeLog", "rent!embedHelp", "rent!duel", "rent!roll", "rent!score", "rent!setEmoji", "rent!patchnote"];
-let descrTable = ["Basic command, you can check if the bot is working", "Say Hello to Chizuru", "Display all bot's commands", "Display bot version", "Display current event information", "Custom current event | Args : **eventTitle**|**eventPeriod**|**eventDetails**|**eventEligibilty** ", "Change the log channel for bot's logs", "Send a log", "Send a custom log. Args : **memberName** **kakeraAmount**", "Display all bot's commands into an embed form", "Commence un combat de Harem entre différents membres du serveur", "Set la valeur max pour les rolls lors des duels de Harem", "Fixe le score maximal à atteindre lors des duels de Harem", "Change l'emoji resprésentant les kakeras lorsque le bot envoie un message l'utilisant", "Display latest Version patchnote"];
+let descrTable = ["Basic command, you can check if the bot is working", "Say Hello to Chizuru", "Display all bot's commands", "Display bot version", "Display current event information", "Custom current event | Args : **eventTitle**|**eventPeriod**|**eventDetails**|**eventEligibilty** ", "Change the log channel for bot's logs", "Send a log", "Send a custom log. Args : **memberName**|**kakeraAmount**", "Display all bot's commands into an embed form", "Commence un combat de Harem entre différents membres du serveur", "Set la valeur max pour les rolls lors des duels de Harem", "Fixe le score maximal à atteindre lors des duels de Harem", "Change l'emoji resprésentant les kakeras lorsque le bot envoie un message l'utilisant", "Display latest Version patchnote"];
 
 let nbPlayer = ["2P", "3P", "4P", "5P"];
 let descrPlayer = ["DUEL", "TRIANGLE AMOUREUX", "CLUB ECHANGISTE", "BATTLE ROYALE"];
@@ -35,11 +35,12 @@ let usrName = "undefinedUserName";
 let kkrValue = "undefinedKakeraAmount";
 let kkrEmoji = "<:kakera:950050987412951051>";
 
-let eventTitle = "Allocations";
-let eventPeriod = "14/03/2022 | 00h00 (UTC+1) - 20/03/2022 | 23h59 (UTC+1)";
-let eventDescr = "Chaque $daily octroie + 3000 " + kkrEmoji;
+let eventTitle = "Pierres précieuses";
+let eventPeriod = "21/03/2022 | 00h00 (UTC+1) - 27/03/2022 | 23h59 (UTC+1)";
+let eventDescr = "Les reacts turquoises rapportent x4" + kkrEmoji + "et les vertes x3" + kkrEmoji;
 let eventAva = "Tous les joueurs sauf multi-comptes.";
-let kkrValueEvent = 3000;
+let eventColor = "5bed07";
+let kkrValueEvent = []; // Event Paramater
     
 let nbPlayers = 0;
 let nbMise = 0;
@@ -119,7 +120,7 @@ let rentedImageGFAngrySecret =["https://pa1.narvii.com/7097/dfcc2b8bc6c5818a78e3
 
 
 let gift = "";
-let paidDate = 0;
+let paidDateUser = [];
 
 let userOwnedChocolate = [];
 let userOwnedRing = [];
@@ -135,7 +136,7 @@ let userCasinoToken = [];
 
 let dice = 0;
 
-let admin =  "<@366970506462887937>";
+let admin =  "<@238332449367654401>";
 let diamondUserConnected = [];
 
 function addSecretGirl (GFname)
@@ -177,7 +178,7 @@ Client.on("ready", () => {
 });
 
 Client.on("messageCreate", message => {
-    if (message.author.bot) return;
+    //if (message.author.bot) return;
     if(message.content === prefix)
     {
         message.channel.send("Uhm, you seem lost, try running rent!help :wink: ");
@@ -209,7 +210,7 @@ Client.on("messageCreate", message => {
     else if(message.content === prefix + "event")
     {
         const event = new Discord.MessageEmbed()
-            .setColor("0bd3e6")
+            .setColor(eventColor)
             .setTitle("**EVENEMENT ACTIF** : " + eventTitle)
             .setDescription("*Informations relatives à l'évenement en cours sur le serveur ...*")
             .setThumbnail("https://www.playerone.vg/wp-content/uploads/2020/08/Critica-de-Kanojo-Okarishimasu-destacada-El-Palomitron2-e1598033037864-370x305.jpg")
@@ -293,15 +294,16 @@ Client.on("messageCreate", message => {
     {
         if(isUndefined(message.content.split(" ")[1]))
             {
-                message.channel.send("Vous pouvez envoyé un log personnalisé avec rent!makeLog **pseudoDuMembre** **montantKakera**");
+                message.channel.send("Vous pouvez envoyé un log personnalisé avec rent!makeLog **pseudoDuMembre**|**montantKakera**");
             }
         else
         {
         var time = new Date();
-        usrName = message.content.split(" ")[0,1];
-        kkrValue = message.content.split(" ")[2];
+        usrName = message.content.split("g")[1];
+        usrName = usrName.split("|")[0];
+        kkrValue = message.content.split("|")[0,1];
         const channelLogP = Client.channels.cache.find(channel => channel.name === channelLogName );
-        channelLogP.send(time.toLocaleString() + " : " + usrName + " + " + kkrValue + " " + kkrEmoji);
+        channelLogP.send(time.toLocaleString() + " :" + usrName + " + " + kkrValue + " " + kkrEmoji);
 
         usrName = " ";
         kkrValue = " ";
@@ -484,33 +486,94 @@ Client.on("messageCreate", message => {
         message.channel.send("<@" + message.author.id + "> t'as pas honte de tricher comme ça ! Tu te rends compte qu'avoir " + userBalance[index] + " :yen: c'est louche ?!");
         }
     }
-});
-
-Client.on("messageReactionAdd", (reaction, user) => {
-    if(reaction.message.content === "$daily" && reaction.emoji.name === "✅" && (user.id === "238332449367654401" || user.id === "432610292342587392")) //first is THS admin id and second is Mudae id
+    else if(message.content.startsWith("<:kakeraT:609264180851376132>"))
     {
-        const eventPopUp = new Discord.MessageEmbed()
-            .setColor("21eb13")
-            .setTitle(eventTitle)
-            .setURL("https://www.gouvernement.fr/argumentaire/mes-aidesgouvfr-un-site-pour-evaluer-ses-droits-aux-prestations-et-aides-sociales")
-            .addField(eventDescr + "\n\n**Voulez-vous récupérez votre récompenses ? **", "*Les admins ont accès aux logs et messages, tout abus, même s'il s'agit d'un exploit ou usebug, sera puni*")
-            .setTimestamp();
-
-        var claim = new Discord.MessageActionRow()
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("Claim")
-                .setLabel("RECUPERER MES GAINS")
-                .setStyle("SUCCESS")
-                .setEmoji("💰"))
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("CancelClaim")
-                .setLabel("ANNULER")
-                .setStyle("SECONDARY")
-                .setEmoji("❌"));
-
-        reaction.message.reply({embeds:[eventPopUp], components:[claim]});
+        var extraction = Number((message.content.split("+")[1]).split("*")[0]);
+        kkrValueEvent.push(extraction*4);
+        console.log(message);
+        {
+            const eventPopUp = new Discord.MessageEmbed()
+                .setColor("21eb13")
+                .setTitle(eventTitle)
+                .setURL("https://www.gouvernement.fr/argumentaire/mes-aidesgouvfr-un-site-pour-evaluer-ses-droits-aux-prestations-et-aides-sociales")
+                .addField(eventDescr + "\n\n**Voulez-vous récupérez votre récompenses ? (" + extraction*4 + kkrEmoji + ")**", "*Les admins ont accès aux logs et messages, tout abus, même s'il s'agit d'un exploit ou usebug, sera puni*")
+                .setTimestamp();
+    
+            var claim = new Discord.MessageActionRow()
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("Claim")
+                    .setLabel("RECUPERER MES GAINS")
+                    .setStyle("SUCCESS")
+                    .setEmoji("💰"))
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("CancelClaim")
+                    .setLabel("ANNULER")
+                    .setStyle("SECONDARY")
+                    .setEmoji("❌"));
+    
+            message.reply({embeds:[eventPopUp], components:[claim]});
+        }
     }
+    else if(message.content.startsWith("<:kakeraG:609264166381027329>"))
+    {
+        var extraction = Number((message.content.split("+")[1]).split("*")[0]);
+        kkrValueEvent.push(extraction*3);
+        console.log(message);
+        {
+            const eventPopUp = new Discord.MessageEmbed()
+                .setColor("21eb13")
+                .setTitle(eventTitle)
+                .setURL("https://www.gouvernement.fr/argumentaire/mes-aidesgouvfr-un-site-pour-evaluer-ses-droits-aux-prestations-et-aides-sociales")
+                .addField(eventDescr + "\n\n**Voulez-vous récupérez votre récompenses ? (" + extraction*3 + kkrEmoji + ")**", "*Les admins ont accès aux logs et messages, tout abus, même s'il s'agit d'un exploit ou usebug, sera puni*")
+                .setTimestamp();
+    
+            var claim = new Discord.MessageActionRow()
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("Claim")
+                    .setLabel("RECUPERER MES GAINS")
+                    .setStyle("SUCCESS")
+                    .setEmoji("💰"))
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("CancelClaim")
+                    .setLabel("ANNULER")
+                    .setStyle("SECONDARY")
+                    .setEmoji("❌"));
+    
+            message.reply({embeds:[eventPopUp], components:[claim]});
+        }
+    }
+    // else if(message.content.startsWith("<"))
+    // {
+    //     console.log(message.content);
+    //     message.channel.send("j'ai recup l\'id");
+    // }
 });
+
+// Client.on("messageReactionAdd", (reaction, user) => {
+//     if(reaction.message.content === "$daily" && reaction.emoji.name === "✅" && (user.id === "238332449367654401" || user.id === "432610292342587392")) //first is THS admin id and second is Mudae id
+//     {
+//         const eventPopUp = new Discord.MessageEmbed()
+//             .setColor("21eb13")
+//             .setTitle(eventTitle)
+//             .setURL("https://www.gouvernement.fr/argumentaire/mes-aidesgouvfr-un-site-pour-evaluer-ses-droits-aux-prestations-et-aides-sociales")
+//             .addField(eventDescr + "\n\n**Voulez-vous récupérez votre récompenses ? **", "*Les admins ont accès aux logs et messages, tout abus, même s'il s'agit d'un exploit ou usebug, sera puni*")
+//             .setTimestamp();
+
+//         var claim = new Discord.MessageActionRow()
+//             .addComponents(new Discord.MessageButton()
+//                 .setCustomId("Claim")
+//                 .setLabel("RECUPERER MES GAINS")
+//                 .setStyle("SUCCESS")
+//                 .setEmoji("💰"))
+//             .addComponents(new Discord.MessageButton()
+//                 .setCustomId("CancelClaim")
+//                 .setLabel("ANNULER")
+//                 .setStyle("SECONDARY")
+//                 .setEmoji("❌"));
+
+//         reaction.message.reply({embeds:[eventPopUp], components:[claim]});
+//     }
+// });
 
       
         
@@ -903,7 +966,7 @@ Client.on("interactionCreate", async interaction => {
         }
         else if(interaction.customId === "ConnectC")
         {
-            paidDate = 0;
+            
             if(!userDiamondID.includes(interaction.user.id))
             {
                 userDiamondID[nbDiamondUser] = interaction.user.id;
@@ -928,6 +991,7 @@ Client.on("interactionCreate", async interaction => {
                 userFreeCasinoTicket[nbDiamondUser] = 1; 
                 userCasinoToken[nbDiamondUser] = 500; // TESTO
                 userLovePoint[nbDiamondUser] = 5000; //TESTO
+                paidDate[nbDiamondUser] = 0;
                 nbDiamondUser++;
             }
 
@@ -1150,16 +1214,16 @@ Client.on("interactionCreate", async interaction => {
         console.log(userBalance[index]);
         if(ownedbyGFuserDiamondID[indexGF] === interaction.user.id)
         {
-            paidDate = 1;
+            paidDateUser[index] = 1;
         }
-        else if(userFreeRentTicket[index] > 0 && !paidDate)
+        else if(userFreeRentTicket[index] > 0 && !paidDateUser[index])
         {
-            paidDate = 1;
+            paidDateUser[index] = 1;
             userFreeRentTicket[index] = userFreeRentTicket[index] -1;
         }
-        else if(userBalance[index] >= priceGF[indexGF] && !paidDate)
+        else if(userBalance[index] >= priceGF[indexGF] && !paidDateUser[index])
         {
-            paidDate = 1;
+            paidDateUser[index] = 1;
             userBalance[index] = userBalance[index] - priceGF[indexGF]
 
             if(ownedbyGFuserDiamondID[indexGF] != "None")
@@ -1169,7 +1233,7 @@ Client.on("interactionCreate", async interaction => {
                 userBalance[idUsr] = userBalance[idUsr] + priceGF[indexGF]/2;
             };
         }
-        if(paidDate == 1)
+        if(paidDate[index] == 1)
         {   
             rentedGF[indexGF] = interaction.user.username;
 
@@ -1439,7 +1503,7 @@ Client.on("interactionCreate", async interaction => {
     }
     else if(interaction.customId === "ChocolateG" || interaction.customId === "BookG" || interaction.customId === "ScarfG" || interaction.customId === "RingG" || interaction.customId === "RoseG" || interaction.customId === "KnifeG" || interaction.customId === "TeddyBearG" )
     {   
-        paidDate = 1;
+        paidDateUser[userDiamondID.indexOf(interaction.user.id)] = 1; // useless ?
         switch(interaction.customId)
         {
             case 'ChocolateG':
@@ -1499,7 +1563,7 @@ Client.on("interactionCreate", async interaction => {
     {
         var place = userDiamondID.indexOf(interaction.user.id);
         feelingGF = feelingGFtmp;
-        paidDate = 1;
+        paidDateUser[place] = 1; // useless ?
         if(feelingGF === "Happy")
         {
             var aleaLP = Math.floor(Math.random() * 4)+ 1;
@@ -2200,9 +2264,13 @@ Client.on("interactionCreate", async interaction => {
     else if(interaction.customId === "Claim")
     {
         var time = new Date();
-        await interaction.update({content:"☑ Un admin va être notifié afin que vous obteniez votre récompense !\n" + admin + " " + interaction.user.tag + " aimerait toucher sa récompense !", embeds:[], components:[]});
+        kkrReward = kkrValueEvent[kkrValueEvent.length-1];
+        await interaction.update({content:"☑ Un admin va être notifié afin que vous obteniez votre récompense !\n" + admin + " " + interaction.user.tag + " aimerait toucher : " + kkrReward + kkrEmoji, embeds:[], components:[]});
         const channelLogE = Client.channels.cache.find(channel => channel.name === channelLogName );
-        channelLogE.send(time.toLocaleString() + " : " + interaction.user.tag + " + " + kkrValueEvent + " " + kkrEmoji);
+        channelLogE.send(time.toLocaleString() + " : " + interaction.user.tag + " + " + kkrValueEvent[kkrValueEvent.length-1] + " " + kkrEmoji);
+        kkrValueEvent.splice(kkrValueEvent.length-1, 1);
+        console.log(kkrValueEvent);
+
     }
     else if(interaction.customId === "CancelClaim")
     {
