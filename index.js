@@ -27,7 +27,7 @@ let descrPlayer = ["DUEL", "TRIANGLE AMOUREUX", "CLUB ECHANGISTE", "BATTLE ROYAL
 let valuePlayer = ["2", "3", "4", "5"];
 
 let bets = ["100", "250", "500", "1000", "5000"];
-let descrBets = ["Petits joueurs", "Paris entre amis", "Classique", "Pari compétitif", "Tentative d'escroquerie légitime"];
+let descrBets = ["Petits joueurs", "Pari entre amis", "Classique", "Pari compétitif", "Tentative d'escroquerie légitime"];
 let valueBets = ["100", "250", "500", "1000", "5000"];
 
 let channelLogName = "log-event";
@@ -37,7 +37,7 @@ let kkrEmoji = "<:kakera:950050987412951051>";
 
 let eventTitle = "Pierres précieuses";
 let eventPeriod = "21/03/2022 | 00h00 (UTC+1) - 27/03/2022 | 23h59 (UTC+1)";
-let eventDescr = "Les reacts turquoises rapportent x4" + kkrEmoji + "et les vertes x3" + kkrEmoji;
+let eventDescr = "Les réacts turquoises rapportent x4" + kkrEmoji + "et les vertes x3" + kkrEmoji;
 let eventAva = "Tous les joueurs sauf multi-comptes.";
 let eventColor = "5bed07";
 let kkrValueEvent = []; // Event Paramater
@@ -204,7 +204,7 @@ Client.on("messageCreate", message => {
     }
     else if (message.content === prefix + "secret")
     {
-        message.channel.send("This is something that you should had never discovered... But at this point, maybe i should let you get a try... 💎 \nI'll we be waiting for you darling...");
+        message.channel.send("This is something that you should had never discovered... But at this point, maybe i should let you get a try... 💎 \nI'll be waiting for you darling...");
     }
     else if (message.content === prefix + "help")
     {
@@ -214,8 +214,8 @@ Client.on("messageCreate", message => {
     {
         const event = new Discord.MessageEmbed()
             .setColor(eventColor)
-            .setTitle("**EVENEMENT ACTIF** : " + eventTitle)
-            .setDescription("*Informations relatives à l'évenement en cours sur le serveur...*")
+            .setTitle("**ÉVÈNEMENT ACTIF** : " + eventTitle)
+            .setDescription("*Informations relatives à l'évènement en cours sur le serveur...*")
             .setThumbnail("https://www.playerone.vg/wp-content/uploads/2020/08/Critica-de-Kanojo-Okarishimasu-destacada-El-Palomitron2-e1598033037864-370x305.jpg")
             .addField("⌛ Période de l'évènement :", eventPeriod)
             .addField("📃 Détails de l'évènement :", eventDescr)
@@ -237,15 +237,15 @@ Client.on("messageCreate", message => {
                 console.log("je suis au bon endroit");
                 const eventT = new Discord.MessageEmbed()
                     .setColor("0bd3e6")
-                    .setTitle("**EVENEMENT ACTIF** : " + eventTitle)
-                    .setDescription("*Informations relatives à l'évenement en cours sur le serveur...*")
+                    .setTitle("**ÉVÈNEMENT ACTIF** : " + eventTitle)
+                    .setDescription("*Informations relatives à l'évènement en cours sur le serveur...*")
                     .setThumbnail("https://www.playerone.vg/wp-content/uploads/2020/08/Critica-de-Kanojo-Okarishimasu-destacada-El-Palomitron2-e1598033037864-370x305.jpg")
                     .addField("⌛ Période de l'évènement :", eventPeriod)
                     .addField("📃 Détails de l'évènement :", eventDescr)
                     .addField("🚹 Eligibilité : ", eventAva)
                     .setTimestamp();
 
-                message.channel.send({content: "Vous pouvez paramétrer les informations de l'évenement en cours avec rent!setEvent **eventTitle**|**eventPeriod**|**eventDetails**|**eventEligibilty** \n **Evènement en cours :**", embeds:[eventT] });
+                message.channel.send({content: "Vous pouvez paramétrer les informations de l'évènement en cours avec rent!setEvent **eventTitle**|**eventPeriod**|**eventDetails**|**eventEligibilty** \n**Évènement en cours :**", embeds:[eventT] });
             }
         else 
         {
@@ -259,15 +259,15 @@ Client.on("messageCreate", message => {
 
             const eventT = new Discord.MessageEmbed()
                     .setColor("0bd3e6")
-                    .setTitle("**EVENEMENT ACTIF** : " + eventTitle)
-                    .setDescription("*Informations relatives à l'évenement en cours sur le serveur...*")
+                    .setTitle("**ÉVÈNEMENT ACTIF** : " + eventTitle)
+                    .setDescription("*Informations relatives à l'évènement en cours sur le serveur...*")
                     .setThumbnail("https://www.playerone.vg/wp-content/uploads/2020/08/Critica-de-Kanojo-Okarishimasu-destacada-El-Palomitron2-e1598033037864-370x305.jpg")
                     .addField("⌛ Période de l'évènement :", eventPeriod)
                     .addField("📃 Détails de l'évènement :", eventDescr)
                     .addField("🚹 Eligibilité : ", eventAva)
                     .setTimestamp();
 
-            message.channel.send({content:"**EVENEMENT CONFIGURE :**", embeds:[eventT] });
+            message.channel.send({content:"**ÉVÈNEMENT CONFIGURE :**", embeds:[eventT] });
         }
     }
     else if(message.content.startsWith(prefix + "log"))
@@ -297,7 +297,7 @@ Client.on("messageCreate", message => {
     {
         if(isUndefined(message.content.split(" ")[1]))
             {
-                message.channel.send("Vous pouvez envoyé un log personnalisé avec rent!makeLog **pseudoDuMembre**|**montantKakera**");
+                message.channel.send("Vous pouvez envoyer un log personnalisé avec rent!makeLog **pseudoDuMembre**|**montantKakera**");
             }
         else
         {
@@ -443,7 +443,7 @@ Client.on("messageCreate", message => {
                 paidDateUser[nbDiamondUser] = 0;
                 nbDiamondUser++;
                 console.log(message.author.id);
-                message.channel.send({content: "*Votre télephone vibre étrangement? \nDans un grand flash blanc, votre téléphone vous propose de vous rediriger vers le lien suivant : https://diamond.app/rent \nCe lien semble innacessible, cependant il semblerait que vous puissiez installer l'application* **DIAMOND**", components: [logIn]});
+                message.channel.send({content: "*Votre téléphone vibre étrangement ?\nDans un grand flash blanc, votre téléphone vous propose de vous rediriger vers le lien suivant : https://diamond.app/rent \nCe lien semble inaccessible, cependant il semblerait que vous puissiez installer l'application* **DIAMOND**", components: [logIn]});
                 }
                 else
                 {
@@ -477,7 +477,7 @@ Client.on("messageCreate", message => {
 
                     var diamondUserName = message.author.username + extra;
 
-                    message.channel.send({content: "**INSTALLATION TERMINEE** \nConnexion à DIAMOND.app \n**Login : [" + diamondUserName + "]** \n**Password : **⏹⏹⏹⏹⏹⏹⏹", components: [Connect]});
+                    message.channel.send({content: "**INSTALLATION TERMINÉE** \nConnexion à DIAMOND.app \n**Login : [" + diamondUserName + "]** \n**Password : **⏹⏹⏹⏹⏹⏹⏹", components: [Connect]});
                 }
         }
         else{message.channel.send("T'as deux vies tocard ?")}
@@ -744,7 +744,7 @@ Client.on("interactionCreate", async interaction => {
                 .setStyle("SECONDARY")
                 .setEmoji("❌")
             );
-            await interaction.update({content: "Vous avez misé **" + nbMise + "** " + kkrEmoji + "\n Pour lancer le combat, tous les joueurs clique sur **prêt** \n **" + rdyP + "/" + nbPlayers + "** prêts", embeds: [], components: [ready]});
+            await interaction.update({content: "Vous avez misé **" + nbMise + "**" + kkrEmoji + "\nPour lancer le combat, tous les joueurs doivent cliquer sur **prêt** \n **" + rdyP + "/" + nbPlayers + "** prêts", embeds: [], components: [ready]});
         }
         else if(interaction.customId === "ReadyC")
         {
@@ -771,7 +771,7 @@ Client.on("interactionCreate", async interaction => {
         
             if(rdyP != nbPlayers)
             {
-                await interaction.update({content: "Vous avez misé **" + nbMise + "** " + kkrEmoji + "\n Pour lancer le combat, tous les joueurs clique sur **prêt** \n **" + rdyP + "/" + nbPlayers + "** prêts", embeds: [], components: [ready]});
+                await interaction.update({content: "Vous avez misé **" + nbMise + "**" + kkrEmoji + "\nPour lancer le combat, tous les joueurs doivent cliquer sur **prêt** \n **" + rdyP + "/" + nbPlayers + "** prêts", embeds: [], components: [ready]});
             }
             else if (rdyP == nbPlayers)
             {
@@ -882,7 +882,7 @@ Client.on("interactionCreate", async interaction => {
             const scoreG1 = new Discord.MessageEmbed()
             .setColor("eb4034")
             .setTitle("🔪 Progression du Duel : ")
-            .setDescription("La Tension est palpable...")
+            .setDescription("La tension est palpable...")
             .addField("Score à atteindre :", maxscore.toString())
             .addField("Rappel mise :", nbMise.toString());
 
@@ -916,7 +916,7 @@ Client.on("interactionCreate", async interaction => {
             const test = new Discord.MessageEmbed()
             .setColor("eb4034")
             .setTitle("🔪 Progression du Duel : ")
-            .setDescription("La Tension est palpable...")
+            .setDescription("La tension est palpable...")
             .addField("Score à atteindre :", maxscore.toString())
             .addField("Rappel mise :", nbMise.toString());
 
@@ -1035,9 +1035,9 @@ Client.on("interactionCreate", async interaction => {
         const Home = new Discord.MessageEmbed()
             .setColor("843dff")
             .setTitle("ダイヤモンド - DIAMOND")
-            .setDescription("*Diamond est une application de RGF, un service de location de petites-amies* \n *Cherchez la copine de vos rêves, louez ces services et passez un moment idyllique que vous n'oublierez jamais...*")
+            .setDescription("*Diamond est une application de RGF, un service de location de petites-amies.*\n*Cherchez la copine de vos rêves, louez ses services et passez un moment idyllique que vous n'oublierez jamais...*")
             .setThumbnail("https://randomc.net/image/Kanojo%20Okarishimasu/Kanojo%20Okarishimasu%20-%2001%20-%20Large%2007.jpg")
-            .addField(":mobile_phone: Navigation :", "> Home page \n> Profile Page \n> Rent Page \n> Shop Page")
+            .addField(":mobile_phone: Navigation :", "> Home Page \n> Profile Page \n> Rent Page \n> Shop Page")
             .addField(":yen: Prix moyen : ", "7.500 ¥ / heure")
             .setFooter("Diamond Inc. © - Bringing the best for you")
             .setTimestamp();
@@ -1137,10 +1137,10 @@ Client.on("interactionCreate", async interaction => {
         const Profile = new Discord.MessageEmbed()
             .setColor("843dff")
             .setTitle("ダイヤモンド - DIAMOND")
-            .setDescription("*Profile de " + interaction.user.username + "*")
+            .setDescription("*Profil de " + interaction.user.username + "*")
             .setThumbnail(avatar)
-            .addField("Genre : ", userGenre[place])
-            .addField("Taile : ", userTaille[place].toString() + " cm")
+            .addField("Genre :", userGenre[place])
+            .addField("Taile :", userTaille[place].toString() + " cm")
             .addField("Porte-Feuille :", userBalance[place].toString() + " :yen:")
             .setFooter("Diamond Inc. © - Bringing the best for you")
             .setTimestamp();
@@ -1187,20 +1187,20 @@ Client.on("interactionCreate", async interaction => {
         const GF = new Discord.MessageEmbed()
             .setColor("843dff")
             .setTitle("ダイヤモンド - DIAMOND")
-            .addField("Name : ", nameGF[indexGF])
-            .addField("Gender : ", genderGF[indexGF])
-            .addField("Age :", ageGF[indexGF])
-            .addField("Height :", heightGF[indexGF])
-            .addField("Personnality :", personnalityGF[indexGF])
+            .addField("Name:", nameGF[indexGF])
+            .addField("Gender:", genderGF[indexGF])
+            .addField("Age:", ageGF[indexGF])
+            .addField("Height:", heightGF[indexGF])
+            .addField("Personnality:", personnalityGF[indexGF])
             .setImage(imageGF[indexGF])
-            .addField("Rental Price (per hour)", priceGF[indexGF] + " :yen:")
-            .addField('Rented by :', rentedGF[indexGF])
+            .addField("Rental Price (per hour):", priceGF[indexGF] + " :yen:")
+            .addField('Rented by:', rentedGF[indexGF])
             .setFooter("Diamond Inc. © - Bringing the best for you")
             .setTimestamp();
 
         if(ownedbyGF[indexGF] != "No one")
         {
-            GF.addField("Owned by : ", ownedbyGF[indexGF]);
+            GF.addField("Owned by:", ownedbyGF[indexGF]);
         }
            
         var NavigationGF = new Discord.MessageActionRow()
@@ -1282,10 +1282,10 @@ Client.on("interactionCreate", async interaction => {
             const RGF = new Discord.MessageEmbed()
                 .setColor("843dff")
                 .setTitle("ダイヤモンド - DIAMOND - Date overview ")
-                .addField("Purchase: ", "You have rented " + nameGF[indexGF] + " for one hour")
-                .addField("Paiement Recap : ", priceGF[indexGF] + " :yen:")
-                .addField('Rented by :', rentedGF[indexGF])
-                .setFooter("Diamond Inc. © - Bringing the best for you")
+                .addField("Purchase:", "You have rented " + nameGF[indexGF] + " for one hour.")
+                .addField("Paiement Recap:", priceGF[indexGF] + " :yen:")
+                .addField('Rented by:', rentedGF[indexGF])
+                .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
                 .setTimestamp();
             
             switch(feelingGF)
@@ -1337,7 +1337,7 @@ Client.on("interactionCreate", async interaction => {
                     .setStyle("SUCCESS")
                     .setEmoji("🏡"));
             
-            await interaction.update({content: "*Not enough money, maybe you can think by yousrself finding a way to earn some money*", embeds:[], components: [BackHome]});
+            await interaction.update({content: "*Not enough money, maybe you can think by yousrself finding a way to earn some money.*", embeds:[], components: [BackHome]});
         }
     }
     else if(interaction.customId === "Shop" + interaction.user.id)
@@ -1349,12 +1349,12 @@ Client.on("interactionCreate", async interaction => {
             .setTitle("ダイヤモンド - DIAMOND")
             .setDescription("Bienvenue au magasin DIAMOND Corp.\n*Ici, vous pouvez acheter toutes sortes d'articles directement depuis votre smartphone.*\n***Aucun remboursement possible***")
             .setThumbnail("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoxETY5SVyRHCp_uegfkPgmKB5GeIgJUtC-1V7H2kdHnG9L7IsDRwpUCvW7b3YSpHuupA&usqp=CAU")
-            .addField("Article 1 : :chocolate_bar:", "Description : Un tablette de chocolat au lait, 250g.\nPrix : 2000 :yen:")
+            .addField("Article 1 : :chocolate_bar:", "Description : Une tablette de chocolat au lait, 250g.\nPrix : 2000 :yen:")
             .addField("Article 2 : :notebook_with_decorative_cover:", "Description : Un livre sur l'histoire contemporaine du Japon. Plutôt ennuyant...\nPrix : 4000 :yen:")
             .addField("Article 3 : :scarf:", "Description : Une belle écharpe rouge vif.\nPrix : 7000 :yen:")
             .addField("Article 4 : :ring:", "Description : Une magnifique bague, ornée d'une pierre précieuse rare.\nPrix : 10.000 :yen:")
             .addField("Porte-Monnaie :", userBalance[indexDiamondUser] + " :yen:")
-            .setFooter("Diamond Inc. © - Bringing the best for you")
+            .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
             .setTimestamp();
 
         var NavigationP = new Discord.MessageActionRow()
@@ -1392,7 +1392,7 @@ Client.on("interactionCreate", async interaction => {
         const achat = new Discord.MessageEmbed()
             .setColor("843dff")
             .setTitle("ダイヤモンド - DIAMOND")
-            .setFooter("Diamond Inc. © - Bringing the best for you")
+            .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
             .setTimestamp();
 
         if(interaction.customId.startsWith('Chocolate'))
@@ -1468,7 +1468,7 @@ Client.on("interactionCreate", async interaction => {
     {
         var stuff = "";
         var place = userDiamondID.indexOf(interaction.user.id);
-        let Ch =0;
+        let Ch = 0;
         let Rg = 0;
         let Sc = 0;
         let Bk = 0;
@@ -1583,16 +1583,12 @@ Client.on("interactionCreate", async interaction => {
             feelingGFtmp = likeTeddyBear[indexGF];
             gift = "une peluche";
         }  
-        else
-        {
-
-        }
         const giftC = new Discord.MessageEmbed()
             .setColor("843dff")
             .setTitle("ダイヤモンド - DIAMOND")
-            .setDescription("Voulez-vous vraiment offrir " + gift + " à " + nameGF[indexGF] + ".")
+            .setDescription("Voulez-vous vraiment offrir " + gift + " à " + nameGF[indexGF] + " ?")
             .setThumbnail(ppGF[indexGF])
-            .setFooter("Diamond Inc. © - Bringing the best for you")
+            .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
             .setTimestamp();
 
         var confirmGift = new Discord.MessageActionRow()
@@ -1618,30 +1614,30 @@ Client.on("interactionCreate", async interaction => {
         {
             var aleaLP = Math.floor(Math.random() * 4)+ 1;
             userLovePoint[place] = aleaLP*(priceGF[indexGF]/2000) + userLovePoint[place];
-            console.log("LovePoint : " + userLovePoint[place] + " Alea : " + aleaLP);
+            console.log("LovePoint: " + userLovePoint[place] + " Alea: " + aleaLP);
         }
         
         switch(gift){
             case 'du chocolat':
-                userOwnedChocolate[place] = userOwnedChocolate[place] -1;
+                userOwnedChocolate[place]--;
                 break
             case 'un livre':
-                userOwnedBook[place] = userOwnedBook[place] -1;
+                userOwnedBook[place]--;
                 break
             case 'une écharpe':
-                userOwnedScarf[place] = userOwnedScarf[place] -1;
+                userOwnedScarf[place]--;
                 break
             case 'une bague':
-                userOwnedRing[place] = userOwnedRing[place] -1;
+                userOwnedRing[place]--;
                 break
             case 'une rose':
-                userOwnedRose[place] = userOwnedRose[place] -1;
+                userOwnedRose[place]--;
                 break
             case 'un couteau':
-                userOwnedKnife[place] = userOwnedKnife[place] -1;
+                userOwnedKnife[place]--;
                 break
             case 'une peluche':
-                userOwnedTeddyBear[place] = userOwnedTeddyBear[place] -1;
+                userOwnedTeddyBear[place]--;
                 break
             default:
                 break
@@ -1652,7 +1648,7 @@ Client.on("interactionCreate", async interaction => {
             .setDescription("Vous avez offert " + gift + " à " + nameGF[indexGF] + ".")
             .addField("Love point :", userLovePoint[place].toString()) // TESTO
             .setThumbnail(ppGF[indexGF])
-            .setFooter("Diamond Inc. © - Bringing the best for you")
+            .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
             .setTimestamp();
         
         var backDate = new Discord.MessageActionRow()
@@ -1662,24 +1658,24 @@ Client.on("interactionCreate", async interaction => {
             .setStyle("SECONDARY")
             .setEmoji("🌆"));
         
-        await interaction.update({content: "*No one expects you doing this... pretty courageous.*", embeds:[giftCD], components: [backDate]});
+        await interaction.update({content: "*No one expects you doing this... Pretty courageous.*", embeds:[giftCD], components: [backDate]});
     }
     else if(interaction.customId === "Marry" + interaction.user.id)
     {
-        var place = userDiamondID.indexOf(interaction.user.id);
-        var cout = (indexGF+1) * 100000;
+        let place = userDiamondID.indexOf(interaction.user.id);
+        let cout = (indexGF+1) * 100000;
 
-        const marryP = new Discord.MessageEmbed()
+        let marryP = new Discord.MessageEmbed()
             .setColor("843dff")
             .setTitle("ダイヤモンド - DIAMOND")
-            .setDescription("Vous êtes sur le point de vous marier avec " + nameGF[indexGF] + ".\n*N'oubliez pas la* :ring: *...* ")
-            .addField("Love point nécéssaire : " + priceGFLP[indexGF], "Vous avez : " + userLovePoint[place].toString())
+            .setDescription("Vous êtes sur le point de vous marier avec " + nameGF[indexGF] + ".\n*N'oubliez pas la* :ring:*...* ")
+            .addField("Love points nécéssaires : " + priceGFLP[indexGF], "Vous avez : " + userLovePoint[place].toString())
             .addField("Coût : " + cout, "Vous avez : " + userBalance[place].toString())
             .setThumbnail("https://thedeadtoons.com/wp-content/uploads/2021/10/golden-time.jpg")
-            .setFooter("Diamond Inc. © - Bringing the best for you")
+            .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
             .setTimestamp();
 
-        var marryB = new Discord.MessageActionRow()
+        let marryB = new Discord.MessageActionRow()
             .addComponents(new Discord.MessageButton()
                 .setCustomId("Married" + interaction.user.id)
                 .setLabel("Put the ring on her finger")
@@ -1706,7 +1702,7 @@ Client.on("interactionCreate", async interaction => {
             .setTitle("ダイヤモンド - DIAMOND")
             .setDescription("Le mariage est une réussite !\n" + nameGF[indexGF] + " et vous êtes désormais unis par des liens inébranlables !")
             .setImage(marryGF[indexGF])
-            .setFooter("Diamond Inc. © - Bringing the best for you")
+            .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
             .setTimestamp();
 
         var BackHomeM = new Discord.MessageActionRow()
@@ -1724,13 +1720,13 @@ Client.on("interactionCreate", async interaction => {
         const Gacha = new Discord.MessageEmbed()
             .setColor("843dff")
             .setTitle("ダイヤモンド - DIAMOND")
-            .setDescription("*Bienvenue au Casino DIAMOND.Corp !\nVous pouvez tenter votre chance ici pour remporter de formidable gain et dépenser vos jetons dans la boutique DIAMOND*")
+            .setDescription("*Bienvenue au Casino DIAMOND.Corp !\nVous pouvez tenter votre chance ici pour remporter de formidables gains et dépenser vos jetons dans la boutique DIAMOND*")
             .setThumbnail("https://cdn.otakutale.com/wp-content/uploads/2022/01/Kanojo-Okarishimasu-Season-2-Slated-for-July-New-Visual-Promotional-Video-Revealed.jpg")
-            .addField("🎰 Lucky 7 :", "Tenter votre chance à la roulette ! Chaque Tirage coûte 10.000 :yen:, et de formidable lots sont à gagner !")
-            .addField("🎲 Jeu des dés :", "Parier 15 jetons sur un chiffre du dé. Remporter 50 jetons si votre chiffre est le bon !")
-            .addField("🪙 Boutique de Jetons :", "Echanger vos jetons Casino-DIAMOND contre divers lots !")
+            .addField("🎰 Lucky 7 :", "Tentez votre chance à la roulette ! Chaque Tirage coûte 10.000 :yen:, et de formidables lots sont à gagner !")
+            .addField("🎲 Jeu des dés :", "Pariez 15 jetons sur un chiffre du dé. Remportez 50 jetons si votre chiffre est le bon !")
+            .addField("🪙 Boutique de Jetons :", "Échangez vos jetons Casino-DIAMOND contre divers lots !")
             .addField("Porte-Monnaie :", userBalance[place] + " :yen:")
-            .setFooter("Diamond Inc. © - Bringing the best for you")
+            .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
             .setTimestamp();
 
         var gachaOpt = new Discord.MessageActionRow();
@@ -1776,12 +1772,12 @@ Client.on("interactionCreate", async interaction => {
 
         if(interaction.customId == "CasinoFree" + interaction.user.id)
         {
-            userFreeCasinoTicket[place] = userFreeCasinoTicket[place] - 1;
+            userFreeCasinoTicket[place] --;
             console.log(userFreeCasinoTicket[place]);
         }
         else
         {
-            userBalance[place] = userBalance[place] - 10000;
+            userBalance[place] -= 10000;
         }
 
         var casinoBtn = new Discord.MessageActionRow();
@@ -1790,10 +1786,10 @@ Client.on("interactionCreate", async interaction => {
             .setTitle("ダイヤモンド - DIAMOND")
             .setDescription("*Voici votre gain lors du tirage Lucky 7 !! N'hésitez pas à retenter votre chance pour de meilleurs lots !*")
             .setThumbnail("https://m.media-amazon.com/images/I/71b6mIOpILL._AC_SY606_.jpg")
-            .setFooter("Diamond Inc. © - Bringing the best for you")
+            .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
             .setTimestamp();
 
-        if(casinoRoll == 0)
+        if(!casinoRoll)
         {
             pullREsult.addField("Vos gains :", "\n*Rien...*");
             addSecretGirl("Aki Adagaki");
@@ -1801,170 +1797,170 @@ Client.on("interactionCreate", async interaction => {
         else if(casinoRoll < 7)
         {
             pullREsult.addField("Vos gains :", "\n5.000 :yen:");
-            userBalance[place] = userBalance[place] + 5000;
+            userBalance[place] += 5000;
         }
         else if(casinoRoll < 12)
         {
             pullREsult.addField("Vos gains :", "\n9.999 :yen:");
-            userBalance[place] = userBalance[place] + 9999;
+            userBalance[place] += 9999;
         }
         else if(casinoRoll < 16)
         {
             pullREsult.addField("Vos gains :", "\n16.666 :yen:");
-            userBalance[place] = userBalance[place] + 16666;
+            userBalance[place] += 16666;
         }
         else if(casinoRoll < 19)
         {
             pullREsult.addField("Vos gains :", "\n25.000 :yen:");
-            userBalance[place] = userBalance[place] + 25000;
+            userBalance[place] += 25000;
         }
         else if(casinoRoll < 21)
         {
             pullREsult.addField("Vos gains :", "\n77.777 :yen:");
-            userBalance[place] = userBalance[place] + 77777;
+            userBalance[place] += 77777;
         }
         else if(casinoRoll < 22)
         {
             pullREsult.addField("Vos gains :", "\n**JACKPOT !** Vous avez gagné **500.000** :yen:");
-            userBalance[place] = userBalance[place] + 500000;
+            userBalance[place] += 500000;
         }
         else if(casinoRoll < 28)
         {
             pullREsult.addField("Vos gains :", "\n1 🪙");
-            userCasinoToken[place] = userCasinoToken[place] + 1;
+            userCasinoToken[place]++;
         }
         else if(casinoRoll < 34)
         {
             pullREsult.addField("Vos gains :", "\n2 🪙");
-            userCasinoToken[place] = userCasinoToken[place] + 2;
+            userCasinoToken[place] += 2;
         }
         else if(casinoRoll < 39)
         {
             pullREsult.addField("Vos gains :", "\n3 🪙");
-            userCasinoToken[place] = userCasinoToken[place] + 3;
+            userCasinoToken[place] += 3;
         }
         else if(casinoRoll < 44)
         {
             pullREsult.addField("Vos gains :", "\n5 🪙");
-            userCasinoToken[place] = userCasinoToken[place] + 5;
+            userCasinoToken[place] += 5;
         }
         else if(casinoRoll < 48)
         {
             pullREsult.addField("Vos gains :", "\n10 🪙");
-            userCasinoToken[place] = userCasinoToken[place] + 10;
+            userCasinoToken[place] += 10;
         }
         else if(casinoRoll < 51)
         {
             pullREsult.addField("Vos gains :", "\n15 🪙");
-            userCasinoToken[place] = userCasinoToken[place] + 15;
+            userCasinoToken[place] += 15;
         }
         else if(casinoRoll < 54)
         {
             pullREsult.addField("Vos gains :", "\n25 🪙");
-            userCasinoToken[place] = userCasinoToken[place] + 25;
+            userCasinoToken[place] += 25;
         }
         else if(casinoRoll < 56)
         {
             pullREsult.addField("Vos gains :", "\n50 🪙");
-            userCasinoToken[place] = userCasinoToken[place] + 50;
+            userCasinoToken[place] += 50;
         }
         else if(casinoRoll < 57)
         {
             pullREsult.addField("Vos gains :", "\n**JACKPOT !** Vous avez gagné **500** 🪙");
-            userCasinoToken[place] = userCasinoToken[place] + 500;
+            userCasinoToken[place] += 500;
         }
         else if(casinoRoll < 59)
         {
             pullREsult.addField("Vos gains :", "\n1 🎟️ Ticket Location Offerte, à utiliser avec n'importe quelle fille disponible dans l'application DIAMOND !");
-            userFreeRentTicket[place] = userFreeRentTicket[place] + 1;
+            userFreeRentTicket[place]++;
         }
         else if(casinoRoll < 64)
         {
             pullREsult.addField("Vos gains :", "\n1 🎫 Ticket Tirage offert au Casino DIAMOND !");
-            userFreeCasinoTicket[place] = userFreeCasinoTicket[place] + 1;
+            userFreeCasinoTicket[place]++;
         }
         else if(casinoRoll < 67)
         {
-            pullREsult.addField("Vos gains :", "\n2 🎫 Tickets Tirage offert au Casino DIAMOND !");
-            userFreeCasinoTicket[place] = userFreeCasinoTicket[place] + 2;
+            pullREsult.addField("Vos gains :", "\n2 🎫 Tickets Tirage offerts au Casino DIAMOND !");
+            userFreeCasinoTicket[place] += 2;
         }
         else if(casinoRoll < 69)
         {
-            pullREsult.addField("Vos gains :", "\n5 🎫 Tickets Tirage offert au Casino DIAMOND !");
-            userFreeCasinoTicket[place] = userFreeCasinoTicket[place] + 5;
+            pullREsult.addField("Vos gains :", "\n5 🎫 Tickets Tirage offerts au Casino DIAMOND !");
+            userFreeCasinoTicket[place] += 5;
         }
         else if(casinoRoll < 73)
         {
             pullREsult.addField("Vos gains :", "\n2 🍫");
-            userOwnedChocolate[place] = userOwnedChocolate[place] + 2;
+            userOwnedChocolate[place] += 2;
         }
         else if(casinoRoll < 76)
         {
             pullREsult.addField("Vos gains :", "\n2 📔");
-            userOwnedBook[place] = userOwnedBook[place] + 2;
+            userOwnedBook[place] += 2;
         }
         else if(casinoRoll < 79)
         {
             pullREsult.addField("Vos gains :", "\n2 🧣");
-            userOwnedScarf[place] = userOwnedScarf[place] + 2;
+            userOwnedScarf[place] += 2;
         }
         else if(casinoRoll < 82)
         {
             pullREsult.addField("Vos gains :", "\n 💍");
-            userOwnedRing[place] = userOwnedRing[place] + 1;
+            userOwnedRing[place]++;
         }
         else if(casinoRoll < 84)
         {
             pullREsult.addField("Vos gains :", "\n1 🧸");
-            userOwnedTeddyBear[place] = userOwnedTeddyBear[place] + 1;
+            userOwnedTeddyBear[place]++;
         }
         else if(casinoRoll < 86)
         {
             pullREsult.addField("Vos gains :", "\n1 🔪");
-            userOwnedKnife[place] = userOwnedKnife[place] + 1;
+            userOwnedKnife[place]++;
         }
         else if(casinoRoll < 88)
         {
             pullREsult.addField("Vos gains :", "\n1 🌹");
-            userOwnedRose[place] = userOwnedRose[place] + 1;
+            userOwnedRose[place]++;
         }
         else if(casinoRoll < 90)
         {
             pullREsult.addField("Vos gains :", "\n**1 Pack St Valentin** ! Ce pack comprend les objets suivants : 🍫 + 🌹 + 💍");
-            userOwnedRing[place] = userOwnedRing[place] + 1;
-            userOwnedRose[place] = userOwnedRose[place] + 1;
-            userOwnedChocolate[place] = userOwnedChocolate[place] + 1;
+            userOwnedRing[place]++;
+            userOwnedRose[place]++;
+            userOwnedChocolate[place]++;
         }
         else if(casinoRoll < 92)
         {
             pullREsult.addField("Vos gains :", "\n**1 Pack Tuto Cuisine** ! Ce pack comprend les objets suivants : 🍫 + 🔪 + 📔");
-            userOwnedKnife[place] = userOwnedKnife[place] + 1;
-            userOwnedBook[place] = userOwnedBook[place] + 1;
-            userOwnedChocolate[place] = userOwnedChocolate[place] + 1;
+            userOwnedKnife[place]++;
+            userOwnedBook[place]++;
+            userOwnedChocolate[place]++;
         }
         else if(casinoRoll < 95)
         {
             pullREsult.addField("Vos gains :", "\n1 🪙 et 5.000 :yen:");
-            userBalance[place] = userBalance[place] + 5000;
-            userCasinoToken[place] = userCasinoToken[place] + 1;
+            userBalance[place] += 5000;
+            userCasinoToken[place]++;
         }
         else if(casinoRoll < 97)
         {
             pullREsult.addField("Vos gains :", "\n3 🪙 et 10.000 :yen:");
-            userBalance[place] = userBalance[place] + 10000;
-            userCasinoToken[place] = userCasinoToken[place] + 3;
+            userBalance[place] += 10000;
+            userCasinoToken[place] += 3;
         }
         else if(casinoRoll < 99)
         {
             pullREsult.addField("Vos gains :", "\n5 🪙 et 15.000 :yen:");
-            userBalance[place] = userBalance[place] + 15000;
-            userCasinoToken[place] = userCasinoToken[place] + 5;
+            userBalance[place] += 15000;
+            userCasinoToken[place] += 5;
         }
         else
         {
             pullREsult.addField("Vos gains :", "\n33 🪙 et 33.333 :yen:");
-            userBalance[place] = userBalance[place] + 33333;
-            userCasinoToken[place] = userCasinoToken[place] + 33;
+            userBalance[place] += 33333;
+            userCasinoToken[place] += 33;
         }
 
         if(userFreeCasinoTicket[place] > 0)
@@ -2008,7 +2004,7 @@ Client.on("interactionCreate", async interaction => {
             .setThumbnail("https://i.pinimg.com/originals/f9/ae/52/f9ae5279e198738ac1dab5bf36d2f337.jpg")
             .addField("🎲 Valeur possible au dé :", "1 - 2 - 3 - 4 - 5 - 6")
             .addField("🪙 possédé :", userCasinoToken[place].toString())
-            .setFooter("Diamond Inc. © - Bringing the best for you")
+            .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
             .setTimestamp();
 
 
@@ -2089,9 +2085,9 @@ Client.on("interactionCreate", async interaction => {
             .setTitle("ダイヤモンド - DIAMOND")
             .setDescription("*Le dé est lancé, rien ne va plus !*")
             .setThumbnail("https://i.pinimg.com/originals/f9/ae/52/f9ae5279e198738ac1dab5bf36d2f337.jpg")
-            .addField("🔢 Valeur prédie :", "** " + valueU + "**")
+            .addField("🔢 Valeur prédite :", "** " + valueU + "**")
             .addField("🎲 Valeur du lancer par le croupier :", "**" + dice.toString() + "**")
-            .setFooter("Diamond Inc. © - Bringing the best for you")
+            .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
             .setTimestamp();
 
         if(valueU == dice)
@@ -2102,7 +2098,7 @@ Client.on("interactionCreate", async interaction => {
         else
         {
             userCasinoToken[place] = userCasinoToken[place] -15;
-            diceT.addField("♠ Résultat :", "*Votre prédiction était complètement érronée !*\nVous perdez **15** 🪙\n\nVous avez désormais : **" + userCasinoToken[place] + "** 🪙\n");
+            diceT.addField("♠ Résultat :", "*Votre prédiction était complètement erronée !*\nVous perdez **15** 🪙\n\nVous avez désormais : **" + userCasinoToken[place] + "** 🪙\n");
         }
         
         diceTBtn.
@@ -2128,11 +2124,11 @@ Client.on("interactionCreate", async interaction => {
             .setTitle("ダイヤモンド - DIAMOND")
             .setDescription("Bienvenue à la boutique d'échange de jetons DIAMOND Corp.\n*Ici, vous pouvez utiliser les jetons obtenus au Casino pour obtenir des articles exclusifs !*\n***Aucun remboursement possible***")
             .setThumbnail("https://financerewind.com/wp-content/uploads/2020/09/Rent-a-Girlfriend-Episode-10-Release-Date-Preview-and-Spoilers-768x439-1.jpg")
-            .addField("Article 1 : 🌹", "Description : Une rose, brillant d'un rouge écarlate scintillant .\nPrix : 20 🪙")
+            .addField("Article 1 : 🌹", "Description : Une rose, brillant d'un rouge écarlate scintillant.\nPrix : 20 🪙")
             .addField("Article 2 : 🔪", "Description : Un couteau extrèmement coupant. On dirait presque une arme...\nPrix : 35 🪙")
             .addField("Article 3 : 🧸", "Description : Un ours en peluche avec un nez bleu. Drôle de conception, mais il est mignon !\nPrix : 65 🪙")
             .addField("Jetons possédés :", userCasinoToken[place] + " 🪙")
-            .setFooter("Diamond Inc. © - Bringing the best for you")
+            .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
             .setTimestamp();
 
         var NavigationCS = new Discord.MessageActionRow()
@@ -2171,16 +2167,16 @@ Client.on("interactionCreate", async interaction => {
             .setColor("843dff")
             .setTitle("ダイヤモンド - DIAMOND")
             achat.setDescription("DIAMOND Corp. vous remercie pour cet échange.\nDétails de votre lot :")
-            .setFooter("Diamond Inc. © - Bringing the best for you")
+            .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
             .setTimestamp();
     if(interaction.customId.startsWith('Rose'))
     {
         if(userCasinoToken[indexDiamondUser] >= 20)
         {
-            userCasinoToken[indexDiamondUser] = userCasinoToken[indexDiamondUser] - 20;
+            userCasinoToken[indexDiamondUser] -= 20;
             achat.addField("Article acheté :", "1 rose rouge 🌹");
             achat.addField("Jetons restants :", userCasinoToken[indexDiamondUser] + " 🪙");
-            userOwnedRose[indexDiamondUser] = userOwnedRose[indexDiamondUser] + 1; 
+            userOwnedRose[indexDiamondUser]++; 
             if(userOwnedRose[indexDiamondUser] > 6){addSecretGirl("Yukana Yame");}
         }
         else{achat.setDescription("Une erreur s'est produite lors de la transaction entre votre compte de jeton Casino et DIAMOND Corp.\nVotre achat a été annulé...");}
@@ -2189,10 +2185,10 @@ Client.on("interactionCreate", async interaction => {
     {
         if(userCasinoToken[indexDiamondUser] >= 35)
         {
-            userCasinoToken[indexDiamondUser] = userCasinoToken[indexDiamondUser] - 35;
+            userCasinoToken[indexDiamondUser] -= 35;
             achat.addField("Article acheté :", "1 couteau 🔪");
             achat.addField("Jetons restants :", userCasinoToken[indexDiamondUser] + " 🪙");
-            userOwnedKnife[indexDiamondUser] = userOwnedKnife[indexDiamondUser] + 1; 
+            userOwnedKnife[indexDiamondUser]++; 
             if(userOwnedKnife[indexDiamondUser] > 2){addSecretGirl("Shuka Karino");} 
         }
         else{achat.setDescription("Une erreur s'est produite lors de la transaction entre votre compte de jeton Casino et DIAMOND Corp.\nVotre achat a été annulé...");}
@@ -2201,10 +2197,10 @@ Client.on("interactionCreate", async interaction => {
     {
         if(userCasinoToken[indexDiamondUser] >= 65)
         {
-            userCasinoToken[indexDiamondUser] = userCasinoToken[indexDiamondUser] - 65;
+            userCasinoToken[indexDiamondUser] -= 65;
             achat.addField("Article acheté :", "1 ours en peluche 🧸");
             achat.addField("Jetons restants :", userCasinoToken[indexDiamondUser] + " 🪙");
-            userOwnedTeddyBear[indexDiamondUser] = userOwnedTeddyBear[indexDiamondUser] + 1; 
+            userOwnedTeddyBear[indexDiamondUser]++; 
         }
         else{achat.setDescription("Une erreur s'est produite lors de la transaction entre votre compte de jeton Casino et DIAMOND Corp.\nVotre achat a été annulé...");}
     }else
@@ -2281,7 +2277,7 @@ Client.on("interactionCreate", async interaction => {
             .setTitle("ダイヤモンド - DIAMOND")
             .setDescription("Vous êtes sur le point d'offrir un cadeau à " + nameGF[indexGF] + ".")
             .setThumbnail(ppGF[indexGF])
-            .setFooter("Diamond Inc. © - Bringing the best for you")
+            .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
             .setTimestamp();
 
         ChooseG.addComponents(new Discord.MessageButton()
@@ -2303,9 +2299,9 @@ Client.on("interactionCreate", async interaction => {
         const Succes = new Discord.MessageEmbed()
             .setColor("843dff")
             .setTitle("ダイヤモンド - DIAMOND")
-            .setDescription("Terminez différente tâche pour améliorer l'expéreince des utilisateurs sur l'app DIMAOND pour toucher des récompenses !")
+            .setDescription("Terminez différentes tâches pour améliorer l'expérience des utilisateurs sur l'app DIMAOND et toucher des récompenses !")
             .setThumbnail(ppGF[indexGF])
-            .setFooter("Diamond Inc. © - Bringing the best for you")
+            .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
             .setTimestamp();
     }
     // suite GF
@@ -2398,7 +2394,7 @@ Client.on("interactionCreate", async interaction => {
                 case '5000' :
                 console.log("Mise : " + interaction.values);
                 nbMise = Number(interaction.values);
-                await interaction.update({content: "Vous avez misé **" + nbMise + "** " + kkrEmoji + "\n Pour lancer le combat, tous les joueurs clique sur **prêt** \n **" + rdyP + "/" + nbPlayers + "** prêts", components: [ready]});
+                await interaction.update({content: "Vous avez misé **" + nbMise + "**" + kkrEmoji + "\nPour lancer le combat, tous les joueurs doivent cliquer sur **prêt** \n **" + rdyP + "/" + nbPlayers + "** prêts", components: [ready]});
                 break;
                 default :
                 await interaction.update({content: "Something might went wrong...", components: []});
