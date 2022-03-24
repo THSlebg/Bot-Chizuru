@@ -1133,7 +1133,7 @@ Client.on("interactionCreate", async interaction => {
                     .setDescription("*Profil de " + interaction.user.username + "*")
                     .setThumbnail(avatar)
                     .addField("Genre :", userGenre[place])
-                    .addField("Taile :", userTaille[place].toString() + " cm")
+                    .addField("Taille :", userTaille[place].toString() + " cm")
                     .addField("Porte-Feuille :", userBalance[place].toString() + " :yen:")
                     .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
                     .setTimestamp();
