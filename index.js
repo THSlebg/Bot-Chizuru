@@ -204,7 +204,7 @@ Client.on("messageCreate", message => {
     }
     else if (message.content === prefix + "secret")
     {
-        message.channel.send("This is something that you should had never discovered ... But at this point, maybe i should let you get a try ... 💎 \nI'll we be waiting for you darling ...");
+        message.channel.send("This is something that you should had never discovered... But at this point, maybe i should let you get a try... 💎 \nI'll we be waiting for you darling...");
     }
     else if (message.content === prefix + "help")
     {
@@ -215,7 +215,7 @@ Client.on("messageCreate", message => {
         const event = new Discord.MessageEmbed()
             .setColor(eventColor)
             .setTitle("**EVENEMENT ACTIF** : " + eventTitle)
-            .setDescription("*Informations relatives à l'évenement en cours sur le serveur ...*")
+            .setDescription("*Informations relatives à l'évenement en cours sur le serveur...*")
             .setThumbnail("https://www.playerone.vg/wp-content/uploads/2020/08/Critica-de-Kanojo-Okarishimasu-destacada-El-Palomitron2-e1598033037864-370x305.jpg")
             .addField("⌛ Période de l'évènement :", eventPeriod)
             .addField("📃 Détails de l'évènement :", eventDescr)
@@ -238,7 +238,7 @@ Client.on("messageCreate", message => {
                 const eventT = new Discord.MessageEmbed()
                     .setColor("0bd3e6")
                     .setTitle("**EVENEMENT ACTIF** : " + eventTitle)
-                    .setDescription("*Informations relatives à l'évenement en cours sur le serveur ...*")
+                    .setDescription("*Informations relatives à l'évenement en cours sur le serveur...*")
                     .setThumbnail("https://www.playerone.vg/wp-content/uploads/2020/08/Critica-de-Kanojo-Okarishimasu-destacada-El-Palomitron2-e1598033037864-370x305.jpg")
                     .addField("⌛ Période de l'évènement :", eventPeriod)
                     .addField("📃 Détails de l'évènement :", eventDescr)
@@ -260,7 +260,7 @@ Client.on("messageCreate", message => {
             const eventT = new Discord.MessageEmbed()
                     .setColor("0bd3e6")
                     .setTitle("**EVENEMENT ACTIF** : " + eventTitle)
-                    .setDescription("*Informations relatives à l'évenement en cours sur le serveur ...*")
+                    .setDescription("*Informations relatives à l'évenement en cours sur le serveur...*")
                     .setThumbnail("https://www.playerone.vg/wp-content/uploads/2020/08/Critica-de-Kanojo-Okarishimasu-destacada-El-Palomitron2-e1598033037864-370x305.jpg")
                     .addField("⌛ Période de l'évènement :", eventPeriod)
                     .addField("📃 Détails de l'évènement :", eventDescr)
@@ -291,7 +291,7 @@ Client.on("messageCreate", message => {
     else if(message.content === prefix + "testLog")
     {
         const channelLogT = Client.channels.cache.find(channel => channel.name === channelLogName );
-        channelLogT.send("J'ai autre chose à faire ... tu vois bien que ça marche non ? abruti ...");
+        channelLogT.send("J'ai autre chose à faire... tu vois bien que ça marche non ? abruti...");
     }
     else if(message.content.startsWith(prefix + "makeLog"))
     {
@@ -497,14 +497,14 @@ Client.on("messageCreate", message => {
                 case '0':
                 case '1':
                 userBalance[index] = userBalance[index] - 25000;
-                message.channel.send("Décidemment, vous faites vraiment pitié ... Votre patron vous a foutu à la porte après que vous eûtes essayé d'enregistrer le numéro de votre collègue en prenant son téléphone en cachette ... \nMalheureusement, ce dernier vous a lâché des mains, et il est désomais foutu !\n*Vous avez dû lui en racheter un, et en plus elle a pris le dernier modèle sorti...* - 25.000 :yen:");
+                message.channel.send("Décidemment, vous faites vraiment pitié... Votre patron vous a foutu à la porte après que vous eûtes essayé d'enregistrer le numéro de votre collègue en prenant son téléphone en cachette... \nMalheureusement, ce dernier vous a lâché des mains, et il est désomais foutu !\n*Vous avez dû lui en racheter un, et en plus elle a pris le dernier modèle sorti...* - 25.000 :yen:");
                 break
                 case '2':
                 case '3':
                 case '4':
                 var thune = Math.floor(Math.random() * 5000) + 10000;
                 userBalance[index] = userBalance[index] + thune;
-                message.channel.send("Vous vendez votre Tajine comme des petits pains ... Qui l’eût cru ?\nLe résultat de cette journée vous a permis d'accumuler " + userBalance[index] + " :yen: au total !");
+                message.channel.send("Vous vendez votre Tajine comme des petits pains... Qui l’eût cru ?\nLe résultat de cette journée vous a permis d'accumuler " + userBalance[index] + " :yen: au total !");
                 break
                 case '5':
                 case '6':
@@ -527,12 +527,12 @@ Client.on("messageCreate", message => {
                 case '19':
                 var thune = Math.floor(Math.random() * 3000) + 1500;
                 userBalance[index] = userBalance[index] + thune;
-                message.channel.send("Quel taff épuisant ... Vous avez malgré tout gagné un peu de faf\nVous possédez " + userBalance[index] + " :yen:");
+                message.channel.send("Quel taff épuisant... Vous avez malgré tout gagné un peu de faf\nVous possédez " + userBalance[index] + " :yen:");
                 break
                 case '20':
                 var thune = Math.floor(Math.random() * 10000) + 50000;
                 userBalance[index] = userBalance[index] + thune;
-                message.channel.send("Travailler pour le président Macron n'a jamais été aussi fructueux ! Vous avez discrètement détourné quelques fonds publics, mais c'est pour la bonne cause ...\nVotre coffre-fort compte maintenant " + userBalance[index] + " :yen: ");
+                message.channel.send("Travailler pour le président Macron n'a jamais été aussi fructueux ! Vous avez discrètement détourné quelques fonds publics, mais c'est pour la bonne cause...\nVotre coffre-fort compte maintenant " + userBalance[index] + " :yen: ");
                 break;
                 default :
                 break
@@ -655,7 +655,7 @@ Client.on("interactionCreate", async interaction => {
 
             const select = new Discord.MessageSelectMenu()
                         .setCustomId("Player")
-                        .setPlaceholder("Nombre de Joueurs ...");
+                        .setPlaceholder("Nombre de Joueurs...");
             let j = 0;
             nbPlayer.forEach(element => {
                 select.addOptions({
@@ -691,7 +691,7 @@ Client.on("interactionCreate", async interaction => {
                         .setEmoji("✔"))
                     .addComponents(new Discord.MessageButton()
                         .setCustomId("CancelC")
-                        .setLabel("Enfaite ... non")
+                        .setLabel("Enfaite... non")
                         .setStyle("DANGER")
                         .setEmoji("💨")
             );
@@ -721,7 +721,7 @@ Client.on("interactionCreate", async interaction => {
                     var clc = new Discord.MessageActionRow()
                         .addComponents(new Discord.MessageButton()
                             .setCustomId("clc")
-                            .setLabel("Ok j'arrête ...")
+                            .setLabel("Ok j'arrête...")
                             .setStyle("SECONDARY")
                             .setEmoji("🆗")
             );
@@ -882,7 +882,7 @@ Client.on("interactionCreate", async interaction => {
             const scoreG1 = new Discord.MessageEmbed()
             .setColor("eb4034")
             .setTitle("🔪 Progression du Duel : ")
-            .setDescription("La Tension est palpable ...")
+            .setDescription("La Tension est palpable...")
             .addField("Score à atteindre :", maxscore.toString())
             .addField("Rappel mise :", nbMise.toString());
 
@@ -916,7 +916,7 @@ Client.on("interactionCreate", async interaction => {
             const test = new Discord.MessageEmbed()
             .setColor("eb4034")
             .setTitle("🔪 Progression du Duel : ")
-            .setDescription("La Tension est palpable ...")
+            .setDescription("La Tension est palpable...")
             .addField("Score à atteindre :", maxscore.toString())
             .addField("Rappel mise :", nbMise.toString());
 
@@ -979,12 +979,12 @@ Client.on("interactionCreate", async interaction => {
         }
         else if(interaction.customId === "Stop")
         {
-            await interaction.update({content : "C'était cool de me déranger pour ça en tout cas ... ", embeds: [], components: []});
+            await interaction.update({content : "C'était cool de me déranger pour ça en tout cas... ", embeds: [], components: []});
         }
 
         else if(interaction.customId === "Cancel")
         {
-            await interaction.update({content : "Procédure annulée ... Je retourne chez moi", components: []});
+            await interaction.update({content : "Procédure annulée... Je retourne chez moi", components: []});
         }
         else if(interaction.customId === "ConnectToDiamond" + interaction.user.id)
         {
@@ -1035,7 +1035,7 @@ Client.on("interactionCreate", async interaction => {
         const Home = new Discord.MessageEmbed()
             .setColor("843dff")
             .setTitle("ダイヤモンド - DIAMOND")
-            .setDescription("*Diamond est une application de RGF, un service de location de petites-amies* \n *Cherchez la copine de vos rêves, louez ces services et passez un moment idyllique que vous n'oublierez jamais ...*")
+            .setDescription("*Diamond est une application de RGF, un service de location de petites-amies* \n *Cherchez la copine de vos rêves, louez ces services et passez un moment idyllique que vous n'oublierez jamais...*")
             .setThumbnail("https://randomc.net/image/Kanojo%20Okarishimasu/Kanojo%20Okarishimasu%20-%2001%20-%20Large%2007.jpg")
             .addField(":mobile_phone: Navigation :", "> Home page \n> Profile Page \n> Rent Page \n> Shop Page")
             .addField(":yen: Prix moyen : ", "7.500 ¥ / heure")
@@ -1070,7 +1070,7 @@ Client.on("interactionCreate", async interaction => {
                 .setEmoji("❌"));
         
                 paidDateUser[userDiamondID.indexOf(interaction.user.id)] = 0;
-        await interaction.update({content: "*Your phone is displaying this ...*", embeds:[Home], components: [Navigation]});
+        await interaction.update({content: "*Your phone is displaying this...*", embeds:[Home], components: [Navigation]});
         }
         else if(interaction.customId === "Profile" + interaction.user.id)
         {
@@ -1171,7 +1171,7 @@ Client.on("interactionCreate", async interaction => {
                 .setStyle("SECONDARY")
                 .setEmoji("❌"));
             
-        await interaction.update({content: "*Your phone is displaying this ...*", embeds:[Profile], components: [NavigationP]});
+        await interaction.update({content: "*Your phone is displaying this...*", embeds:[Profile], components: [NavigationP]});
     }}
     else if(interaction.customId === "GF" + interaction.user.id || interaction.customId === "Nxt" + interaction.user.id || interaction.customId === "Prv" + interaction.user.id)
     {
@@ -1247,7 +1247,7 @@ Client.on("interactionCreate", async interaction => {
 
         
 
-        await interaction.update({content: "*Your phone is displaying this ...*", embeds:[GF], components: [NavigationGF, HomeGF]});
+        await interaction.update({content: "*Your phone is displaying this...*", embeds:[GF], components: [NavigationGF, HomeGF]});
     }
     else if(interaction.customId === "RentGF" + interaction.user.id)
     {
@@ -1299,7 +1299,7 @@ Client.on("interactionCreate", async interaction => {
                     RGF.setImage(rentedImageGFHappy[indexGF]);
                     break
                 case 'Angry':
-                    RGF.setDescription(nameGF[indexGF] + " semble confuse ...");
+                    RGF.setDescription(nameGF[indexGF] + " semble confuse...");
                     RGF.setImage(rentedImageGFAngry[indexGF]);
                     break
                 default:
@@ -1326,7 +1326,7 @@ Client.on("interactionCreate", async interaction => {
                     .setStyle("SUCCESS")
                     .setEmoji("🏡"));
             
-        await interaction.update({content: "*I'm yours now ...*", embeds:[RGF], components: [BackHome]});
+        await interaction.update({content: "*I'm yours now...*", embeds:[RGF], components: [BackHome]});
         }
         else
         {
@@ -1384,7 +1384,7 @@ Client.on("interactionCreate", async interaction => {
                 .setStyle("SUCCESS")
                 .setEmoji("🏡"));
             
-        await interaction.update({content: "*Your phone is displaying this ...*", embeds:[Profile], components: [NavigationP]});
+        await interaction.update({content: "*Your phone is displaying this...*", embeds:[Profile], components: [NavigationP]});
     }
     else if(interaction.customId === "Chocolate" + interaction.user.id || interaction.customId === "Book" + interaction.user.id || interaction.customId === "Scarf" + interaction.user.id || interaction.customId === "Ring" + interaction.user.id)
     {
@@ -1406,7 +1406,7 @@ Client.on("interactionCreate", async interaction => {
                 userOwnedChocolate[indexDiamondUser] = userOwnedChocolate[indexDiamondUser] + 1; 
                 if(userOwnedChocolate[indexDiamondUser] == 10){addSecretGirl("Itsuki Nakano");}
             }
-            else{achat.setDescription("Une erreur s'est produite lors de la transaction entre votre banque et DIAMOND Corp.\nVotre achat a été annulé ...");}
+            else{achat.setDescription("Une erreur s'est produite lors de la transaction entre votre banque et DIAMOND Corp.\nVotre achat a été annulé...");}
         }
         else if(interaction.customId.startsWith('Book'))
         {
@@ -1419,7 +1419,7 @@ Client.on("interactionCreate", async interaction => {
                 userOwnedBook[indexDiamondUser] = userOwnedBook[indexDiamondUser] + 1;
                 if(userOwnedBook[indexDiamondUser] == 10){addSecretGirl("Yukino Yukinoshita");} 
             }
-            else{achat.setDescription("Une erreur s'est produite lors de la transaction entre votre banque et DIAMOND Corp.\nVotre achat a été annulé ...");}
+            else{achat.setDescription("Une erreur s'est produite lors de la transaction entre votre banque et DIAMOND Corp.\nVotre achat a été annulé...");}
         }
         else if(interaction.customId.startsWith('Scarf'))
         {
@@ -1431,7 +1431,7 @@ Client.on("interactionCreate", async interaction => {
                 achat.addField("Porte-Monnaie :", userBalance[indexDiamondUser] + " :yen:");
                 userOwnedScarf[indexDiamondUser] = userOwnedScarf[indexDiamondUser] + 1;
             }
-            else{achat.setDescription("Une erreur s'est produite lors de la transaction entre votre banque et DIAMOND Corp.\nVotre achat a été annulé ...");}
+            else{achat.setDescription("Une erreur s'est produite lors de la transaction entre votre banque et DIAMOND Corp.\nVotre achat a été annulé...");}
         }
         else if(interaction.customId.startsWith('Ring'))
         {
@@ -1443,11 +1443,11 @@ Client.on("interactionCreate", async interaction => {
                 achat.addField("Porte-Monnaie :", userBalance[indexDiamondUser] + " :yen:");
                 userOwnedRing[indexDiamondUser] = userOwnedRing[indexDiamondUser] + 1; 
             }
-            else{achat.setDescription("Une erreur s'est produite lors de la transaction entre votre banque et DIAMOND Corp.\nVotre achat a été annulé ...");}
+            else{achat.setDescription("Une erreur s'est produite lors de la transaction entre votre banque et DIAMOND Corp.\nVotre achat a été annulé...");}
         }
         else 
         {
-            achat.setDescription("Une erreur s'est produite lors de la transaction entre votre banque et DIAMOND Corp.\nVotre achat a été annulé ...");
+            achat.setDescription("Une erreur s'est produite lors de la transaction entre votre banque et DIAMOND Corp.\nVotre achat a été annulé...");
         }
 
         var shopB = new Discord.MessageActionRow()
@@ -1462,7 +1462,7 @@ Client.on("interactionCreate", async interaction => {
                 .setStyle("SUCCESS")
                 .setEmoji("🏡"));
 
-        await interaction.update({content: "*Your phone is displaying this ...*", embeds:[achat], components: [shopB]});
+        await interaction.update({content: "*Your phone is displaying this...*", embeds:[achat], components: [shopB]});
     }
     else if(interaction.customId === "Gift" + interaction.user.id)
     {
@@ -1541,9 +1541,9 @@ Client.on("interactionCreate", async interaction => {
         {
             Profile.addField("Inventaire", stuff);
         }
-        else{Profile.addField("Inventaire", "Vous ne possédez rien ...");}
+        else{Profile.addField("Inventaire", "Vous ne possédez rien...");}
             
-        await interaction.update({content: "*You seem to hesitate ...*", embeds:[Profile], components: [ChooseG]});
+        await interaction.update({content: "*You seem to hesitate...*", embeds:[Profile], components: [ChooseG]});
     }
     else if(interaction.customId === "ChocolateG" + interaction.user.id || interaction.customId === "BookG" + interaction.user.id || interaction.customId === "ScarfG" + interaction.user.id || interaction.customId === "RingG" + interaction.user.id || interaction.customId === "RoseG" + interaction.user.id || interaction.customId === "KnifeG" + interaction.user.id || interaction.customId === "TeddyBearG" + interaction.user.id )
     {   
@@ -1607,7 +1607,7 @@ Client.on("interactionCreate", async interaction => {
                 .setStyle("SECONDARY")
                 .setEmoji("❌"));
 
-        await interaction.update({content: "*You are hiding the gift behind your back, will you do it ... ?*", embeds:[giftC], components: [confirmGift]});
+        await interaction.update({content: "*You are hiding the gift behind your back, will you do it... ?*", embeds:[giftC], components: [confirmGift]});
     }
     else if(interaction.customId === "ConfirmGift" + interaction.user.id)
     {
@@ -1662,7 +1662,7 @@ Client.on("interactionCreate", async interaction => {
             .setStyle("SECONDARY")
             .setEmoji("🌆"));
         
-        await interaction.update({content: "*No one expects you doing this ... pretty courageous.*", embeds:[giftCD], components: [backDate]});
+        await interaction.update({content: "*No one expects you doing this... pretty courageous.*", embeds:[giftCD], components: [backDate]});
     }
     else if(interaction.customId === "Marry" + interaction.user.id)
     {
@@ -1766,7 +1766,7 @@ Client.on("interactionCreate", async interaction => {
                 .setStyle("SUCCESS")
                 .setEmoji("🏡"));
                
-        await interaction.update({content: "Un gacha, comme c'est étonnant ...", embeds:[Gacha], components: [gachaOpt]});
+        await interaction.update({content: "Un gacha, comme c'est étonnant...", embeds:[Gacha], components: [gachaOpt]});
     }
     else if((interaction.customId === "Casino" + interaction.user.id &&  userBalance[userDiamondID.indexOf(interaction.user.id)] > 9999) || interaction.customId === "CasinoFree" + interaction.user.id)
     {
@@ -1795,7 +1795,7 @@ Client.on("interactionCreate", async interaction => {
 
         if(casinoRoll == 0)
         {
-            pullREsult.addField("Vos gains :", "\n*Rien ...*");
+            pullREsult.addField("Vos gains :", "\n*Rien...*");
             addSecretGirl("Aki Adagaki");
         }
         else if(casinoRoll < 7)
@@ -1994,7 +1994,7 @@ Client.on("interactionCreate", async interaction => {
             .setStyle("SECONDARY")
             .setEmoji("❌"));
 
-        await interaction.update({content: "Un gacha, comme c'est étonnant ...", embeds:[pullREsult], components: [casinoBtn]});
+        await interaction.update({content: "Un gacha, comme c'est étonnant...", embeds:[pullREsult], components: [casinoBtn]});
 
     }
     else if(interaction.customId === "DiceGame" + interaction.user.id || interaction.customId === "DiceGame1" + interaction.user.id)
@@ -2075,7 +2075,7 @@ Client.on("interactionCreate", async interaction => {
             .setStyle("SECONDARY")
             .setEmoji("❌"));
         }
-        await interaction.update({content: "Mais ça va trop loin ...", embeds:[diceG], components: [diceBtn]});
+        await interaction.update({content: "Mais ça va trop loin...", embeds:[diceG], components: [diceBtn]});
     }
     else if(interaction.customId === "D1" + interaction.user.id || interaction.customId === "D2" + interaction.user.id ||interaction.customId === "D3" + interaction.user.id || interaction.customId === "D4" + interaction.user.id || interaction.customId === "D5" + interaction.user.id || interaction.customId === "D6" + interaction.user.id)
     {
@@ -2117,7 +2117,7 @@ Client.on("interactionCreate", async interaction => {
             .setStyle("SECONDARY")
             .setEmoji("❌"));
 
-        await interaction.update({content: "J'ai pas les mots là ...", embeds:[diceT], components: [diceTBtn]});
+        await interaction.update({content: "J'ai pas les mots là...", embeds:[diceT], components: [diceTBtn]});
 
     }
     else if(interaction.customId === "CoinShop" + interaction.user.id)
@@ -2129,7 +2129,7 @@ Client.on("interactionCreate", async interaction => {
             .setDescription("Bienvenue à la boutique d'échange de jetons DIAMOND Corp.\n*Ici, vous pouvez utiliser les jetons obtenus au Casino pour obtenir des articles exclusifs !*\n***Aucun remboursement possible***")
             .setThumbnail("https://financerewind.com/wp-content/uploads/2020/09/Rent-a-Girlfriend-Episode-10-Release-Date-Preview-and-Spoilers-768x439-1.jpg")
             .addField("Article 1 : 🌹", "Description : Une rose, brillant d'un rouge écarlate scintillant .\nPrix : 20 🪙")
-            .addField("Article 2 : 🔪", "Description : Un couteau extrèmement coupant. On dirait presque une arme ...\nPrix : 35 🪙")
+            .addField("Article 2 : 🔪", "Description : Un couteau extrèmement coupant. On dirait presque une arme...\nPrix : 35 🪙")
             .addField("Article 3 : 🧸", "Description : Un ours en peluche avec un nez bleu. Drôle de conception, mais il est mignon !\nPrix : 65 🪙")
             .addField("Jetons possédés :", userCasinoToken[place] + " 🪙")
             .setFooter("Diamond Inc. © - Bringing the best for you")
@@ -2162,7 +2162,7 @@ Client.on("interactionCreate", async interaction => {
                 .setStyle("SUCCESS")
                 .setEmoji("🏡"));
             
-        await interaction.update({content: "*Let's see what the token exchange shop provides ...*", embeds:[CoinS], components: [NavigationCS]});
+        await interaction.update({content: "*Let's see what the token exchange shop provides...*", embeds:[CoinS], components: [NavigationCS]});
     }
     else if(interaction.customId === "Rose" + interaction.user.id || interaction.customId === "Knife" + interaction.user.id || interaction.customId === "TeddyBear" + interaction.user.id)
     {
@@ -2183,7 +2183,7 @@ Client.on("interactionCreate", async interaction => {
             userOwnedRose[indexDiamondUser] = userOwnedRose[indexDiamondUser] + 1; 
             if(userOwnedRose[indexDiamondUser] > 6){addSecretGirl("Yukana Yame");}
         }
-        else{achat.setDescription("Une erreur s'est produite lors de la transaction entre votre compte de jeton Casino et DIAMOND Corp.\nVotre achat a été annulé ...");}
+        else{achat.setDescription("Une erreur s'est produite lors de la transaction entre votre compte de jeton Casino et DIAMOND Corp.\nVotre achat a été annulé...");}
     }
     else if(interaction.customId.startsWith('Knife'))
     {
@@ -2195,7 +2195,7 @@ Client.on("interactionCreate", async interaction => {
             userOwnedKnife[indexDiamondUser] = userOwnedKnife[indexDiamondUser] + 1; 
             if(userOwnedKnife[indexDiamondUser] > 2){addSecretGirl("Shuka Karino");} 
         }
-        else{achat.setDescription("Une erreur s'est produite lors de la transaction entre votre compte de jeton Casino et DIAMOND Corp.\nVotre achat a été annulé ...");}
+        else{achat.setDescription("Une erreur s'est produite lors de la transaction entre votre compte de jeton Casino et DIAMOND Corp.\nVotre achat a été annulé...");}
     }
     else if(interaction.customId.startsWith('TeddyBear'))
     {
@@ -2206,10 +2206,10 @@ Client.on("interactionCreate", async interaction => {
             achat.addField("Jetons restants :", userCasinoToken[indexDiamondUser] + " 🪙");
             userOwnedTeddyBear[indexDiamondUser] = userOwnedTeddyBear[indexDiamondUser] + 1; 
         }
-        else{achat.setDescription("Une erreur s'est produite lors de la transaction entre votre compte de jeton Casino et DIAMOND Corp.\nVotre achat a été annulé ...");}
+        else{achat.setDescription("Une erreur s'est produite lors de la transaction entre votre compte de jeton Casino et DIAMOND Corp.\nVotre achat a été annulé...");}
     }else
     {
-        achat.setDescription("Une erreur s'est produite lors de la transaction entre votre compte de jeton Casino et DIAMOND Corp.\nVotre achat a été annulé ...");
+        achat.setDescription("Une erreur s'est produite lors de la transaction entre votre compte de jeton Casino et DIAMOND Corp.\nVotre achat a été annulé...");
     }
 
         var shopB = new Discord.MessageActionRow()
@@ -2229,7 +2229,7 @@ Client.on("interactionCreate", async interaction => {
                 .setStyle("SUCCESS")
                 .setEmoji("🏡"));
 
-        await interaction.update({content: "*You actually love this app ...*", embeds:[achat], components: [shopB]});
+        await interaction.update({content: "*You actually love this app...*", embeds:[achat], components: [shopB]});
     }
     else if(interaction.customId === "GiftA" + interaction.user.id)
     {
@@ -2294,9 +2294,9 @@ Client.on("interactionCreate", async interaction => {
         {
             Profile.addField("Inventaire", stuff);
         }
-        else{Profile.addField("Inventaire", "Vous ne possédez rien ...");}
+        else{Profile.addField("Inventaire", "Vous ne possédez rien...");}
             
-        await interaction.update({content: "*You seem to hesitate ...*", embeds:[Profile], components: [ChooseG]});
+        await interaction.update({content: "*You seem to hesitate...*", embeds:[Profile], components: [ChooseG]});
     }
     else if(interaction.customId === "Succes" + interaction.user.id)
     {
@@ -2334,7 +2334,7 @@ Client.on("interactionCreate", async interaction => {
     }
     else if(interaction.customId === "CancelClaim")
     {
-        await interaction.update({content:"Récompense refusée ...", embeds:[], components:[]});
+        await interaction.update({content:"Récompense refusée...", embeds:[], components:[]});
     }
 
     }
@@ -2346,7 +2346,7 @@ Client.on("interactionCreate", async interaction => {
 
             const mise = new Discord.MessageSelectMenu()
                         .setCustomId("Bet")
-                        .setPlaceholder("Montant de la mise ...");
+                        .setPlaceholder("Montant de la mise...");
             let h = 0;
             bets.forEach(element => {
                 mise.addOptions({
@@ -2371,7 +2371,7 @@ Client.on("interactionCreate", async interaction => {
                 await interaction.update({content: "Ok, vous allez jouer à " + nbPlayers, components: [msgMise]});
                 break;
                 default :
-                await interaction.update({content: "Something might went wrong ...", components: []});
+                await interaction.update({content: "Something might went wrong...", components: []});
             }
         }
         if(interaction.customId == "Bet")
@@ -2401,7 +2401,7 @@ Client.on("interactionCreate", async interaction => {
                 await interaction.update({content: "Vous avez misé **" + nbMise + "** " + kkrEmoji + "\n Pour lancer le combat, tous les joueurs clique sur **prêt** \n **" + rdyP + "/" + nbPlayers + "** prêts", components: [ready]});
                 break;
                 default :
-                await interaction.update({content: "Something might went wrong ...", components: []});
+                await interaction.update({content: "Something might went wrong...", components: []});
             }
         }
     }
