@@ -1257,18 +1257,16 @@ Client.on("interactionCreate", async interaction => {
         if(ownedbyGFuserDiamondID[indexGF] === interaction.user.id)
         {
             paidDateUser[index] = 1;
-            console.log("ja paye pas c ma meuf");
         }
         else if(userFreeRentTicket[index] > 0 && !paidDateUser[index])
         {
             paidDateUser[index] = 1;
             userFreeRentTicket[index]--;
-            console.log("ja paye pas c ma meuf");
         }
         else if(userBalance[index] >= priceGF[indexGF] && !paidDateUser[index])
         {
             paidDateUser[index] = 1;
-            userBalance[index] = userBalance[index] - priceGF[indexGF]
+            userBalance[index] -= priceGF[indexGF];
 
             if(ownedbyGFuserDiamondID[indexGF] != "None")
             {
@@ -1659,8 +1657,8 @@ Client.on("interactionCreate", async interaction => {
         
         var backDate = new Discord.MessageActionRow()
         .addComponents(new Discord.MessageButton()
-            .setCustomId("RentGF")
-            .setLabel("Back to Date" + interaction.user.id)
+            .setCustomId("RentGF" + interaction.user.id)
+            .setLabel("Back to Date")
             .setStyle("SECONDARY")
             .setEmoji("🌆"));
         
@@ -2187,7 +2185,7 @@ Client.on("interactionCreate", async interaction => {
         }
         else{achat.setDescription("Une erreur s'est produite lors de la transaction entre votre compte de jeton Casino et DIAMOND Corp.\nVotre achat a été annulé ...");}
     }
-    else if(interaction.startsWith('Knife'))
+    else if(interaction.customId.startsWith('Knife'))
     {
         if(userCasinoToken[indexDiamondUser] >= 35)
         {
@@ -2199,7 +2197,7 @@ Client.on("interactionCreate", async interaction => {
         }
         else{achat.setDescription("Une erreur s'est produite lors de la transaction entre votre compte de jeton Casino et DIAMOND Corp.\nVotre achat a été annulé ...");}
     }
-    else if(interaction.startsWith('TeddyBear'))
+    else if(interaction.customId.startsWith('TeddyBear'))
     {
         if(userCasinoToken[indexDiamondUser] >= 65)
         {
