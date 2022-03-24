@@ -2,7 +2,6 @@ require('dotenv').config()
 const { table } = require("console");
 const { channel } = require("diagnostics_channel");
 const Discord = require("discord.js");
-const { isUndefined } = require("util");
 const { late } = require("zod");
 const Client = new Discord.Client({
     intents: 
@@ -171,6 +170,11 @@ function addSecretGirl (GFname)
         priceGFLP.push(priceGFLPSecret[tableIndex]);
         marryGF.push(marryGFSecret[tableIndex]);
     }
+}
+
+function isUndefined(param)
+{
+    return param === undefined;
 }
 
 
@@ -531,11 +535,11 @@ Client.on("messageCreate", message => {
                 break
                 case '20':
                 var thune = Math.floor(Math.random() * 10000) + 50000;
-                userBalance[index] = userBalance[index] + thune;
+                userBalance[index] += thune;
                 message.channel.send("Travailler pour le président Macron n'a jamais été aussi fructueux ! Vous avez discrètement détourné quelques fonds publics, mais c'est pour la bonne cause...\nVotre coffre-fort compte maintenant " + userBalance[index] + " :yen: ");
                 break;
                 default :
-                break
+                break;
             }
         }
     }
@@ -646,7 +650,6 @@ Client.on("messageCreate", message => {
 
 Client.on("interactionCreate", async interaction => {
 
-
     if(interaction.isButton())
     {
         if(interaction.customId === "Go")
@@ -668,10 +671,8 @@ Client.on("interactionCreate", async interaction => {
             const nbJ = new Discord.MessageActionRow()
                 .addComponents(select);
             
-            await interaction.update({content: '**Sélectionnez le nombre de joueurs pour ce combat :**', components: [nbJ]});
-                
+            await interaction.update({content: '**Sélectionnez le nombre de joueurs pour ce combat :**', components: [nbJ]});         
         }
-
         else if(interaction.customId === "Ready")
         {
             let pp = interaction.user.avatarURL();
@@ -693,8 +694,7 @@ Client.on("interactionCreate", async interaction => {
                         .setCustomId("CancelC")
                         .setLabel("Enfaite... non")
                         .setStyle("DANGER")
-                        .setEmoji("💨")
-            );
+                        .setEmoji("💨"));
 
                 if(!idPlayers.includes(pseudo))
                 {
@@ -705,10 +705,8 @@ Client.on("interactionCreate", async interaction => {
                         .setThumbnail(pp)
                         .setTimestamp();
 
-                    
-                await interaction.update({embeds: [embedPlayer], components: [confirm]});
+                    await interaction.update({embeds: [embedPlayer], components: [confirm]});
                 }
-
                 else if (idPlayers.includes(pseudo))
                 {
                     const relouPlayer = new Discord.MessageEmbed()
@@ -723,10 +721,9 @@ Client.on("interactionCreate", async interaction => {
                             .setCustomId("clc")
                             .setLabel("Ok j'arrête...")
                             .setStyle("SECONDARY")
-                            .setEmoji("🆗")
-            );
+                            .setEmoji("🆗"));
                         
-                await interaction.update({embeds: [relouPlayer], components: [clc]});
+                    await interaction.update({embeds: [relouPlayer], components: [clc]});
                 }
             }
         }
@@ -748,46 +745,42 @@ Client.on("interactionCreate", async interaction => {
         }
         else if(interaction.customId === "ReadyC")
         {
-            if(interaction.user.id != userIdTmp){}
-            else{
-            score[rdyP] = 0;
-            idPlayers[rdyP] = idPlayersTmp;
-            username[rdyP] = usernameTmp;
-            userId[rdyP] = userIdTmp;
-            rdyP++;
+            if(interaction.user.id == userIdTmp)
+            {
+                score[rdyP] = 0;
+                idPlayers[rdyP] = idPlayersTmp;
+                username[rdyP] = usernameTmp;
+                userId[rdyP] = userIdTmp;
+                rdyP++;
 
-            var ready = new Discord.MessageActionRow()
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("Ready")
-                .setLabel("Prêt !")
-                .setStyle("SUCCESS")
-                .setEmoji("🗡"))
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("Stop")
-                .setLabel("Annuler le combat")
-                .setStyle("SECONDARY")
-                .setEmoji("❌")
-            );
-        
-            if(rdyP != nbPlayers)
-            {
-                await interaction.update({content: "Vous avez misé **" + nbMise + "**" + kkrEmoji + "\nPour lancer le combat, tous les joueurs doivent cliquer sur **prêt** \n **" + rdyP + "/" + nbPlayers + "** prêts", embeds: [], components: [ready]});
-            }
-            else if (rdyP == nbPlayers)
-            {
-                var done = new Discord.MessageActionRow()
+                var ready = new Discord.MessageActionRow()
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("Ready")
+                    .setLabel("Prêt !")
+                    .setStyle("SUCCESS")
+                    .setEmoji("🗡"))
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("Stop")
+                    .setLabel("Annuler le combat")
+                    .setStyle("SECONDARY")
+                    .setEmoji("❌")
+                );
+            
+                if(rdyP != nbPlayers)
+                    await interaction.update({content: "Vous avez misé **" + nbMise + "**" + kkrEmoji + "\nPour lancer le combat, tous les joueurs doivent cliquer sur **prêt** \n **" + rdyP + "/" + nbPlayers + "** prêts", embeds: [], components: [ready]});
+                else if (rdyP == nbPlayers)
+                {
+                    var done = new Discord.MessageActionRow()
                         .addComponents(new Discord.MessageButton()
                             .setCustomId("done")
                             .setLabel("C'est fait !")
                             .setStyle("SUCCESS")
-                            .setEmoji("✅")
-                        );      
+                            .setEmoji("✅"));      
 
-                await interaction.update({content: "Avant de commencer, faites **rent!roll** suivi d'un nombre pour set la valeur max lors des rolls et **rent!score** suivi d'un nombre pour set le score à atteindre", embeds: [], components: [done]});
+                    await interaction.update({content: "Avant de commencer, faites **rent!roll** suivi d'un nombre pour set la valeur max lors des rolls et **rent!score** suivi d'un nombre pour set le score à atteindre", embeds: [], components: [done]});
+                }
             }
-        }
-        }
-        
+        } 
         else if (interaction.customId === "done")
         {
             let concat = "";
@@ -879,30 +872,31 @@ Client.on("interactionCreate", async interaction => {
             }
             else if (score[interaction.customId] < maxscore)
             {
-            const scoreG1 = new Discord.MessageEmbed()
-            .setColor("eb4034")
-            .setTitle("🔪 Progression du Duel : ")
-            .setDescription("La tension est palpable...")
-            .addField("Score à atteindre :", maxscore.toString())
-            .addField("Rappel mise :", nbMise.toString());
+                const scoreG1 = new Discord.MessageEmbed()
+                .setColor("eb4034")
+                .setTitle("🔪 Progression du Duel : ")
+                .setDescription("La tension est palpable...")
+                .addField("Score à atteindre :", maxscore.toString())
+                .addField("Rappel mise :", nbMise.toString());
 
-            var suivant = new Discord.MessageActionRow()
-                    .addComponents(new Discord.MessageButton()
-                        .setCustomId("Next")
-                        .setLabel("Manche suivante")
-                        .setStyle("SECONDARY")
-                        .setEmoji("⏭"));
+                var suivant = new Discord.MessageActionRow()
+                        .addComponents(new Discord.MessageButton()
+                            .setCustomId("Next")
+                            .setLabel("Manche suivante")
+                            .setStyle("SECONDARY")
+                            .setEmoji("⏭"));
 
-            let t = 0;
-            username.forEach(element =>
-            {
-                scoreG1.addField(element.toString(), score[t].toString());
-                t++;
-            });
+                let t = 0;
+                username.forEach(element =>
+                {
+                    scoreG1.addField(element.toString(), score[t].toString());
+                    t++;
+                });
 
-            await interaction.update({content: "Que le meilleur gagne !", embeds: [scoreG1], components: [suivant]});
+                await interaction.update({content: "Que le meilleur gagne !", embeds: [scoreG1], components: [suivant]});
             }
-            else {console.log("ça beug");}
+            else
+                console.log("ça beug");
         }
         else if(interaction.customId === "Next")
         {
@@ -952,1358 +946,1355 @@ Client.on("interactionCreate", async interaction => {
         }
         else if(interaction.customId === "GG")
         {   
-            if(interaction.user.id == winnerId){
-            interaction.update({content: "Congratulations " + winner + " !" , embeds: [], components: []});
-            await interaction.channel.send("$givescrap <@" + winnerId + "> " + gain);
+            if(interaction.user.id == winnerId)
+            {
+                interaction.update({content: "Congratulations " + winner + " !" , embeds: [], components: []});
+                await interaction.channel.send("$givescrap <@" + winnerId + "> " + gain);
 
-            var timeW = new Date();
-            const channelLogWtmp = Client.channels.cache.find(channel => channel.name === channelLogName );
-            channelLogWtmp.send(timeW.toLocaleString() + " : " + winner + " a gagné " + gain + " " +  kkrEmoji + " lors d'un Duel de Harem !");
+                var timeW = new Date();
+                const channelLogWtmp = Client.channels.cache.find(channel => channel.name === channelLogName );
+                channelLogWtmp.send(timeW.toLocaleString() + " : " + winner + " a gagné " + gain + " " +  kkrEmoji + " lors d'un Duel de Harem !");
 
-            nbPlayers = 0;
-            nbMise = 0;
-            score = [];
-            idPlayers = [];
-            rdyP = 0;
-            userId = [];
-            username = [];
-            winner = " ";
-            winnerId = " ";
-            gain = 0;}
-            
-            else {await interaction.reply("<@" + interaction.user.id + "> tu t'amuses bien bouffon ?");}
+                nbPlayers = 0;
+                nbMise = 0;
+                score = [];
+                idPlayers = [];
+                rdyP = 0;
+                userId = [];
+                username = [];
+                winner = " ";
+                winnerId = " ";
+                gain = 0;
+            }
+            else
+                await interaction.reply("<@" + interaction.user.id + "> tu t'amuses bien bouffon ?");
 
-        }
-        else if(interaction.customId === "StopC")
-        {
         }
         else if(interaction.customId === "Stop")
         {
             await interaction.update({content : "C'était cool de me déranger pour ça en tout cas... ", embeds: [], components: []});
         }
-
         else if(interaction.customId === "Cancel")
         {
             await interaction.update({content : "Procédure annulée... Je retourne chez moi", components: []});
         }
         else if(interaction.customId === "ConnectToDiamond" + interaction.user.id)
         {
-        var Connect = new Discord.MessageActionRow()
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("ConnectC" + interaction.user.id)
-                .setLabel("Log To DIAMOND")
-                .setStyle("SUCCESS")
-                .setEmoji("💎"))
-            
-        var extra = "";
-        var extraAlea = Math.floor(Math.random() * 5); 
-        switch(extraAlea){
-            case 0: 
-            extra = "lebg"; 
-            break
-            case 1:
-            extra = "diño"; 
-            break
-            case 2:
-            extra = "letombeur"; 
-            break
-            case 3:
-            extra = "aulait"; 
-            break
-            case 4:
-            extra = "leboulet"; 
-            break
-            default:
-                break}
+            var Connect = new Discord.MessageActionRow()
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("ConnectC" + interaction.user.id)
+                    .setLabel("Log To DIAMOND")
+                    .setStyle("SUCCESS")
+                    .setEmoji("💎"))
+                
+            var extra = "";
+            var extraAlea = Math.floor(Math.random() * 5); 
+            switch(extraAlea)
+            {
+                case 0: 
+                    extra = "lebg"; 
+                    break;
+                case 1:
+                    extra = "diño"; 
+                    break;
+                case 2:
+                    extra = "letombeur"; 
+                    break;
+                case 3:
+                    extra = "aulait"; 
+                    break;
+                case 4:
+                    extra = "leboulet"; 
+                    break;
+                default:
+                    break;
+            }
 
-        var diamondUserName = interaction.user.username + extra;
+            var diamondUserName = interaction.user.username + extra;
 
-        await interaction.update({content: "**INSTALLATION TERMINEE** \nConnexion à DIAMOND.app \n**Login : [" + diamondUserName + "]** \n**Password : **⏹⏹⏹⏹⏹⏹⏹", components: [Connect]});
+            await interaction.update({content: "**INSTALLATION TERMINEE** \nConnexion à DIAMOND.app \n**Login : [" + diamondUserName + "]** \n**Password : **⏹⏹⏹⏹⏹⏹⏹", components: [Connect]});
         }
         else if(interaction.customId === "Disconnect" + interaction.user.id)
         {
-        if(diamondUserConnected.includes(interaction.user.id))
-        {
-            var ind = diamondUserConnected.indexOf(interaction.user.id);
-            diamondUserConnected.splice(ind, 1);
-            await interaction.update({content: "Disconnected from Diamond Network", embeds:[], components: []});
-        }
+            if(diamondUserConnected.includes(interaction.user.id))
+            {
+                var ind = diamondUserConnected.indexOf(interaction.user.id);
+                diamondUserConnected.splice(ind, 1);
+                await interaction.update({content: "Disconnected from Diamond Network", embeds:[], components: []});
+            }
         }
         else if(interaction.customId === "ConnectC" + interaction.user.id)
         {
+            const Home = new Discord.MessageEmbed()
+                .setColor("843dff")
+                .setTitle("ダイヤモンド - DIAMOND")
+                .setDescription("*Diamond est une application de RGF, un service de location de petites-amies.*\n*Cherchez la copine de vos rêves, louez ses services et passez un moment idyllique que vous n'oublierez jamais...*")
+                .setThumbnail("https://randomc.net/image/Kanojo%20Okarishimasu/Kanojo%20Okarishimasu%20-%2001%20-%20Large%2007.jpg")
+                .addField(":mobile_phone: Navigation :", "> Home Page \n> Profile Page \n> Rent Page \n> Shop Page")
+                .addField(":yen: Prix moyen : ", "7.500 ¥ / heure")
+                .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
+                .setTimestamp();
 
-        const Home = new Discord.MessageEmbed()
-            .setColor("843dff")
-            .setTitle("ダイヤモンド - DIAMOND")
-            .setDescription("*Diamond est une application de RGF, un service de location de petites-amies.*\n*Cherchez la copine de vos rêves, louez ses services et passez un moment idyllique que vous n'oublierez jamais...*")
-            .setThumbnail("https://randomc.net/image/Kanojo%20Okarishimasu/Kanojo%20Okarishimasu%20-%2001%20-%20Large%2007.jpg")
-            .addField(":mobile_phone: Navigation :", "> Home Page \n> Profile Page \n> Rent Page \n> Shop Page")
-            .addField(":yen: Prix moyen : ", "7.500 ¥ / heure")
-            .setFooter("Diamond Inc. © - Bringing the best for you")
-            .setTimestamp();
-
-        var Navigation = new Discord.MessageActionRow()
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("Profile" + interaction.user.id)
-                .setLabel("Profile")
-                .setStyle("SUCCESS")
-                .setEmoji("🤹‍♀️"))
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("GF" + interaction.user.id)
-                .setLabel("GirlFriends")
-                .setStyle("PRIMARY")
-                .setEmoji("💃"))
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("Shop" + interaction.user.id)
-                .setLabel("Shop")
-                .setStyle("DANGER")
-                .setEmoji("🛒"))
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("Lottery" + interaction.user.id)
-                .setLabel("Lottery")
-                .setStyle("DANGER")
-                .setEmoji("🎊"))
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("Disconnect" + interaction.user.id)
-                .setLabel("Exit")
-                .setStyle("SECONDARY")
-                .setEmoji("❌"));
-        
-                paidDateUser[userDiamondID.indexOf(interaction.user.id)] = 0;
-        await interaction.update({content: "*Your phone is displaying this...*", embeds:[Home], components: [Navigation]});
+            var Navigation = new Discord.MessageActionRow()
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("Profile" + interaction.user.id)
+                    .setLabel("Profile")
+                    .setStyle("SUCCESS")
+                    .setEmoji("🤹‍♀️"))
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("GF" + interaction.user.id)
+                    .setLabel("GirlFriends")
+                    .setStyle("PRIMARY")
+                    .setEmoji("💃"))
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("Shop" + interaction.user.id)
+                    .setLabel("Shop")
+                    .setStyle("DANGER")
+                    .setEmoji("🛒"))
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("Lottery" + interaction.user.id)
+                    .setLabel("Lottery")
+                    .setStyle("DANGER")
+                    .setEmoji("🎊"))
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("Disconnect" + interaction.user.id)
+                    .setLabel("Exit")
+                    .setStyle("SECONDARY")
+                    .setEmoji("❌"));
+            
+                    paidDateUser[userDiamondID.indexOf(interaction.user.id)] = 0;
+            await interaction.update({content: "*Your phone is displaying this...*", embeds:[Home], components: [Navigation]});
         }
         else if(interaction.customId === "Profile" + interaction.user.id)
         {
-        if(!userDiamondID.includes(interaction.user.id)){}
-        else{
-        let avatar = interaction.user.avatarURL();
-        var stuff = "";
-
-        var place = userDiamondID.indexOf(interaction.user.id);
-        console.log(place);
-        console.log(userGenre[place]);
-        console.log(userTaille[place]);
-        console.log(userBalance[place]);
-        let Ch =0;
-        let Rg = 0;
-        let Sc = 0;
-        let Bk = 0;
-        let Rs = 0;
-        let Kf = 0;
-        let Tb = 0;
-        let FrT =0;
-        
-        while(userOwnedChocolate[place] > Ch)
-        {
-            stuff += "🍫  ";
-            Ch++
-        }
-        while(userOwnedBook[place] > Bk)
-        {
-            stuff += "📔  ";
-            Bk++
-        }
-        while(userOwnedScarf[place] > Sc)
-        {
-            stuff += "🧣  ";
-            Sc++
-        }
-        while(userOwnedRing[place] > Rg)
-        {
-            stuff += "💍  ";
-            Rg++
-        }
-        while(userOwnedRose[place] > Rs)
-        {
-            stuff += "🌹  ";
-            Rs++
-        }
-        while(userOwnedKnife[place] > Kf)
-        {
-            stuff += "🔪  ";
-            Kf++
-        }
-        while(userOwnedTeddyBear[place] > Tb)
-        {
-            stuff += "🧸  ";
-            Tb++
-        }
-        while(userFreeRentTicket[place] > FrT)
-        {
-            stuff += "🎟️  ";
-            FrT++;
-        }
-        
-        const Profile = new Discord.MessageEmbed()
-            .setColor("843dff")
-            .setTitle("ダイヤモンド - DIAMOND")
-            .setDescription("*Profil de " + interaction.user.username + "*")
-            .setThumbnail(avatar)
-            .addField("Genre :", userGenre[place])
-            .addField("Taile :", userTaille[place].toString() + " cm")
-            .addField("Porte-Feuille :", userBalance[place].toString() + " :yen:")
-            .setFooter("Diamond Inc. © - Bringing the best for you")
-            .setTimestamp();
-
-        if(userOwnedChocolate[place] > 0 || userOwnedBook[place] > 0 || userOwnedScarf[place] > 0 || userOwnedRing[place] > 0 || userOwnedRose[place] > 0 || userOwnedKnife[place] > 0 || userOwnedTeddyBear > 0 || userFreeRentTicket[place] > 0)
-        {
-            Profile.addField("Inventaire :", stuff);
-        }  
-        if(userLovePoint[place] > 0)
-        {
-            Profile.addField("Love Points :", userLovePoint[place].toString());
-        }
-
-        var NavigationP = new Discord.MessageActionRow()
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("ConnectC" + interaction.user.id)
-                .setLabel("Back Home")
-                .setStyle("SUCCESS")
-                .setEmoji("🏡"))
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("Succes" + interaction.user.id)
-                .setLabel("Back Home")
-                .setStyle("SUCCESS")
-                .setEmoji("🏆"))
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("Disconnect" + interaction.user.id)
-                .setLabel("Exit")
-                .setStyle("SECONDARY")
-                .setEmoji("❌"));
-            
-        await interaction.update({content: "*Your phone is displaying this...*", embeds:[Profile], components: [NavigationP]});
-    }}
-    else if(interaction.customId === "GF" + interaction.user.id || interaction.customId === "Nxt" + interaction.user.id || interaction.customId === "Prv" + interaction.user.id)
-    {
-
-        if(interaction.customId === "Nxt" + interaction.user.id){indexGF++;}
-        else if(interaction.customId === "Prv" + interaction.user.id){indexGF--;}
-        var indexUser = userDiamondID.indexOf(interaction.user.id);
-        if (indexGF >= nameGF.length) { indexGF = 0 }
-        else if (indexGF < 0) {  indexGF = nameGF.length - 1}
-        console.log(indexGF, imageGF[indexGF]);
-        feelingGF = "Neutral";
-
-        const GF = new Discord.MessageEmbed()
-            .setColor("843dff")
-            .setTitle("ダイヤモンド - DIAMOND")
-            .addField("Name:", nameGF[indexGF])
-            .addField("Gender:", genderGF[indexGF])
-            .addField("Age:", ageGF[indexGF])
-            .addField("Height:", heightGF[indexGF])
-            .addField("Personnality:", personnalityGF[indexGF])
-            .setImage(imageGF[indexGF])
-            .addField("Rental Price (per hour):", priceGF[indexGF] + " :yen:")
-            .addField('Rented by:', rentedGF[indexGF])
-            .setFooter("Diamond Inc. © - Bringing the best for you")
-            .setTimestamp();
-
-        if(ownedbyGF[indexGF] != "No one")
-        {
-            GF.addField("Owned by:", ownedbyGF[indexGF]);
-        }
-           
-        var NavigationGF = new Discord.MessageActionRow()
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("Prv" + interaction.user.id)
-                .setLabel("PREVIOUS")
-                .setStyle("SECONDARY")
-                .setEmoji("◀"));
-            if(userFreeRentTicket[indexUser] > 0)
+            if(userDiamondID.includes(interaction.user.id))
             {
-                NavigationGF.addComponents(new Discord.MessageButton()
-                .setCustomId("RentGF" + interaction.user.id)
-                .setLabel("FREE RENT !")
-                .setStyle("SUCCESS")
-                .setEmoji("🎟️"));
+                let avatar = interaction.user.avatarURL();
+                var stuff = "";
+
+                var place = userDiamondID.indexOf(interaction.user.id);
+                console.log(place);
+                console.log(userGenre[place]);
+                console.log(userTaille[place]);
+                console.log(userBalance[place]);
+                let Ch = 0;
+                let Rg = 0;
+                let Sc = 0;
+                let Bk = 0;
+                let Rs = 0;
+                let Kf = 0;
+                let Tb = 0;
+                let FrT =0;
+                
+                while(userOwnedChocolate[place] > Ch)
+                {
+                    stuff += "🍫  ";
+                    Ch++;
+                }
+                while(userOwnedBook[place] > Bk)
+                {
+                    stuff += "📔  ";
+                    Bk++;
+                }
+                while(userOwnedScarf[place] > Sc)
+                {
+                    stuff += "🧣  ";
+                    Sc++;
+                }
+                while(userOwnedRing[place] > Rg)
+                {
+                    stuff += "💍  ";
+                    Rg++;
+                }
+                while(userOwnedRose[place] > Rs)
+                {
+                    stuff += "🌹  ";
+                    Rs++;
+                }
+                while(userOwnedKnife[place] > Kf)
+                {
+                    stuff += "🔪  ";
+                    Kf++;
+                }
+                while(userOwnedTeddyBear[place] > Tb)
+                {
+                    stuff += "🧸  ";
+                    Tb++;
+                }
+                while(userFreeRentTicket[place] > FrT)
+                {
+                    stuff += "🎟️  ";
+                    FrT++;
+                }
+                
+                const Profile = new Discord.MessageEmbed()
+                    .setColor("843dff")
+                    .setTitle("ダイヤモンド - DIAMOND")
+                    .setDescription("*Profil de " + interaction.user.username + "*")
+                    .setThumbnail(avatar)
+                    .addField("Genre :", userGenre[place])
+                    .addField("Taile :", userTaille[place].toString() + " cm")
+                    .addField("Porte-Feuille :", userBalance[place].toString() + " :yen:")
+                    .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
+                    .setTimestamp();
+
+                if(userOwnedChocolate[place] || userOwnedBook[place] || userOwnedScarf[place] || userOwnedRing[place] || userOwnedRose[place] || userOwnedKnife[place] || userOwnedTeddyBear || userFreeRentTicket[place])
+                    Profile.addField("Inventaire :", stuff);
+
+                if(userLovePoint[place])
+                    Profile.addField("Love Points :", userLovePoint[place].toString());
+
+                var NavigationP = new Discord.MessageActionRow()
+                    .addComponents(new Discord.MessageButton()
+                        .setCustomId("ConnectC" + interaction.user.id)
+                        .setLabel("Back Home")
+                        .setStyle("SUCCESS")
+                        .setEmoji("🏡"))
+                    .addComponents(new Discord.MessageButton()
+                        .setCustomId("Succes" + interaction.user.id)
+                        .setLabel("Back Home")
+                        .setStyle("SUCCESS")
+                        .setEmoji("🏆"))
+                    .addComponents(new Discord.MessageButton()
+                        .setCustomId("Disconnect" + interaction.user.id)
+                        .setLabel("Exit")
+                        .setStyle("SECONDARY")
+                        .setEmoji("❌"));
+                    
+                await interaction.update({content: "*Your phone is displaying this...*", embeds:[Profile], components: [NavigationP]});
             }
-            else
-            {
-            NavigationGF.addComponents(new Discord.MessageButton()
-                .setCustomId("RentGF" + interaction.user.id)
-                .setLabel("RENT HER !")
-                .setStyle("SUCCESS")
-                .setEmoji("💲"));
-            }
-            if(userLovePoint[indexUser] >= priceGFLP[indexGF] && ownedbyGF[indexGF] === "No one")
-            {
-                NavigationGF.addComponents(new Discord.MessageButton()
-                    .setCustomId("Marry" + interaction.user.id)
-                    .setLabel("MARRY HER")
-                    .setStyle("DANGER")
-                    .setEmoji("👰"));
-            }
-            NavigationGF.addComponents(new Discord.MessageButton()
-                .setCustomId("Nxt" + interaction.user.id)
-                .setLabel("NEXT")
-                .setStyle("SECONDARY")
-                .setEmoji("▶")); 
-        var HomeGF = new Discord.MessageActionRow()
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("ConnectC" + interaction.user.id)
-                .setLabel("Back Home Page")
-                .setStyle("PRIMARY")
-                .setEmoji("🏡"));
-
-        
-
-        await interaction.update({content: "*Your phone is displaying this...*", embeds:[GF], components: [NavigationGF, HomeGF]});
-    }
-    else if(interaction.customId === "RentGF" + interaction.user.id)
-    {
-        var index = userDiamondID.indexOf(interaction.user.id);
-        console.log(index);
-        console.log(userBalance[index]);
-        if(ownedbyGFuserDiamondID[indexGF] === interaction.user.id)
-        {
-            paidDateUser[index] = 1;
         }
-        else if(userFreeRentTicket[index] > 0 && !paidDateUser[index])
+        else if(interaction.customId === "GF" + interaction.user.id || interaction.customId === "Nxt" + interaction.user.id || interaction.customId === "Prv" + interaction.user.id)
         {
-            paidDateUser[index] = 1;
-            userFreeRentTicket[index]--;
-        }
-        else if(userBalance[index] >= priceGF[indexGF] && !paidDateUser[index])
-        {
-            paidDateUser[index] = 1;
-            userBalance[index] -= priceGF[indexGF];
+            //modulo
+            if(interaction.customId === "Nxt" + interaction.user.id){indexGF++;}
+            else if(interaction.customId === "Prv" + interaction.user.id){indexGF--;}
+            var indexUser = userDiamondID.indexOf(interaction.user.id);
+            if (indexGF >= nameGF.length) { indexGF = 0 }
+            else if (indexGF < 0) {  indexGF = nameGF.length - 1}
+            console.log(indexGF, imageGF[indexGF]);
+            feelingGF = "Neutral";
 
-            if(ownedbyGFuserDiamondID[indexGF] != "None")
-            {
-                var idUsrtmp = ownedbyGFuserDiamondID[indexGF];
-                var idUsr = userDiamondID.indexOf(idUsrtmp);
-                userBalance[idUsr] = userBalance[idUsr] + priceGF[indexGF]/2;
-            };
-        }
-        if(paidDateUser[index] == 1)
-        {   
-            rentedGF[indexGF] = interaction.user.username;
-
-            const RGF = new Discord.MessageEmbed()
+            const GF = new Discord.MessageEmbed()
                 .setColor("843dff")
-                .setTitle("ダイヤモンド - DIAMOND - Date overview ")
-                .addField("Purchase:", "You have rented " + nameGF[indexGF] + " for one hour.")
-                .addField("Paiement Recap:", priceGF[indexGF] + " :yen:")
+                .setTitle("ダイヤモンド - DIAMOND")
+                .addField("Name:", nameGF[indexGF])
+                .addField("Gender:", genderGF[indexGF])
+                .addField("Age:", ageGF[indexGF])
+                .addField("Height:", heightGF[indexGF])
+                .addField("Personnality:", personnalityGF[indexGF])
+                .setImage(imageGF[indexGF])
+                .addField("Rental Price (per hour):", priceGF[indexGF] + " :yen:")
                 .addField('Rented by:', rentedGF[indexGF])
                 .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
                 .setTimestamp();
-            
-            switch(feelingGF)
+
+            if(ownedbyGF[indexGF] != "No one")
             {
-                case 'Neutral':
-                    RGF.setDescription(nameGF[indexGF] + " sort avec vous !");
-                    RGF.setImage(rentedImageGF[indexGF]);
+                GF.addField("Owned by:", ownedbyGF[indexGF]);
+            }
+            
+            var NavigationGF = new Discord.MessageActionRow()
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("Prv" + interaction.user.id)
+                    .setLabel("PREVIOUS")
+                    .setStyle("SECONDARY")
+                    .setEmoji("◀"));
+                if(userFreeRentTicket[indexUser] > 0)
+                {
+                    NavigationGF.addComponents(new Discord.MessageButton()
+                    .setCustomId("RentGF" + interaction.user.id)
+                    .setLabel("FREE RENT !")
+                    .setStyle("SUCCESS")
+                    .setEmoji("🎟️"));
+                }
+                else
+                {
+                NavigationGF.addComponents(new Discord.MessageButton()
+                    .setCustomId("RentGF" + interaction.user.id)
+                    .setLabel("RENT HER !")
+                    .setStyle("SUCCESS")
+                    .setEmoji("💲"));
+                }
+                if(userLovePoint[indexUser] >= priceGFLP[indexGF] && ownedbyGF[indexGF] === "No one")
+                {
+                    NavigationGF.addComponents(new Discord.MessageButton()
+                        .setCustomId("Marry" + interaction.user.id)
+                        .setLabel("MARRY HER")
+                        .setStyle("DANGER")
+                        .setEmoji("👰"));
+                }
+                NavigationGF.addComponents(new Discord.MessageButton()
+                    .setCustomId("Nxt" + interaction.user.id)
+                    .setLabel("NEXT")
+                    .setStyle("SECONDARY")
+                    .setEmoji("▶")); 
+            var HomeGF = new Discord.MessageActionRow()
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("ConnectC" + interaction.user.id)
+                    .setLabel("Back Home Page")
+                    .setStyle("PRIMARY")
+                    .setEmoji("🏡"));
+
+            
+
+            await interaction.update({content: "*Your phone is displaying this...*", embeds:[GF], components: [NavigationGF, HomeGF]});
+        }
+        else if(interaction.customId === "RentGF" + interaction.user.id)
+        {
+            var index = userDiamondID.indexOf(interaction.user.id);
+            console.log(index);
+            console.log(userBalance[index]);
+            if(ownedbyGFuserDiamondID[indexGF] === interaction.user.id)
+            {
+                paidDateUser[index] = 1;
+            }
+            else if(userFreeRentTicket[index] > 0 && !paidDateUser[index])
+            {
+                paidDateUser[index] = 1;
+                userFreeRentTicket[index]--;
+            }
+            else if(userBalance[index] >= priceGF[indexGF] && !paidDateUser[index])
+            {
+                paidDateUser[index] = 1;
+                userBalance[index] -= priceGF[indexGF];
+
+                if(ownedbyGFuserDiamondID[indexGF] != "None")
+                {
+                    var idUsrtmp = ownedbyGFuserDiamondID[indexGF];
+                    var idUsr = userDiamondID.indexOf(idUsrtmp);
+                    userBalance[idUsr] += (priceGF[indexGF]/2);
+                };
+            }
+            if(paidDateUser[index])
+            {   
+                rentedGF[indexGF] = interaction.user.username;
+
+                const RGF = new Discord.MessageEmbed()
+                    .setColor("843dff")
+                    .setTitle("ダイヤモンド - DIAMOND - Date overview ")
+                    .addField("Purchase:", "You have rented " + nameGF[indexGF] + " for one hour.")
+                    .addField("Paiement Recap:", priceGF[indexGF] + " :yen:")
+                    .addField('Rented by:', rentedGF[indexGF])
+                    .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
+                    .setTimestamp();
+                
+                switch(feelingGF)
+                {
+                    case 'Neutral':
+                        RGF.setDescription(nameGF[indexGF] + " sort avec vous !");
+                        RGF.setImage(rentedImageGF[indexGF]);
+                        break
+                    case 'Happy':
+                        RGF.setDescription(nameGF[indexGF] + " est heureuse de passer ce moment avec vous !");
+                        RGF.setImage(rentedImageGFHappy[indexGF]);
+                        break
+                    case 'Angry':
+                        RGF.setDescription(nameGF[indexGF] + " semble confuse...");
+                        RGF.setImage(rentedImageGFAngry[indexGF]);
+                        break
+                    default:
+                        break
+                }
+
+                var BackHome = new Discord.MessageActionRow()
+                    .addComponents(new Discord.MessageButton()
+                        .setCustomId("Gift" + interaction.user.id)
+                        .setLabel("Give a present")
+                        .setStyle("PRIMARY")
+                        .setEmoji("🎁"))
+                if(userOwnedRose[index] > 0 || userOwnedKnife[index] > 0 || userOwnedTeddyBear[index] > 0)
+                {
+                    BackHome.addComponents(new Discord.MessageButton()
+                        .setCustomId("GiftA" + interaction.user.id)
+                        .setLabel("Give an awkward present")
+                        .setStyle("DANGER")
+                        .setEmoji("🎒"))
+                }
+                        BackHome.addComponents(new Discord.MessageButton()
+                        .setCustomId("ConnectC" + interaction.user.id)
+                        .setLabel("Back Home Page")
+                        .setStyle("SUCCESS")
+                        .setEmoji("🏡"));
+                
+            await interaction.update({content: "*I'm yours now...*", embeds:[RGF], components: [BackHome]});
+            }
+            else
+            {
+                var BackHome = new Discord.MessageActionRow()
+                    .addComponents(new Discord.MessageButton()
+                        .setCustomId("ConnectC" + interaction.user.id)
+                        .setLabel("Back Home Page")
+                        .setStyle("SUCCESS")
+                        .setEmoji("🏡"));
+                
+                await interaction.update({content: "*Not enough money, maybe you can think by yousrself finding a way to earn some money.*", embeds:[], components: [BackHome]});
+            }
+        }
+        else if(interaction.customId === "Shop" + interaction.user.id)
+        {
+            var indexDiamondUser = userDiamondID.indexOf(interaction.user.id);
+
+            const Profile = new Discord.MessageEmbed()
+                .setColor("843dff")
+                .setTitle("ダイヤモンド - DIAMOND")
+                .setDescription("Bienvenue au magasin DIAMOND Corp.\n*Ici, vous pouvez acheter toutes sortes d'articles directement depuis votre smartphone.*\n***Aucun remboursement possible***")
+                .setThumbnail("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoxETY5SVyRHCp_uegfkPgmKB5GeIgJUtC-1V7H2kdHnG9L7IsDRwpUCvW7b3YSpHuupA&usqp=CAU")
+                .addField("Article 1 : :chocolate_bar:", "Description : Une tablette de chocolat au lait, 250g.\nPrix : 2000 :yen:")
+                .addField("Article 2 : :notebook_with_decorative_cover:", "Description : Un livre sur l'histoire contemporaine du Japon. Plutôt ennuyant...\nPrix : 4000 :yen:")
+                .addField("Article 3 : :scarf:", "Description : Une belle écharpe rouge vif.\nPrix : 7000 :yen:")
+                .addField("Article 4 : :ring:", "Description : Une magnifique bague, ornée d'une pierre précieuse rare.\nPrix : 10.000 :yen:")
+                .addField("Porte-Monnaie :", userBalance[indexDiamondUser] + " :yen:")
+                .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
+                .setTimestamp();
+
+            var NavigationP = new Discord.MessageActionRow()
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("Chocolate" + interaction.user.id)
+                    .setLabel("Buy 1")
+                    .setStyle("PRIMARY")
+                    .setEmoji("🍫"))
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("Book" + interaction.user.id)
+                    .setLabel("Buy 1")
+                    .setStyle("PRIMARY")
+                    .setEmoji("📔"))
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("Scarf" + interaction.user.id)
+                    .setLabel("Buy 1")
+                    .setStyle("PRIMARY")
+                    .setEmoji("🧣"))
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("Ring" + interaction.user.id)
+                    .setLabel("Buy 1")
+                    .setStyle("PRIMARY")
+                    .setEmoji("💍"))
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("ConnectC" + interaction.user.id)
+                    .setLabel("Back Home")
+                    .setStyle("SUCCESS")
+                    .setEmoji("🏡"));
+                
+            await interaction.update({content: "*Your phone is displaying this...*", embeds:[Profile], components: [NavigationP]});
+        }
+        else if(interaction.customId === "Chocolate" + interaction.user.id || interaction.customId === "Book" + interaction.user.id || interaction.customId === "Scarf" + interaction.user.id || interaction.customId === "Ring" + interaction.user.id)
+        {
+            var indexDiamondUser = userDiamondID.indexOf(interaction.user.id);
+            const achat = new Discord.MessageEmbed()
+                .setColor("843dff")
+                .setTitle("ダイヤモンド - DIAMOND")
+                .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
+                .setTimestamp();
+
+            if(interaction.customId.startsWith('Chocolate'))
+            {
+                if(userBalance[indexDiamondUser] >= 2000)
+                {
+                    userBalance[indexDiamondUser] -= 2000;
+                    achat.setDescription("DIAMOND Corp. vous remercie de votre achat.\nDétails de votre commission :");
+                    achat.addField("Article acheté :", "1 tablette de chocolat 🍫");
+                    achat.addField("Porte-Monnaie :", userBalance[indexDiamondUser] + " :yen:");
+                    userOwnedChocolate[indexDiamondUser]++; 
+                    if(userOwnedChocolate[indexDiamondUser] == 10){addSecretGirl("Itsuki Nakano");}
+                }
+                else{achat.setDescription("Une erreur s'est produite lors de la transaction entre votre banque et DIAMOND Corp.\nVotre achat a été annulé...");}
+            }
+            else if(interaction.customId.startsWith('Book'))
+            {
+                if(userBalance[indexDiamondUser] >= 4000)
+                {
+                    userBalance[indexDiamondUser] -= 4000;
+                    achat.setDescription("DIAMOND Corp. vous remercie de votre achat.\nDétails de votre commission :");
+                    achat.addField("Article acheté :", "1 livre d'histoire 📔");
+                    achat.addField("Porte-Monnaie :", userBalance[indexDiamondUser] + " :yen:");
+                    userOwnedBook[indexDiamondUser]++;
+                    if(userOwnedBook[indexDiamondUser] == 10){addSecretGirl("Yukino Yukinoshita");} 
+                }
+                else{achat.setDescription("Une erreur s'est produite lors de la transaction entre votre banque et DIAMOND Corp.\nVotre achat a été annulé...");}
+            }
+            else if(interaction.customId.startsWith('Scarf'))
+            {
+                if(userBalance[indexDiamondUser] >= 7000)
+                {
+                    userBalance[indexDiamondUser] -= 7000;
+                    achat.setDescription("DIAMOND Corp. vous remercie de votre achat.\nDétails de votre commission :");
+                    achat.addField("Article acheté :", "1 écharpe rouge :scarf:");
+                    achat.addField("Porte-Monnaie :", userBalance[indexDiamondUser] + " :yen:");
+                    userOwnedScarf[indexDiamondUser]++;
+                }
+                else{achat.setDescription("Une erreur s'est produite lors de la transaction entre votre banque et DIAMOND Corp.\nVotre achat a été annulé...");}
+            }
+            else if(interaction.customId.startsWith('Ring'))
+            {
+                if(userBalance[indexDiamondUser] >= 10000)
+                {
+                    userBalance[indexDiamondUser] -= 10000;
+                    achat.setDescription("DIAMOND Corp. vous remercie de votre achat.\nDétails de votre commission :");
+                    achat.addField("Article acheté :", "1 magnifique bague :ring:");
+                    achat.addField("Porte-Monnaie :", userBalance[indexDiamondUser] + " :yen:");
+                    userOwnedRing[indexDiamondUser]++; 
+                }
+                else{achat.setDescription("Une erreur s'est produite lors de la transaction entre votre banque et DIAMOND Corp.\nVotre achat a été annulé...");}
+            }
+            else 
+            {
+                achat.setDescription("Une erreur s'est produite lors de la transaction entre votre banque et DIAMOND Corp.\nVotre achat a été annulé...");
+            }
+
+            var shopB = new Discord.MessageActionRow()
+            .addComponents(new Discord.MessageButton()
+                    .setCustomId("Shop" + interaction.user.id)
+                    .setLabel("Back to Shop")
+                    .setStyle("DANGER")
+                    .setEmoji("🛒"))
+            .addComponents(new Discord.MessageButton()
+                    .setCustomId("ConnectC" + interaction.user.id)
+                    .setLabel("Back Home")
+                    .setStyle("SUCCESS")
+                    .setEmoji("🏡"));
+
+            await interaction.update({content: "*Your phone is displaying this...*", embeds:[achat], components: [shopB]});
+        }
+        else if(interaction.customId === "Gift" + interaction.user.id)
+        {
+            var stuff = "";
+            var place = userDiamondID.indexOf(interaction.user.id);
+            let Ch = 0;
+            let Rg = 0;
+            let Sc = 0;
+            let Bk = 0;
+
+            var ChooseG = new Discord.MessageActionRow();
+
+            if(userOwnedChocolate[place] > Ch){
+            ChooseG.addComponents(new Discord.MessageButton()
+                .setCustomId("ChocolateG" + interaction.user.id)
+                .setLabel("Offer 1")
+                .setStyle("PRIMARY")
+                .setEmoji("🍫"))
+                while(userOwnedChocolate[place] > Ch)
+                {
+                stuff += "🍫  ";
+                Ch++;
+                }}
+
+            if(userOwnedBook[place] > Bk){
+            ChooseG.addComponents(new Discord.MessageButton()
+                .setCustomId("BookG" + interaction.user.id)
+                .setLabel("Offer 1")
+                .setStyle("PRIMARY")
+                .setEmoji("📔"))
+                while(userOwnedBook[place] > Bk)
+                {
+                stuff += "📔  ";
+                Bk++;
+                }}
+            
+            if(userOwnedScarf[place] > Sc){
+            ChooseG.addComponents(new Discord.MessageButton()
+                .setCustomId("ScarfG" + interaction.user.id)
+                .setLabel("Offer 1")
+                .setStyle("PRIMARY")
+                .setEmoji("🧣"))
+                while(userOwnedScarf[place] > Sc)
+                {
+                stuff += "🧣  ";
+                Sc++;
+                }}
+            
+            if(userOwnedRing[place] > Rg){
+            ChooseG.addComponents(new Discord.MessageButton()
+                .setCustomId("RingG" + interaction.user.id)
+                .setLabel("Offer 1")
+                .setStyle("PRIMARY")
+                .setEmoji("💍"))
+                while(userOwnedRing[place] > Rg)
+                {
+                stuff += "💍  ";
+                Rg++;
+                }}
+
+            const Profile = new Discord.MessageEmbed()
+                .setColor("843dff")
+                .setTitle("ダイヤモンド - DIAMOND")
+                .setDescription("Vous êtes sur le point d'offrir un cadeau à " + nameGF[indexGF] + ".")
+                .setThumbnail(ppGF[indexGF])
+                .setFooter("Diamond Inc. © - Bringing the best for you")
+                .setTimestamp();
+
+            ChooseG.addComponents(new Discord.MessageButton()
+                    .setCustomId("RentGF" + interaction.user.id)
+                    .setLabel("Back to Date")
+                    .setStyle("SUCCESS")
+                    .setEmoji("🌆"));
+
+            if(userOwnedChocolate[place] > 0 || userOwnedBook[place] > 0 || userOwnedScarf[place] > 0 || userOwnedRing[place] > 0)
+            {
+                Profile.addField("Inventaire", stuff);
+            }
+            else{Profile.addField("Inventaire", "Vous ne possédez rien...");}
+                
+            await interaction.update({content: "*You seem to hesitate...*", embeds:[Profile], components: [ChooseG]});
+        }
+        else if(interaction.customId === "ChocolateG" + interaction.user.id || interaction.customId === "BookG" + interaction.user.id || interaction.customId === "ScarfG" + interaction.user.id || interaction.customId === "RingG" + interaction.user.id || interaction.customId === "RoseG" + interaction.user.id || interaction.customId === "KnifeG" + interaction.user.id || interaction.customId === "TeddyBearG" + interaction.user.id )
+        {   
+            paidDateUser[userDiamondID.indexOf(interaction.user.id)] = 1; // useless ?
+            if(interaction.customId.startsWith('ChocolateG'))
+            {
+                feelingGFtmp = likeChocolate[indexGF];
+                gift = "du chocolat";
+            }
+            else if(interaction.customId.startsWith('BookG'))
+            {
+                feelingGFtmp = likeBook[indexGF];
+                gift = "un livre";
+            }   
+            else if(interaction.customId.startsWith('ScarfG'))
+            {
+                feelingGFtmp = likeScarf[indexGF];
+                gift = "une écharpe";
+            } 
+            else if(interaction.customId.startsWith('RingG'))
+            {
+                feelingGFtmp = likeRing[indexGF];
+                gift = "une bague";
+            }
+            else if(interaction.customId.startsWith('RoseG'))
+            {
+                feelingGFtmp = likeRose[indexGF];
+                gift = "une rose";
+            }
+            else if(interaction.customId.startsWith('KnifeG'))
+            {
+                feelingGFtmp = likeKnife[indexGF];
+                gift = "un couteau";
+            }
+            else if(interaction.customId.startsWith('TeddyBearG'))
+            {
+                feelingGFtmp = likeTeddyBear[indexGF];
+                gift = "une peluche";
+            }  
+            const giftC = new Discord.MessageEmbed()
+                .setColor("843dff")
+                .setTitle("ダイヤモンド - DIAMOND")
+                .setDescription("Voulez-vous vraiment offrir " + gift + " à " + nameGF[indexGF] + " ?")
+                .setThumbnail(ppGF[indexGF])
+                .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
+                .setTimestamp();
+
+            var confirmGift = new Discord.MessageActionRow()
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("ConfirmGift" + interaction.user.id)
+                    .setLabel("Yes")
+                    .setStyle("SUCCESS")
+                    .setEmoji("✔"))
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("RentGF" + interaction.user.id)
+                    .setLabel("No, back to Date")
+                    .setStyle("SECONDARY")
+                    .setEmoji("❌"));
+
+            await interaction.update({content: "*You are hiding the gift behind your back, will you do it... ?*", embeds:[giftC], components: [confirmGift]});
+        }
+        else if(interaction.customId === "ConfirmGift" + interaction.user.id)
+        {
+            var place = userDiamondID.indexOf(interaction.user.id);
+            feelingGF = feelingGFtmp;
+            paidDateUser[place] = 1; // useless ?
+            if(feelingGF === "Happy")
+            {
+                var aleaLP = Math.floor(Math.random() * 4)+ 1;
+                userLovePoint[place] = aleaLP*(priceGF[indexGF]/2000) + userLovePoint[place];
+                console.log("LovePoint: " + userLovePoint[place] + " Alea: " + aleaLP);
+            }
+            
+            switch(gift){
+                case 'du chocolat':
+                    userOwnedChocolate[place]--;
                     break
-                case 'Happy':
-                    RGF.setDescription(nameGF[indexGF] + " est heureuse de passer ce moment avec vous !");
-                    RGF.setImage(rentedImageGFHappy[indexGF]);
+                case 'un livre':
+                    userOwnedBook[place]--;
                     break
-                case 'Angry':
-                    RGF.setDescription(nameGF[indexGF] + " semble confuse...");
-                    RGF.setImage(rentedImageGFAngry[indexGF]);
+                case 'une écharpe':
+                    userOwnedScarf[place]--;
+                    break
+                case 'une bague':
+                    userOwnedRing[place]--;
+                    break
+                case 'une rose':
+                    userOwnedRose[place]--;
+                    break
+                case 'un couteau':
+                    userOwnedKnife[place]--;
+                    break
+                case 'une peluche':
+                    userOwnedTeddyBear[place]--;
                     break
                 default:
                     break
             }
-
-            var BackHome = new Discord.MessageActionRow()
-                .addComponents(new Discord.MessageButton()
-                    .setCustomId("Gift" + interaction.user.id)
-                    .setLabel("Give a present")
-                    .setStyle("PRIMARY")
-                    .setEmoji("🎁"))
-            if(userOwnedRose[index] > 0 || userOwnedKnife[index] > 0 || userOwnedTeddyBear[index] > 0)
-            {
-                BackHome.addComponents(new Discord.MessageButton()
-                    .setCustomId("GiftA" + interaction.user.id)
-                    .setLabel("Give an awkward present")
-                    .setStyle("DANGER")
-                    .setEmoji("🎒"))
-            }
-                    BackHome.addComponents(new Discord.MessageButton()
-                    .setCustomId("ConnectC" + interaction.user.id)
-                    .setLabel("Back Home Page")
-                    .setStyle("SUCCESS")
-                    .setEmoji("🏡"));
+            const giftCD = new Discord.MessageEmbed()
+                .setColor("843dff")
+                .setTitle("ダイヤモンド - DIAMOND")
+                .setDescription("Vous avez offert " + gift + " à " + nameGF[indexGF] + ".")
+                .addField("Love point :", userLovePoint[place].toString()) // TESTO
+                .setThumbnail(ppGF[indexGF])
+                .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
+                .setTimestamp();
             
-        await interaction.update({content: "*I'm yours now...*", embeds:[RGF], components: [BackHome]});
-        }
-        else
-        {
-            var BackHome = new Discord.MessageActionRow()
-                .addComponents(new Discord.MessageButton()
-                    .setCustomId("ConnectC" + interaction.user.id)
-                    .setLabel("Back Home Page")
-                    .setStyle("SUCCESS")
-                    .setEmoji("🏡"));
-            
-            await interaction.update({content: "*Not enough money, maybe you can think by yousrself finding a way to earn some money.*", embeds:[], components: [BackHome]});
-        }
-    }
-    else if(interaction.customId === "Shop" + interaction.user.id)
-    {
-        var indexDiamondUser = userDiamondID.indexOf(interaction.user.id);
-
-        const Profile = new Discord.MessageEmbed()
-            .setColor("843dff")
-            .setTitle("ダイヤモンド - DIAMOND")
-            .setDescription("Bienvenue au magasin DIAMOND Corp.\n*Ici, vous pouvez acheter toutes sortes d'articles directement depuis votre smartphone.*\n***Aucun remboursement possible***")
-            .setThumbnail("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoxETY5SVyRHCp_uegfkPgmKB5GeIgJUtC-1V7H2kdHnG9L7IsDRwpUCvW7b3YSpHuupA&usqp=CAU")
-            .addField("Article 1 : :chocolate_bar:", "Description : Une tablette de chocolat au lait, 250g.\nPrix : 2000 :yen:")
-            .addField("Article 2 : :notebook_with_decorative_cover:", "Description : Un livre sur l'histoire contemporaine du Japon. Plutôt ennuyant...\nPrix : 4000 :yen:")
-            .addField("Article 3 : :scarf:", "Description : Une belle écharpe rouge vif.\nPrix : 7000 :yen:")
-            .addField("Article 4 : :ring:", "Description : Une magnifique bague, ornée d'une pierre précieuse rare.\nPrix : 10.000 :yen:")
-            .addField("Porte-Monnaie :", userBalance[indexDiamondUser] + " :yen:")
-            .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
-            .setTimestamp();
-
-        var NavigationP = new Discord.MessageActionRow()
+            var backDate = new Discord.MessageActionRow()
             .addComponents(new Discord.MessageButton()
-                .setCustomId("Chocolate" + interaction.user.id)
-                .setLabel("Buy 1")
-                .setStyle("PRIMARY")
-                .setEmoji("🍫"))
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("Book" + interaction.user.id)
-                .setLabel("Buy 1")
-                .setStyle("PRIMARY")
-                .setEmoji("📔"))
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("Scarf" + interaction.user.id)
-                .setLabel("Buy 1")
-                .setStyle("PRIMARY")
-                .setEmoji("🧣"))
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("Ring" + interaction.user.id)
-                .setLabel("Buy 1")
-                .setStyle("PRIMARY")
-                .setEmoji("💍"))
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("ConnectC" + interaction.user.id)
-                .setLabel("Back Home")
-                .setStyle("SUCCESS")
-                .setEmoji("🏡"));
-            
-        await interaction.update({content: "*Your phone is displaying this...*", embeds:[Profile], components: [NavigationP]});
-    }
-    else if(interaction.customId === "Chocolate" + interaction.user.id || interaction.customId === "Book" + interaction.user.id || interaction.customId === "Scarf" + interaction.user.id || interaction.customId === "Ring" + interaction.user.id)
-    {
-        var indexDiamondUser = userDiamondID.indexOf(interaction.user.id);
-        const achat = new Discord.MessageEmbed()
-            .setColor("843dff")
-            .setTitle("ダイヤモンド - DIAMOND")
-            .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
-            .setTimestamp();
-
-        if(interaction.customId.startsWith('Chocolate'))
-        {
-            if(userBalance[indexDiamondUser] >= 2000)
-            {
-                userBalance[indexDiamondUser] = userBalance[indexDiamondUser] - 2000;
-                achat.setDescription("DIAMOND Corp. vous remercie de votre achat.\nDétails de votre commission :");
-                achat.addField("Article acheté :", "1 tablette de chocolat 🍫");
-                achat.addField("Porte-Monnaie :", userBalance[indexDiamondUser] + " :yen:");
-                userOwnedChocolate[indexDiamondUser] = userOwnedChocolate[indexDiamondUser] + 1; 
-                if(userOwnedChocolate[indexDiamondUser] == 10){addSecretGirl("Itsuki Nakano");}
-            }
-            else{achat.setDescription("Une erreur s'est produite lors de la transaction entre votre banque et DIAMOND Corp.\nVotre achat a été annulé...");}
-        }
-        else if(interaction.customId.startsWith('Book'))
-        {
-            if(userBalance[indexDiamondUser] >= 4000)
-            {
-                userBalance[indexDiamondUser] = userBalance[indexDiamondUser] - 4000;
-                achat.setDescription("DIAMOND Corp. vous remercie de votre achat.\nDétails de votre commission :");
-                achat.addField("Article acheté :", "1 livre d'histoire 📔");
-                achat.addField("Porte-Monnaie :", userBalance[indexDiamondUser] + " :yen:");
-                userOwnedBook[indexDiamondUser] = userOwnedBook[indexDiamondUser] + 1;
-                if(userOwnedBook[indexDiamondUser] == 10){addSecretGirl("Yukino Yukinoshita");} 
-            }
-            else{achat.setDescription("Une erreur s'est produite lors de la transaction entre votre banque et DIAMOND Corp.\nVotre achat a été annulé...");}
-        }
-        else if(interaction.customId.startsWith('Scarf'))
-        {
-            if(userBalance[indexDiamondUser] >= 7000)
-            {
-                userBalance[indexDiamondUser] = userBalance[indexDiamondUser] - 7000;
-                achat.setDescription("DIAMOND Corp. vous remercie de votre achat.\nDétails de votre commission :");
-                achat.addField("Article acheté :", "1 écharpe rouge :scarf:");
-                achat.addField("Porte-Monnaie :", userBalance[indexDiamondUser] + " :yen:");
-                userOwnedScarf[indexDiamondUser] = userOwnedScarf[indexDiamondUser] + 1;
-            }
-            else{achat.setDescription("Une erreur s'est produite lors de la transaction entre votre banque et DIAMOND Corp.\nVotre achat a été annulé...");}
-        }
-        else if(interaction.customId.startsWith('Ring'))
-        {
-            if(userBalance[indexDiamondUser] >= 10000)
-            {
-                userBalance[indexDiamondUser] = userBalance[indexDiamondUser] - 10000;
-                achat.setDescription("DIAMOND Corp. vous remercie de votre achat.\nDétails de votre commission :");
-                achat.addField("Article acheté :", "1 magnifique bague :ring:");
-                achat.addField("Porte-Monnaie :", userBalance[indexDiamondUser] + " :yen:");
-                userOwnedRing[indexDiamondUser] = userOwnedRing[indexDiamondUser] + 1; 
-            }
-            else{achat.setDescription("Une erreur s'est produite lors de la transaction entre votre banque et DIAMOND Corp.\nVotre achat a été annulé...");}
-        }
-        else 
-        {
-            achat.setDescription("Une erreur s'est produite lors de la transaction entre votre banque et DIAMOND Corp.\nVotre achat a été annulé...");
-        }
-
-        var shopB = new Discord.MessageActionRow()
-        .addComponents(new Discord.MessageButton()
-                .setCustomId("Shop" + interaction.user.id)
-                .setLabel("Back to Shop")
-                .setStyle("DANGER")
-                .setEmoji("🛒"))
-        .addComponents(new Discord.MessageButton()
-                .setCustomId("ConnectC" + interaction.user.id)
-                .setLabel("Back Home")
-                .setStyle("SUCCESS")
-                .setEmoji("🏡"));
-
-        await interaction.update({content: "*Your phone is displaying this...*", embeds:[achat], components: [shopB]});
-    }
-    else if(interaction.customId === "Gift" + interaction.user.id)
-    {
-        var stuff = "";
-        var place = userDiamondID.indexOf(interaction.user.id);
-        let Ch = 0;
-        let Rg = 0;
-        let Sc = 0;
-        let Bk = 0;
-
-        var ChooseG = new Discord.MessageActionRow();
-
-        if(userOwnedChocolate[place] > Ch){
-        ChooseG.addComponents(new Discord.MessageButton()
-            .setCustomId("ChocolateG" + interaction.user.id)
-            .setLabel("Offer 1")
-            .setStyle("PRIMARY")
-            .setEmoji("🍫"))
-            while(userOwnedChocolate[place] > Ch)
-            {
-            stuff += "🍫  ";
-            Ch++
-            }}
-
-        if(userOwnedBook[place] > Bk){
-        ChooseG.addComponents(new Discord.MessageButton()
-            .setCustomId("BookG" + interaction.user.id)
-            .setLabel("Offer 1")
-            .setStyle("PRIMARY")
-            .setEmoji("📔"))
-            while(userOwnedBook[place] > Bk)
-            {
-            stuff += "📔  ";
-            Bk++
-            }}
-        
-        if(userOwnedScarf[place] > Sc){
-        ChooseG.addComponents(new Discord.MessageButton()
-            .setCustomId("ScarfG" + interaction.user.id)
-            .setLabel("Offer 1")
-            .setStyle("PRIMARY")
-            .setEmoji("🧣"))
-            while(userOwnedScarf[place] > Sc)
-            {
-            stuff += "🧣  ";
-            Sc++
-            }}
-        
-        if(userOwnedRing[place] > Rg){
-        ChooseG.addComponents(new Discord.MessageButton()
-            .setCustomId("RingG" + interaction.user.id)
-            .setLabel("Offer 1")
-            .setStyle("PRIMARY")
-            .setEmoji("💍"))
-            while(userOwnedRing[place] > Rg)
-            {
-            stuff += "💍  ";
-            Rg++
-            }}
-
-        const Profile = new Discord.MessageEmbed()
-            .setColor("843dff")
-            .setTitle("ダイヤモンド - DIAMOND")
-            .setDescription("Vous êtes sur le point d'offrir un cadeau à " + nameGF[indexGF] + ".")
-            .setThumbnail(ppGF[indexGF])
-            .setFooter("Diamond Inc. © - Bringing the best for you")
-            .setTimestamp();
-
-        ChooseG.addComponents(new Discord.MessageButton()
                 .setCustomId("RentGF" + interaction.user.id)
                 .setLabel("Back to Date")
-                .setStyle("SUCCESS")
+                .setStyle("SECONDARY")
                 .setEmoji("🌆"));
-
-        if(userOwnedChocolate[place] > 0 || userOwnedBook[place] > 0 || userOwnedScarf[place] > 0 || userOwnedRing[place] > 0)
-        {
-            Profile.addField("Inventaire", stuff);
-        }
-        else{Profile.addField("Inventaire", "Vous ne possédez rien...");}
             
-        await interaction.update({content: "*You seem to hesitate...*", embeds:[Profile], components: [ChooseG]});
-    }
-    else if(interaction.customId === "ChocolateG" + interaction.user.id || interaction.customId === "BookG" + interaction.user.id || interaction.customId === "ScarfG" + interaction.user.id || interaction.customId === "RingG" + interaction.user.id || interaction.customId === "RoseG" + interaction.user.id || interaction.customId === "KnifeG" + interaction.user.id || interaction.customId === "TeddyBearG" + interaction.user.id )
-    {   
-        paidDateUser[userDiamondID.indexOf(interaction.user.id)] = 1; // useless ?
-        if(interaction.customId.startsWith('ChocolateG'))
-        {
-            feelingGFtmp = likeChocolate[indexGF];
-            gift = "du chocolat";
+            await interaction.update({content: "*No one expects you doing this... Pretty courageous.*", embeds:[giftCD], components: [backDate]});
         }
-        else if(interaction.customId.startsWith('BookG'))
+        else if(interaction.customId === "Marry" + interaction.user.id)
         {
-            feelingGFtmp = likeBook[indexGF];
-            gift = "un livre";
-        }   
-        else if(interaction.customId.startsWith('ScarfG'))
-        {
-            feelingGFtmp = likeScarf[indexGF];
-            gift = "une écharpe";
-        } 
-        else if(interaction.customId.startsWith('RingG'))
-        {
-            feelingGFtmp = likeRing[indexGF];
-            gift = "une bague";
-        }
-        else if(interaction.customId.startsWith('RoseG'))
-        {
-            feelingGFtmp = likeRose[indexGF];
-            gift = "une rose";
-        }
-        else if(interaction.customId.startsWith('KnifeG'))
-        {
-            feelingGFtmp = likeKnife[indexGF];
-            gift = "un couteau";
-        }
-        else if(interaction.customId.startsWith('TeddyBearG'))
-        {
-            feelingGFtmp = likeTeddyBear[indexGF];
-            gift = "une peluche";
-        }  
-        const giftC = new Discord.MessageEmbed()
-            .setColor("843dff")
-            .setTitle("ダイヤモンド - DIAMOND")
-            .setDescription("Voulez-vous vraiment offrir " + gift + " à " + nameGF[indexGF] + " ?")
-            .setThumbnail(ppGF[indexGF])
-            .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
-            .setTimestamp();
+            let place = userDiamondID.indexOf(interaction.user.id);
+            let cout = (indexGF+1) * 100000;
 
-        var confirmGift = new Discord.MessageActionRow()
+            let marryP = new Discord.MessageEmbed()
+                .setColor("843dff")
+                .setTitle("ダイヤモンド - DIAMOND")
+                .setDescription("Vous êtes sur le point de vous marier avec " + nameGF[indexGF] + ".\n*N'oubliez pas la* :ring:*...* ")
+                .addField("Love points nécéssaires : " + priceGFLP[indexGF], "Vous avez : " + userLovePoint[place].toString())
+                .addField("Coût : " + cout, "Vous avez : " + userBalance[place].toString())
+                .setThumbnail("https://thedeadtoons.com/wp-content/uploads/2021/10/golden-time.jpg")
+                .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
+                .setTimestamp();
+
+            let marryB = new Discord.MessageActionRow()
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("Married" + interaction.user.id)
+                    .setLabel("Put the ring on her finger")
+                    .setStyle("SUCCESS")
+                    .setEmoji("💍"))
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("GF" + interaction.user.id)
+                    .setLabel("No way")
+                    .setStyle("DANGER")
+                    .setEmoji("💨"));
+
+            await interaction.update({content: "Ce jour va-t-il être un grand jour ?", embeds:[marryP], components: [marryB]});
+        }
+        else if(interaction.customId === "Married" + interaction.user.id && userOwnedRing[userDiamondID.indexOf(interaction.user.id)] > 0 && userBalance[userDiamondID.indexOf(interaction.user.id)] >= ((indexGF+1) * 100000))
+        {
+            ownedbyGF[indexGF] = interaction.user.username;
+            ownedbyGFuserDiamondID[indexGF] = interaction.user.id;
+            userLovePoint[userDiamondID.indexOf(interaction.user.id)] = userLovePoint[userDiamondID.indexOf(interaction.user.id)] - priceGFLP[indexGF];
+            userOwnedRing[userDiamondID.indexOf(interaction.user.id)] = userOwnedRing[userDiamondID.indexOf(interaction.user.id)] - 1;
+            userBalance[userDiamondID.indexOf(interaction.user.id)] = userBalance[userDiamondID.indexOf(interaction.user.id)] - ((indexGF+1) * 100000);
+
+            const marry = new Discord.MessageEmbed()
+                .setColor("843dff")
+                .setTitle("ダイヤモンド - DIAMOND")
+                .setDescription("Le mariage est une réussite !\n" + nameGF[indexGF] + " et vous êtes désormais unis par des liens inébranlables !")
+                .setImage(marryGF[indexGF])
+                .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
+                .setTimestamp();
+
+            var BackHomeM = new Discord.MessageActionRow()
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("ConnectC" + interaction.user.id)
+                    .setLabel("Clôturer la cérémonie")
+                    .setStyle("SUCCESS")
+                    .setEmoji("⛪"));
+
+            await interaction.update({content: "Félicitations", embeds:[marry], components: [BackHomeM]});
+        }
+        else if(interaction.customId === "Lottery" + interaction.user.id)
+        {
+            var place = userDiamondID.indexOf(interaction.user.id);
+            const Gacha = new Discord.MessageEmbed()
+                .setColor("843dff")
+                .setTitle("ダイヤモンド - DIAMOND")
+                .setDescription("*Bienvenue au Casino DIAMOND.Corp !\nVous pouvez tenter votre chance ici pour remporter de formidables gains et dépenser vos jetons dans la boutique DIAMOND*")
+                .setThumbnail("https://cdn.otakutale.com/wp-content/uploads/2022/01/Kanojo-Okarishimasu-Season-2-Slated-for-July-New-Visual-Promotional-Video-Revealed.jpg")
+                .addField("🎰 Lucky 7 :", "Tentez votre chance à la roulette ! Chaque Tirage coûte 10.000 :yen:, et de formidables lots sont à gagner !")
+                .addField("🎲 Jeu des dés :", "Pariez 15 jetons sur un chiffre du dé. Remportez 50 jetons si votre chiffre est le bon !")
+                .addField("🪙 Boutique de Jetons :", "Échangez vos jetons Casino-DIAMOND contre divers lots !")
+                .addField("Porte-Monnaie :", userBalance[place] + " :yen:")
+                .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
+                .setTimestamp();
+
+            var gachaOpt = new Discord.MessageActionRow();
+                if(userFreeCasinoTicket[place] > 0)
+                {   
+                    gachaOpt.addComponents(new Discord.MessageButton()
+                        .setCustomId("CasinoFree" + interaction.user.id)
+                        .setLabel("Free Lucky 7")
+                        .setStyle("SUCCESS")
+                        .setEmoji("🎫"));
+                }
+                else
+                {
+                    gachaOpt.addComponents(new Discord.MessageButton()
+                        .setCustomId("Casino" + interaction.user.id)
+                        .setLabel("Try Lucky 7")
+                        .setStyle("DANGER")
+                        .setEmoji("🎰"));
+                }
+                gachaOpt.addComponents(new Discord.MessageButton()
+                    .setCustomId("DiceGame" + interaction.user.id)
+                    .setLabel("Throw dice")
+                    .setStyle("PRIMARY")
+                    .setEmoji("🎲"))
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("CoinShop" + interaction.user.id)
+                    .setLabel("Coin Shop")
+                    .setStyle("SECONDARY")
+                    .setEmoji("🪙"))
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("ConnectC" + interaction.user.id)
+                    .setLabel("Back Home")
+                    .setStyle("SUCCESS")
+                    .setEmoji("🏡"));
+                
+            await interaction.update({content: "Un gacha, comme c'est étonnant...", embeds:[Gacha], components: [gachaOpt]});
+        }
+        else if((interaction.customId === "Casino" + interaction.user.id &&  userBalance[userDiamondID.indexOf(interaction.user.id)] > 9999) || interaction.customId === "CasinoFree" + interaction.user.id)
+        {
+            var casinoRoll = Math.floor(Math.random() * 100);
+            console.log("CasinoRoll alea : " + casinoRoll);
+            var place = userDiamondID.indexOf(interaction.user.id);
+
+            if(interaction.customId == "CasinoFree" + interaction.user.id)
+            {
+                userFreeCasinoTicket[place] --;
+                console.log(userFreeCasinoTicket[place]);
+            }
+            else
+            {
+                userBalance[place] -= 10000;
+            }
+
+            var casinoBtn = new Discord.MessageActionRow();
+            const pullREsult = new Discord.MessageEmbed()
+                .setColor("843dff")
+                .setTitle("ダイヤモンド - DIAMOND")
+                .setDescription("*Voici votre gain lors du tirage Lucky 7 !! N'hésitez pas à retenter votre chance pour de meilleurs lots !*")
+                .setThumbnail("https://m.media-amazon.com/images/I/71b6mIOpILL._AC_SY606_.jpg")
+                .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
+                .setTimestamp();
+
+            if(!casinoRoll)
+            {
+                pullREsult.addField("Vos gains :", "\n*Rien...*");
+                addSecretGirl("Aki Adagaki");
+            }
+            else if(casinoRoll < 7)
+            {
+                pullREsult.addField("Vos gains :", "\n5.000 :yen:");
+                userBalance[place] += 5000;
+            }
+            else if(casinoRoll < 12)
+            {
+                pullREsult.addField("Vos gains :", "\n9.999 :yen:");
+                userBalance[place] += 9999;
+            }
+            else if(casinoRoll < 16)
+            {
+                pullREsult.addField("Vos gains :", "\n16.666 :yen:");
+                userBalance[place] += 16666;
+            }
+            else if(casinoRoll < 19)
+            {
+                pullREsult.addField("Vos gains :", "\n25.000 :yen:");
+                userBalance[place] += 25000;
+            }
+            else if(casinoRoll < 21)
+            {
+                pullREsult.addField("Vos gains :", "\n77.777 :yen:");
+                userBalance[place] += 77777;
+            }
+            else if(casinoRoll < 22)
+            {
+                pullREsult.addField("Vos gains :", "\n**JACKPOT !** Vous avez gagné **500.000** :yen:");
+                userBalance[place] += 500000;
+            }
+            else if(casinoRoll < 28)
+            {
+                pullREsult.addField("Vos gains :", "\n1 🪙");
+                userCasinoToken[place]++;
+            }
+            else if(casinoRoll < 34)
+            {
+                pullREsult.addField("Vos gains :", "\n2 🪙");
+                userCasinoToken[place] += 2;
+            }
+            else if(casinoRoll < 39)
+            {
+                pullREsult.addField("Vos gains :", "\n3 🪙");
+                userCasinoToken[place] += 3;
+            }
+            else if(casinoRoll < 44)
+            {
+                pullREsult.addField("Vos gains :", "\n5 🪙");
+                userCasinoToken[place] += 5;
+            }
+            else if(casinoRoll < 48)
+            {
+                pullREsult.addField("Vos gains :", "\n10 🪙");
+                userCasinoToken[place] += 10;
+            }
+            else if(casinoRoll < 51)
+            {
+                pullREsult.addField("Vos gains :", "\n15 🪙");
+                userCasinoToken[place] += 15;
+            }
+            else if(casinoRoll < 54)
+            {
+                pullREsult.addField("Vos gains :", "\n25 🪙");
+                userCasinoToken[place] += 25;
+            }
+            else if(casinoRoll < 56)
+            {
+                pullREsult.addField("Vos gains :", "\n50 🪙");
+                userCasinoToken[place] += 50;
+            }
+            else if(casinoRoll < 57)
+            {
+                pullREsult.addField("Vos gains :", "\n**JACKPOT !** Vous avez gagné **500** 🪙");
+                userCasinoToken[place] += 500;
+            }
+            else if(casinoRoll < 59)
+            {
+                pullREsult.addField("Vos gains :", "\n1 🎟️ Ticket Location Offerte, à utiliser avec n'importe quelle fille disponible dans l'application DIAMOND !");
+                userFreeRentTicket[place]++;
+            }
+            else if(casinoRoll < 64)
+            {
+                pullREsult.addField("Vos gains :", "\n1 🎫 Ticket Tirage offert au Casino DIAMOND !");
+                userFreeCasinoTicket[place]++;
+            }
+            else if(casinoRoll < 67)
+            {
+                pullREsult.addField("Vos gains :", "\n2 🎫 Tickets Tirage offerts au Casino DIAMOND !");
+                userFreeCasinoTicket[place] += 2;
+            }
+            else if(casinoRoll < 69)
+            {
+                pullREsult.addField("Vos gains :", "\n5 🎫 Tickets Tirage offerts au Casino DIAMOND !");
+                userFreeCasinoTicket[place] += 5;
+            }
+            else if(casinoRoll < 73)
+            {
+                pullREsult.addField("Vos gains :", "\n2 🍫");
+                userOwnedChocolate[place] += 2;
+            }
+            else if(casinoRoll < 76)
+            {
+                pullREsult.addField("Vos gains :", "\n2 📔");
+                userOwnedBook[place] += 2;
+            }
+            else if(casinoRoll < 79)
+            {
+                pullREsult.addField("Vos gains :", "\n2 🧣");
+                userOwnedScarf[place] += 2;
+            }
+            else if(casinoRoll < 82)
+            {
+                pullREsult.addField("Vos gains :", "\n 💍");
+                userOwnedRing[place]++;
+            }
+            else if(casinoRoll < 84)
+            {
+                pullREsult.addField("Vos gains :", "\n1 🧸");
+                userOwnedTeddyBear[place]++;
+            }
+            else if(casinoRoll < 86)
+            {
+                pullREsult.addField("Vos gains :", "\n1 🔪");
+                userOwnedKnife[place]++;
+            }
+            else if(casinoRoll < 88)
+            {
+                pullREsult.addField("Vos gains :", "\n1 🌹");
+                userOwnedRose[place]++;
+            }
+            else if(casinoRoll < 90)
+            {
+                pullREsult.addField("Vos gains :", "\n**1 Pack St Valentin** ! Ce pack comprend les objets suivants : 🍫 + 🌹 + 💍");
+                userOwnedRing[place]++;
+                userOwnedRose[place]++;
+                userOwnedChocolate[place]++;
+            }
+            else if(casinoRoll < 92)
+            {
+                pullREsult.addField("Vos gains :", "\n**1 Pack Tuto Cuisine** ! Ce pack comprend les objets suivants : 🍫 + 🔪 + 📔");
+                userOwnedKnife[place]++;
+                userOwnedBook[place]++;
+                userOwnedChocolate[place]++;
+            }
+            else if(casinoRoll < 95)
+            {
+                pullREsult.addField("Vos gains :", "\n1 🪙 et 5.000 :yen:");
+                userBalance[place] += 5000;
+                userCasinoToken[place]++;
+            }
+            else if(casinoRoll < 97)
+            {
+                pullREsult.addField("Vos gains :", "\n3 🪙 et 10.000 :yen:");
+                userBalance[place] += 10000;
+                userCasinoToken[place] += 3;
+            }
+            else if(casinoRoll < 99)
+            {
+                pullREsult.addField("Vos gains :", "\n5 🪙 et 15.000 :yen:");
+                userBalance[place] += 15000;
+                userCasinoToken[place] += 5;
+            }
+            else
+            {
+                pullREsult.addField("Vos gains :", "\n33 🪙 et 33.333 :yen:");
+                userBalance[place] += 33333;
+                userCasinoToken[place] += 33;
+            }
+
+            if(userFreeCasinoTicket[place] > 0)
+                {   
+                    casinoBtn.addComponents(new Discord.MessageButton()
+                        .setCustomId("CasinoFree" + interaction.user.id)
+                        .setLabel("Free Lucky 7")
+                        .setStyle("SUCCESS")
+                        .setEmoji("🎫"));
+                }
+                else
+                {
+                    casinoBtn.addComponents(new Discord.MessageButton()
+                        .setCustomId("Casino" + interaction.user.id)
+                        .setLabel("Try again Lucky 7")
+                        .setStyle("DANGER")
+                        .setEmoji("🎰"));
+                }
+            casinoBtn.addComponents(new Discord.MessageButton()
+                .setCustomId("Lottery" + interaction.user.id)
+                .setLabel("Back Lottery Page")
+                .setStyle("PRIMARY")
+                .setEmoji("🎊"))
             .addComponents(new Discord.MessageButton()
-                .setCustomId("ConfirmGift" + interaction.user.id)
-                .setLabel("Yes")
-                .setStyle("SUCCESS")
-                .setEmoji("✔"))
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("RentGF" + interaction.user.id)
-                .setLabel("No, back to Date")
+                .setCustomId("Disconnect" + interaction.user.id)
+                .setLabel("Exit App")
                 .setStyle("SECONDARY")
                 .setEmoji("❌"));
 
-        await interaction.update({content: "*You are hiding the gift behind your back, will you do it... ?*", embeds:[giftC], components: [confirmGift]});
-    }
-    else if(interaction.customId === "ConfirmGift" + interaction.user.id)
-    {
-        var place = userDiamondID.indexOf(interaction.user.id);
-        feelingGF = feelingGFtmp;
-        paidDateUser[place] = 1; // useless ?
-        if(feelingGF === "Happy")
+            await interaction.update({content: "Un gacha, comme c'est étonnant...", embeds:[pullREsult], components: [casinoBtn]});
+
+        }
+        else if(interaction.customId === "DiceGame" + interaction.user.id || interaction.customId === "DiceGame1" + interaction.user.id)
         {
-            var aleaLP = Math.floor(Math.random() * 4)+ 1;
-            userLovePoint[place] = aleaLP*(priceGF[indexGF]/2000) + userLovePoint[place];
-            console.log("LovePoint: " + userLovePoint[place] + " Alea: " + aleaLP);
-        }
-        
-        switch(gift){
-            case 'du chocolat':
-                userOwnedChocolate[place]--;
-                break
-            case 'un livre':
-                userOwnedBook[place]--;
-                break
-            case 'une écharpe':
-                userOwnedScarf[place]--;
-                break
-            case 'une bague':
-                userOwnedRing[place]--;
-                break
-            case 'une rose':
-                userOwnedRose[place]--;
-                break
-            case 'un couteau':
-                userOwnedKnife[place]--;
-                break
-            case 'une peluche':
-                userOwnedTeddyBear[place]--;
-                break
-            default:
-                break
-        }
-        const giftCD = new Discord.MessageEmbed()
-            .setColor("843dff")
-            .setTitle("ダイヤモンド - DIAMOND")
-            .setDescription("Vous avez offert " + gift + " à " + nameGF[indexGF] + ".")
-            .addField("Love point :", userLovePoint[place].toString()) // TESTO
-            .setThumbnail(ppGF[indexGF])
-            .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
-            .setTimestamp();
-        
-        var backDate = new Discord.MessageActionRow()
-        .addComponents(new Discord.MessageButton()
-            .setCustomId("RentGF" + interaction.user.id)
-            .setLabel("Back to Date")
-            .setStyle("SECONDARY")
-            .setEmoji("🌆"));
-        
-        await interaction.update({content: "*No one expects you doing this... Pretty courageous.*", embeds:[giftCD], components: [backDate]});
-    }
-    else if(interaction.customId === "Marry" + interaction.user.id)
-    {
-        let place = userDiamondID.indexOf(interaction.user.id);
-        let cout = (indexGF+1) * 100000;
+            var place = userDiamondID.indexOf(interaction.user.id);
 
-        let marryP = new Discord.MessageEmbed()
-            .setColor("843dff")
-            .setTitle("ダイヤモンド - DIAMOND")
-            .setDescription("Vous êtes sur le point de vous marier avec " + nameGF[indexGF] + ".\n*N'oubliez pas la* :ring:*...* ")
-            .addField("Love points nécéssaires : " + priceGFLP[indexGF], "Vous avez : " + userLovePoint[place].toString())
-            .addField("Coût : " + cout, "Vous avez : " + userBalance[place].toString())
-            .setThumbnail("https://thedeadtoons.com/wp-content/uploads/2021/10/golden-time.jpg")
-            .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
-            .setTimestamp();
+            const diceG = new Discord.MessageEmbed()
+                .setColor("843dff")
+                .setTitle("ダイヤモンド - DIAMOND")
+                .setDescription("*Chaque lancer de dé coûte 15 🪙\nSi vous prédisez lequel des 6 chiffres va être obtenu au lancer du dé, vous remportez* ***50*** 🪙")
+                .setThumbnail("https://i.pinimg.com/originals/f9/ae/52/f9ae5279e198738ac1dab5bf36d2f337.jpg")
+                .addField("🎲 Valeur possible au dé :", "1 - 2 - 3 - 4 - 5 - 6")
+                .addField("🪙 possédé :", userCasinoToken[place].toString())
+                .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
+                .setTimestamp();
 
-        let marryB = new Discord.MessageActionRow()
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("Married" + interaction.user.id)
-                .setLabel("Put the ring on her finger")
-                .setStyle("SUCCESS")
-                .setEmoji("💍"))
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("GF" + interaction.user.id)
-                .setLabel("No way")
-                .setStyle("DANGER")
-                .setEmoji("💨"));
 
-        await interaction.update({content: "Ce jour va-t-il être un grand jour ?", embeds:[marryP], components: [marryB]});
-    }
-    else if(interaction.customId === "Married" + interaction.user.id && userOwnedRing[userDiamondID.indexOf(interaction.user.id)] > 0 && userBalance[userDiamondID.indexOf(interaction.user.id)] >= ((indexGF+1) * 100000))
-    {
-        ownedbyGF[indexGF] = interaction.user.username;
-        ownedbyGFuserDiamondID[indexGF] = interaction.user.id;
-        userLovePoint[userDiamondID.indexOf(interaction.user.id)] = userLovePoint[userDiamondID.indexOf(interaction.user.id)] - priceGFLP[indexGF];
-        userOwnedRing[userDiamondID.indexOf(interaction.user.id)] = userOwnedRing[userDiamondID.indexOf(interaction.user.id)] - 1;
-        userBalance[userDiamondID.indexOf(interaction.user.id)] = userBalance[userDiamondID.indexOf(interaction.user.id)] - ((indexGF+1) * 100000);
+            diceBtn = new Discord.MessageActionRow();
 
-        const marry = new Discord.MessageEmbed()
-            .setColor("843dff")
-            .setTitle("ダイヤモンド - DIAMOND")
-            .setDescription("Le mariage est une réussite !\n" + nameGF[indexGF] + " et vous êtes désormais unis par des liens inébranlables !")
-            .setImage(marryGF[indexGF])
-            .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
-            .setTimestamp();
-
-        var BackHomeM = new Discord.MessageActionRow()
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("ConnectC" + interaction.user.id)
-                .setLabel("Clôturer la cérémonie")
-                .setStyle("SUCCESS")
-                .setEmoji("⛪"));
-
-        await interaction.update({content: "Félicitations", embeds:[marry], components: [BackHomeM]});
-    }
-    else if(interaction.customId === "Lottery" + interaction.user.id)
-    {
-        var place = userDiamondID.indexOf(interaction.user.id);
-        const Gacha = new Discord.MessageEmbed()
-            .setColor("843dff")
-            .setTitle("ダイヤモンド - DIAMOND")
-            .setDescription("*Bienvenue au Casino DIAMOND.Corp !\nVous pouvez tenter votre chance ici pour remporter de formidables gains et dépenser vos jetons dans la boutique DIAMOND*")
-            .setThumbnail("https://cdn.otakutale.com/wp-content/uploads/2022/01/Kanojo-Okarishimasu-Season-2-Slated-for-July-New-Visual-Promotional-Video-Revealed.jpg")
-            .addField("🎰 Lucky 7 :", "Tentez votre chance à la roulette ! Chaque Tirage coûte 10.000 :yen:, et de formidables lots sont à gagner !")
-            .addField("🎲 Jeu des dés :", "Pariez 15 jetons sur un chiffre du dé. Remportez 50 jetons si votre chiffre est le bon !")
-            .addField("🪙 Boutique de Jetons :", "Échangez vos jetons Casino-DIAMOND contre divers lots !")
-            .addField("Porte-Monnaie :", userBalance[place] + " :yen:")
-            .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
-            .setTimestamp();
-
-        var gachaOpt = new Discord.MessageActionRow();
-            if(userFreeCasinoTicket[place] > 0)
-            {   
-                gachaOpt.addComponents(new Discord.MessageButton()
-                    .setCustomId("CasinoFree" + interaction.user.id)
-                    .setLabel("Free Lucky 7")
-                    .setStyle("SUCCESS")
-                    .setEmoji("🎫"));
-            }
-            else
+            if(interaction.customId === "DiceGame" + interaction.user.id)
             {
-                gachaOpt.addComponents(new Discord.MessageButton()
-                    .setCustomId("Casino" + interaction.user.id)
-                    .setLabel("Try Lucky 7")
-                    .setStyle("DANGER")
-                    .setEmoji("🎰"));
-            }
-            gachaOpt.addComponents(new Discord.MessageButton()
-                .setCustomId("DiceGame" + interaction.user.id)
-                .setLabel("Throw dice")
-                .setStyle("PRIMARY")
-                .setEmoji("🎲"))
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("CoinShop" + interaction.user.id)
-                .setLabel("Coin Shop")
-                .setStyle("SECONDARY")
-                .setEmoji("🪙"))
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("ConnectC" + interaction.user.id)
-                .setLabel("Back Home")
-                .setStyle("SUCCESS")
-                .setEmoji("🏡"));
-               
-        await interaction.update({content: "Un gacha, comme c'est étonnant...", embeds:[Gacha], components: [gachaOpt]});
-    }
-    else if((interaction.customId === "Casino" + interaction.user.id &&  userBalance[userDiamondID.indexOf(interaction.user.id)] > 9999) || interaction.customId === "CasinoFree" + interaction.user.id)
-    {
-        var casinoRoll = Math.floor(Math.random() * 100);
-        console.log("CasinoRoll alea : " + casinoRoll);
-        var place = userDiamondID.indexOf(interaction.user.id);
-
-        if(interaction.customId == "CasinoFree" + interaction.user.id)
-        {
-            userFreeCasinoTicket[place] --;
-            console.log(userFreeCasinoTicket[place]);
-        }
-        else
-        {
-            userBalance[place] -= 10000;
-        }
-
-        var casinoBtn = new Discord.MessageActionRow();
-        const pullREsult = new Discord.MessageEmbed()
-            .setColor("843dff")
-            .setTitle("ダイヤモンド - DIAMOND")
-            .setDescription("*Voici votre gain lors du tirage Lucky 7 !! N'hésitez pas à retenter votre chance pour de meilleurs lots !*")
-            .setThumbnail("https://m.media-amazon.com/images/I/71b6mIOpILL._AC_SY606_.jpg")
-            .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
-            .setTimestamp();
-
-        if(!casinoRoll)
-        {
-            pullREsult.addField("Vos gains :", "\n*Rien...*");
-            addSecretGirl("Aki Adagaki");
-        }
-        else if(casinoRoll < 7)
-        {
-            pullREsult.addField("Vos gains :", "\n5.000 :yen:");
-            userBalance[place] += 5000;
-        }
-        else if(casinoRoll < 12)
-        {
-            pullREsult.addField("Vos gains :", "\n9.999 :yen:");
-            userBalance[place] += 9999;
-        }
-        else if(casinoRoll < 16)
-        {
-            pullREsult.addField("Vos gains :", "\n16.666 :yen:");
-            userBalance[place] += 16666;
-        }
-        else if(casinoRoll < 19)
-        {
-            pullREsult.addField("Vos gains :", "\n25.000 :yen:");
-            userBalance[place] += 25000;
-        }
-        else if(casinoRoll < 21)
-        {
-            pullREsult.addField("Vos gains :", "\n77.777 :yen:");
-            userBalance[place] += 77777;
-        }
-        else if(casinoRoll < 22)
-        {
-            pullREsult.addField("Vos gains :", "\n**JACKPOT !** Vous avez gagné **500.000** :yen:");
-            userBalance[place] += 500000;
-        }
-        else if(casinoRoll < 28)
-        {
-            pullREsult.addField("Vos gains :", "\n1 🪙");
-            userCasinoToken[place]++;
-        }
-        else if(casinoRoll < 34)
-        {
-            pullREsult.addField("Vos gains :", "\n2 🪙");
-            userCasinoToken[place] += 2;
-        }
-        else if(casinoRoll < 39)
-        {
-            pullREsult.addField("Vos gains :", "\n3 🪙");
-            userCasinoToken[place] += 3;
-        }
-        else if(casinoRoll < 44)
-        {
-            pullREsult.addField("Vos gains :", "\n5 🪙");
-            userCasinoToken[place] += 5;
-        }
-        else if(casinoRoll < 48)
-        {
-            pullREsult.addField("Vos gains :", "\n10 🪙");
-            userCasinoToken[place] += 10;
-        }
-        else if(casinoRoll < 51)
-        {
-            pullREsult.addField("Vos gains :", "\n15 🪙");
-            userCasinoToken[place] += 15;
-        }
-        else if(casinoRoll < 54)
-        {
-            pullREsult.addField("Vos gains :", "\n25 🪙");
-            userCasinoToken[place] += 25;
-        }
-        else if(casinoRoll < 56)
-        {
-            pullREsult.addField("Vos gains :", "\n50 🪙");
-            userCasinoToken[place] += 50;
-        }
-        else if(casinoRoll < 57)
-        {
-            pullREsult.addField("Vos gains :", "\n**JACKPOT !** Vous avez gagné **500** 🪙");
-            userCasinoToken[place] += 500;
-        }
-        else if(casinoRoll < 59)
-        {
-            pullREsult.addField("Vos gains :", "\n1 🎟️ Ticket Location Offerte, à utiliser avec n'importe quelle fille disponible dans l'application DIAMOND !");
-            userFreeRentTicket[place]++;
-        }
-        else if(casinoRoll < 64)
-        {
-            pullREsult.addField("Vos gains :", "\n1 🎫 Ticket Tirage offert au Casino DIAMOND !");
-            userFreeCasinoTicket[place]++;
-        }
-        else if(casinoRoll < 67)
-        {
-            pullREsult.addField("Vos gains :", "\n2 🎫 Tickets Tirage offerts au Casino DIAMOND !");
-            userFreeCasinoTicket[place] += 2;
-        }
-        else if(casinoRoll < 69)
-        {
-            pullREsult.addField("Vos gains :", "\n5 🎫 Tickets Tirage offerts au Casino DIAMOND !");
-            userFreeCasinoTicket[place] += 5;
-        }
-        else if(casinoRoll < 73)
-        {
-            pullREsult.addField("Vos gains :", "\n2 🍫");
-            userOwnedChocolate[place] += 2;
-        }
-        else if(casinoRoll < 76)
-        {
-            pullREsult.addField("Vos gains :", "\n2 📔");
-            userOwnedBook[place] += 2;
-        }
-        else if(casinoRoll < 79)
-        {
-            pullREsult.addField("Vos gains :", "\n2 🧣");
-            userOwnedScarf[place] += 2;
-        }
-        else if(casinoRoll < 82)
-        {
-            pullREsult.addField("Vos gains :", "\n 💍");
-            userOwnedRing[place]++;
-        }
-        else if(casinoRoll < 84)
-        {
-            pullREsult.addField("Vos gains :", "\n1 🧸");
-            userOwnedTeddyBear[place]++;
-        }
-        else if(casinoRoll < 86)
-        {
-            pullREsult.addField("Vos gains :", "\n1 🔪");
-            userOwnedKnife[place]++;
-        }
-        else if(casinoRoll < 88)
-        {
-            pullREsult.addField("Vos gains :", "\n1 🌹");
-            userOwnedRose[place]++;
-        }
-        else if(casinoRoll < 90)
-        {
-            pullREsult.addField("Vos gains :", "\n**1 Pack St Valentin** ! Ce pack comprend les objets suivants : 🍫 + 🌹 + 💍");
-            userOwnedRing[place]++;
-            userOwnedRose[place]++;
-            userOwnedChocolate[place]++;
-        }
-        else if(casinoRoll < 92)
-        {
-            pullREsult.addField("Vos gains :", "\n**1 Pack Tuto Cuisine** ! Ce pack comprend les objets suivants : 🍫 + 🔪 + 📔");
-            userOwnedKnife[place]++;
-            userOwnedBook[place]++;
-            userOwnedChocolate[place]++;
-        }
-        else if(casinoRoll < 95)
-        {
-            pullREsult.addField("Vos gains :", "\n1 🪙 et 5.000 :yen:");
-            userBalance[place] += 5000;
-            userCasinoToken[place]++;
-        }
-        else if(casinoRoll < 97)
-        {
-            pullREsult.addField("Vos gains :", "\n3 🪙 et 10.000 :yen:");
-            userBalance[place] += 10000;
-            userCasinoToken[place] += 3;
-        }
-        else if(casinoRoll < 99)
-        {
-            pullREsult.addField("Vos gains :", "\n5 🪙 et 15.000 :yen:");
-            userBalance[place] += 15000;
-            userCasinoToken[place] += 5;
-        }
-        else
-        {
-            pullREsult.addField("Vos gains :", "\n33 🪙 et 33.333 :yen:");
-            userBalance[place] += 33333;
-            userCasinoToken[place] += 33;
-        }
-
-        if(userFreeCasinoTicket[place] > 0)
-            {   
-                casinoBtn.addComponents(new Discord.MessageButton()
-                    .setCustomId("CasinoFree" + interaction.user.id)
-                    .setLabel("Free Lucky 7")
-                    .setStyle("SUCCESS")
-                    .setEmoji("🎫"));
-            }
-            else
-            {
-                casinoBtn.addComponents(new Discord.MessageButton()
-                    .setCustomId("Casino" + interaction.user.id)
-                    .setLabel("Try again Lucky 7")
-                    .setStyle("DANGER")
-                    .setEmoji("🎰"));
-            }
-        casinoBtn.addComponents(new Discord.MessageButton()
-            .setCustomId("Lottery" + interaction.user.id)
-            .setLabel("Back Lottery Page")
-            .setStyle("PRIMARY")
-            .setEmoji("🎊"))
-        .addComponents(new Discord.MessageButton()
-            .setCustomId("Disconnect" + interaction.user.id)
-            .setLabel("Exit App")
-            .setStyle("SECONDARY")
-            .setEmoji("❌"));
-
-        await interaction.update({content: "Un gacha, comme c'est étonnant...", embeds:[pullREsult], components: [casinoBtn]});
-
-    }
-    else if(interaction.customId === "DiceGame" + interaction.user.id || interaction.customId === "DiceGame1" + interaction.user.id)
-    {
-        var place = userDiamondID.indexOf(interaction.user.id);
-
-        const diceG = new Discord.MessageEmbed()
-            .setColor("843dff")
-            .setTitle("ダイヤモンド - DIAMOND")
-            .setDescription("*Chaque lancer de dé coûte 15 🪙\nSi vous prédisez lequel des 6 chiffres va être obtenu au lancer du dé, vous remportez* ***50*** 🪙")
-            .setThumbnail("https://i.pinimg.com/originals/f9/ae/52/f9ae5279e198738ac1dab5bf36d2f337.jpg")
-            .addField("🎲 Valeur possible au dé :", "1 - 2 - 3 - 4 - 5 - 6")
-            .addField("🪙 possédé :", userCasinoToken[place].toString())
-            .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
-            .setTimestamp();
-
-
-        diceBtn = new Discord.MessageActionRow();
-
-        if(interaction.customId === "DiceGame" + interaction.user.id)
-        {
-        diceBtn
-        .addComponents(new Discord.MessageButton()
-            .setCustomId("D1" + interaction.user.id)
-            .setStyle("PRIMARY")
-            .setEmoji("1️⃣"))
-        .addComponents(new Discord.MessageButton()
-            .setCustomId("D2" + interaction.user.id)
-            .setStyle("PRIMARY")
-            .setEmoji("2️⃣"))
-        .addComponents(new Discord.MessageButton()
-            .setCustomId("D3" + interaction.user.id)
-            .setStyle("PRIMARY")
-            .setEmoji("3️⃣"))
-        .addComponents(new Discord.MessageButton()
-            .setCustomId("DiceGame1" + interaction.user.id)
-            .setLabel("4 - 5 - 6")
-            .setStyle("SUCCESS")
-            .setEmoji("▶"))
-        .addComponents(new Discord.MessageButton()
-            .setCustomId("Lottery" + interaction.user.id)
-            .setLabel("Back Lottery Page")
-            .setStyle("SECONDARY")
-            .setEmoji("🎊"));
-
-        }
-        else if(interaction.customId === "DiceGame1" + interaction.user.id)
-        {
             diceBtn
-        .addComponents(new Discord.MessageButton()
-            .setCustomId("D4" + interaction.user.id)
-            .setStyle("PRIMARY")
-            .setEmoji("4️⃣"))
-        .addComponents(new Discord.MessageButton()
-            .setCustomId("D5" + interaction.user.id)
-            .setStyle("PRIMARY")
-            .setEmoji("5️⃣"))
-        .addComponents(new Discord.MessageButton()
-            .setCustomId("D6" + interaction.user.id)
-            .setStyle("PRIMARY")
-            .setEmoji("6️⃣"))
-        .addComponents(new Discord.MessageButton()
-            .setCustomId("DiceGame" + interaction.user.id)
-            .setLabel("1 - 2 - 3")
-            .setStyle("SUCCESS")
-            .setEmoji("◀"))
-        .addComponents(new Discord.MessageButton()
-            .setCustomId("Lottery" + interaction.user.id)
-            .setLabel("Back Lottery Page")
-            .setStyle("SECONDARY")
-            .setEmoji("🎊"));
-        }
-        else
-        {
-            diceBtn.addComponents(new Discord.MessageButton()
-            .setCustomId("Disconnect" + interaction.user.id)
-            .setLabel("Exit App")
-            .setStyle("SECONDARY")
-            .setEmoji("❌"));
-        }
-        await interaction.update({content: "Mais ça va trop loin...", embeds:[diceG], components: [diceBtn]});
-    }
-    else if(interaction.customId === "D1" + interaction.user.id || interaction.customId === "D2" + interaction.user.id ||interaction.customId === "D3" + interaction.user.id || interaction.customId === "D4" + interaction.user.id || interaction.customId === "D5" + interaction.user.id || interaction.customId === "D6" + interaction.user.id)
-    {
-        dice = Math.floor(Math.random() * 6) + 1;
-        var valueU = interaction.customId.charAt(1);
-        var place = userDiamondID.indexOf(interaction.user.id);
-        diceTBtn = new Discord.MessageActionRow();
-
-        const diceT = new Discord.MessageEmbed()
-            .setColor("843dff")
-            .setTitle("ダイヤモンド - DIAMOND")
-            .setDescription("*Le dé est lancé, rien ne va plus !*")
-            .setThumbnail("https://i.pinimg.com/originals/f9/ae/52/f9ae5279e198738ac1dab5bf36d2f337.jpg")
-            .addField("🔢 Valeur prédite :", "** " + valueU + "**")
-            .addField("🎲 Valeur du lancer par le croupier :", "**" + dice.toString() + "**")
-            .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
-            .setTimestamp();
-
-        if(valueU == dice)
-        {
-            userCasinoToken[place] = userCasinoToken[place] +50;
-            diceT.addField("♠ Résultat :", "*Votre prédiction était la bonne !*\nVous remportez **50** 🪙\n\nVous avez désormais : **" + userCasinoToken[place] + "** 🪙\n");
-        }
-        else
-        {
-            userCasinoToken[place] = userCasinoToken[place] -15;
-            diceT.addField("♠ Résultat :", "*Votre prédiction était complètement erronée !*\nVous perdez **15** 🪙\n\nVous avez désormais : **" + userCasinoToken[place] + "** 🪙\n");
-        }
-        
-        diceTBtn.
-        addComponents(new Discord.MessageButton()
-            .setCustomId("Lottery" + interaction.user.id)
-            .setLabel("Back Lottery Page")
-            .setStyle("SECONDARY")
-            .setEmoji("🎊"))
-        .addComponents(new Discord.MessageButton()
-            .setCustomId("Disconnect" + interaction.user.id)
-            .setLabel("Exit App")
-            .setStyle("SECONDARY")
-            .setEmoji("❌"));
-
-        await interaction.update({content: "J'ai pas les mots là...", embeds:[diceT], components: [diceTBtn]});
-
-    }
-    else if(interaction.customId === "CoinShop" + interaction.user.id)
-    {
-        var place = userDiamondID.indexOf(interaction.user.id);
-        const CoinS = new Discord.MessageEmbed()
-            .setColor("843dff")
-            .setTitle("ダイヤモンド - DIAMOND")
-            .setDescription("Bienvenue à la boutique d'échange de jetons DIAMOND Corp.\n*Ici, vous pouvez utiliser les jetons obtenus au Casino pour obtenir des articles exclusifs !*\n***Aucun remboursement possible***")
-            .setThumbnail("https://financerewind.com/wp-content/uploads/2020/09/Rent-a-Girlfriend-Episode-10-Release-Date-Preview-and-Spoilers-768x439-1.jpg")
-            .addField("Article 1 : 🌹", "Description : Une rose, brillant d'un rouge écarlate scintillant.\nPrix : 20 🪙")
-            .addField("Article 2 : 🔪", "Description : Un couteau extrèmement coupant. On dirait presque une arme...\nPrix : 35 🪙")
-            .addField("Article 3 : 🧸", "Description : Un ours en peluche avec un nez bleu. Drôle de conception, mais il est mignon !\nPrix : 65 🪙")
-            .addField("Jetons possédés :", userCasinoToken[place] + " 🪙")
-            .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
-            .setTimestamp();
-
-        var NavigationCS = new Discord.MessageActionRow()
             .addComponents(new Discord.MessageButton()
-                .setCustomId("Rose" + interaction.user.id)
-                .setLabel("Buy 1")
+                .setCustomId("D1" + interaction.user.id)
+                .setStyle("PRIMARY")
+                .setEmoji("1️⃣"))
+            .addComponents(new Discord.MessageButton()
+                .setCustomId("D2" + interaction.user.id)
+                .setStyle("PRIMARY")
+                .setEmoji("2️⃣"))
+            .addComponents(new Discord.MessageButton()
+                .setCustomId("D3" + interaction.user.id)
+                .setStyle("PRIMARY")
+                .setEmoji("3️⃣"))
+            .addComponents(new Discord.MessageButton()
+                .setCustomId("DiceGame1" + interaction.user.id)
+                .setLabel("4 - 5 - 6")
+                .setStyle("SUCCESS")
+                .setEmoji("▶"))
+            .addComponents(new Discord.MessageButton()
+                .setCustomId("Lottery" + interaction.user.id)
+                .setLabel("Back Lottery Page")
+                .setStyle("SECONDARY")
+                .setEmoji("🎊"));
+
+            }
+            else if(interaction.customId === "DiceGame1" + interaction.user.id)
+            {
+                diceBtn
+            .addComponents(new Discord.MessageButton()
+                .setCustomId("D4" + interaction.user.id)
+                .setStyle("PRIMARY")
+                .setEmoji("4️⃣"))
+            .addComponents(new Discord.MessageButton()
+                .setCustomId("D5" + interaction.user.id)
+                .setStyle("PRIMARY")
+                .setEmoji("5️⃣"))
+            .addComponents(new Discord.MessageButton()
+                .setCustomId("D6" + interaction.user.id)
+                .setStyle("PRIMARY")
+                .setEmoji("6️⃣"))
+            .addComponents(new Discord.MessageButton()
+                .setCustomId("DiceGame" + interaction.user.id)
+                .setLabel("1 - 2 - 3")
+                .setStyle("SUCCESS")
+                .setEmoji("◀"))
+            .addComponents(new Discord.MessageButton()
+                .setCustomId("Lottery" + interaction.user.id)
+                .setLabel("Back Lottery Page")
+                .setStyle("SECONDARY")
+                .setEmoji("🎊"));
+            }
+            else
+            {
+                diceBtn.addComponents(new Discord.MessageButton()
+                .setCustomId("Disconnect" + interaction.user.id)
+                .setLabel("Exit App")
+                .setStyle("SECONDARY")
+                .setEmoji("❌"));
+            }
+            await interaction.update({content: "Mais ça va trop loin...", embeds:[diceG], components: [diceBtn]});
+        }
+        else if(interaction.customId === "D1" + interaction.user.id || interaction.customId === "D2" + interaction.user.id ||interaction.customId === "D3" + interaction.user.id || interaction.customId === "D4" + interaction.user.id || interaction.customId === "D5" + interaction.user.id || interaction.customId === "D6" + interaction.user.id)
+        {
+            dice = Math.floor(Math.random() * 6) + 1;
+            var valueU = interaction.customId.charAt(1);
+            var place = userDiamondID.indexOf(interaction.user.id);
+            diceTBtn = new Discord.MessageActionRow();
+
+            const diceT = new Discord.MessageEmbed()
+                .setColor("843dff")
+                .setTitle("ダイヤモンド - DIAMOND")
+                .setDescription("*Le dé est lancé, rien ne va plus !*")
+                .setThumbnail("https://i.pinimg.com/originals/f9/ae/52/f9ae5279e198738ac1dab5bf36d2f337.jpg")
+                .addField("🔢 Valeur prédite :", "** " + valueU + "**")
+                .addField("🎲 Valeur du lancer par le croupier :", "**" + dice.toString() + "**")
+                .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
+                .setTimestamp();
+
+            if(valueU == dice)
+            {
+                userCasinoToken[place] = userCasinoToken[place] +50;
+                diceT.addField("♠ Résultat :", "*Votre prédiction était la bonne !*\nVous remportez **50** 🪙\n\nVous avez désormais : **" + userCasinoToken[place] + "** 🪙\n");
+            }
+            else
+            {
+                userCasinoToken[place] = userCasinoToken[place] -15;
+                diceT.addField("♠ Résultat :", "*Votre prédiction était complètement erronée !*\nVous perdez **15** 🪙\n\nVous avez désormais : **" + userCasinoToken[place] + "** 🪙\n");
+            }
+            
+            diceTBtn.
+            addComponents(new Discord.MessageButton()
+                .setCustomId("Lottery" + interaction.user.id)
+                .setLabel("Back Lottery Page")
+                .setStyle("SECONDARY")
+                .setEmoji("🎊"))
+            .addComponents(new Discord.MessageButton()
+                .setCustomId("Disconnect" + interaction.user.id)
+                .setLabel("Exit App")
+                .setStyle("SECONDARY")
+                .setEmoji("❌"));
+
+            await interaction.update({content: "J'ai pas les mots là...", embeds:[diceT], components: [diceTBtn]});
+
+        }
+        else if(interaction.customId === "CoinShop" + interaction.user.id)
+        {
+            var place = userDiamondID.indexOf(interaction.user.id);
+            const CoinS = new Discord.MessageEmbed()
+                .setColor("843dff")
+                .setTitle("ダイヤモンド - DIAMOND")
+                .setDescription("Bienvenue à la boutique d'échange de jetons DIAMOND Corp.\n*Ici, vous pouvez utiliser les jetons obtenus au Casino pour obtenir des articles exclusifs !*\n***Aucun remboursement possible***")
+                .setThumbnail("https://financerewind.com/wp-content/uploads/2020/09/Rent-a-Girlfriend-Episode-10-Release-Date-Preview-and-Spoilers-768x439-1.jpg")
+                .addField("Article 1 : 🌹", "Description : Une rose, brillant d'un rouge écarlate scintillant.\nPrix : 20 🪙")
+                .addField("Article 2 : 🔪", "Description : Un couteau extrèmement coupant. On dirait presque une arme...\nPrix : 35 🪙")
+                .addField("Article 3 : 🧸", "Description : Un ours en peluche avec un nez bleu. Drôle de conception, mais il est mignon !\nPrix : 65 🪙")
+                .addField("Jetons possédés :", userCasinoToken[place] + " 🪙")
+                .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
+                .setTimestamp();
+
+            var NavigationCS = new Discord.MessageActionRow()
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("Rose" + interaction.user.id)
+                    .setLabel("Buy 1")
+                    .setStyle("PRIMARY")
+                    .setEmoji("🌹"))
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("Knife" + interaction.user.id)
+                    .setLabel("Buy 1")
+                    .setStyle("PRIMARY")
+                    .setEmoji("🔪"))
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("TeddyBear" + interaction.user.id)
+                    .setLabel("Buy 1")
+                    .setStyle("PRIMARY")
+                    .setEmoji("🧸"))
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("Lottery" + interaction.user.id)
+                    .setLabel("Back Lottery Page")
+                    .setStyle("SECONDARY")
+                    .setEmoji("🎊"))
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("ConnectC" + interaction.user.id)
+                    .setLabel("Back Home")
+                    .setStyle("SUCCESS")
+                    .setEmoji("🏡"));
+                
+            await interaction.update({content: "*Let's see what the token exchange shop provides...*", embeds:[CoinS], components: [NavigationCS]});
+        }
+        else if(interaction.customId === "Rose" + interaction.user.id || interaction.customId === "Knife" + interaction.user.id || interaction.customId === "TeddyBear" + interaction.user.id)
+        {
+            var indexDiamondUser = userDiamondID.indexOf(interaction.user.id);
+            const achat = new Discord.MessageEmbed()
+                .setColor("843dff")
+                .setTitle("ダイヤモンド - DIAMOND")
+                achat.setDescription("DIAMOND Corp. vous remercie pour cet échange.\nDétails de votre lot :")
+                .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
+                .setTimestamp();
+        if(interaction.customId.startsWith('Rose'))
+        {
+            if(userCasinoToken[indexDiamondUser] >= 20)
+            {
+                userCasinoToken[indexDiamondUser] -= 20;
+                achat.addField("Article acheté :", "1 rose rouge 🌹");
+                achat.addField("Jetons restants :", userCasinoToken[indexDiamondUser] + " 🪙");
+                userOwnedRose[indexDiamondUser]++; 
+                if(userOwnedRose[indexDiamondUser] > 6){addSecretGirl("Yukana Yame");}
+            }
+            else{achat.setDescription("Une erreur s'est produite lors de la transaction entre votre compte de jeton Casino et DIAMOND Corp.\nVotre achat a été annulé...");}
+        }
+        else if(interaction.customId.startsWith('Knife'))
+        {
+            if(userCasinoToken[indexDiamondUser] >= 35)
+            {
+                userCasinoToken[indexDiamondUser] -= 35;
+                achat.addField("Article acheté :", "1 couteau 🔪");
+                achat.addField("Jetons restants :", userCasinoToken[indexDiamondUser] + " 🪙");
+                userOwnedKnife[indexDiamondUser]++; 
+                if(userOwnedKnife[indexDiamondUser] > 2){addSecretGirl("Shuka Karino");} 
+            }
+            else{achat.setDescription("Une erreur s'est produite lors de la transaction entre votre compte de jeton Casino et DIAMOND Corp.\nVotre achat a été annulé...");}
+        }
+        else if(interaction.customId.startsWith('TeddyBear'))
+        {
+            if(userCasinoToken[indexDiamondUser] >= 65)
+            {
+                userCasinoToken[indexDiamondUser] -= 65;
+                achat.addField("Article acheté :", "1 ours en peluche 🧸");
+                achat.addField("Jetons restants :", userCasinoToken[indexDiamondUser] + " 🪙");
+                userOwnedTeddyBear[indexDiamondUser]++; 
+            }
+            else{achat.setDescription("Une erreur s'est produite lors de la transaction entre votre compte de jeton Casino et DIAMOND Corp.\nVotre achat a été annulé...");}
+        }else
+        {
+            achat.setDescription("Une erreur s'est produite lors de la transaction entre votre compte de jeton Casino et DIAMOND Corp.\nVotre achat a été annulé...");
+        }
+
+            var shopB = new Discord.MessageActionRow()
+            .addComponents(new Discord.MessageButton()
+                    .setCustomId("CoinShop" + interaction.user.id)
+                    .setLabel("Back to Coin Shop")
+                    .setStyle("SECONDARY")
+                    .setEmoji("🪙"))
+            .addComponents(new Discord.MessageButton()
+                    .setCustomId("Lottery" + interaction.user.id)
+                    .setLabel("Back Lottery Page")
+                    .setStyle("SECONDARY")
+                    .setEmoji("🎊"))
+            .addComponents(new Discord.MessageButton()
+                    .setCustomId("ConnectC" + interaction.user.id)
+                    .setLabel("Back Home")
+                    .setStyle("SUCCESS")
+                    .setEmoji("🏡"));
+
+            await interaction.update({content: "*You actually love this app...*", embeds:[achat], components: [shopB]});
+        }
+        else if(interaction.customId === "GiftA" + interaction.user.id)
+        {
+            var stuff = "";
+            var place = userDiamondID.indexOf(interaction.user.id);
+            let Rs = 0;
+            let Kf = 0;
+            let Tb = 0;
+            var ChooseG = new Discord.MessageActionRow();
+
+            if(userOwnedRose[place] > Rs){
+            ChooseG.addComponents(new Discord.MessageButton()
+                .setCustomId("RoseG" + interaction.user.id)
+                .setLabel("Offer 1")
                 .setStyle("PRIMARY")
                 .setEmoji("🌹"))
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("Knife" + interaction.user.id)
-                .setLabel("Buy 1")
+                while(userOwnedRose[place] > Rs)
+                {
+                stuff += "🌹  ";
+                Rs++
+                }}
+
+            if(userOwnedKnife[place] > Kf){
+            ChooseG.addComponents(new Discord.MessageButton()
+                .setCustomId("KnifeG" + interaction.user.id)
+                .setLabel("Offer 1")
                 .setStyle("PRIMARY")
                 .setEmoji("🔪"))
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("TeddyBear" + interaction.user.id)
-                .setLabel("Buy 1")
+                while(userOwnedKnife[place] >Kf)
+                {
+                stuff += "🔪  ";
+                Kf++
+                }}
+            
+            if(userOwnedTeddyBear[place] > Tb){
+            ChooseG.addComponents(new Discord.MessageButton()
+                .setCustomId("TeddyBearG" + interaction.user.id)
+                .setLabel("Offer 1")
                 .setStyle("PRIMARY")
                 .setEmoji("🧸"))
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("Lottery" + interaction.user.id)
-                .setLabel("Back Lottery Page")
-                .setStyle("SECONDARY")
-                .setEmoji("🎊"))
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("ConnectC" + interaction.user.id)
-                .setLabel("Back Home")
-                .setStyle("SUCCESS")
-                .setEmoji("🏡"));
-            
-        await interaction.update({content: "*Let's see what the token exchange shop provides...*", embeds:[CoinS], components: [NavigationCS]});
-    }
-    else if(interaction.customId === "Rose" + interaction.user.id || interaction.customId === "Knife" + interaction.user.id || interaction.customId === "TeddyBear" + interaction.user.id)
-    {
-        var indexDiamondUser = userDiamondID.indexOf(interaction.user.id);
-        const achat = new Discord.MessageEmbed()
-            .setColor("843dff")
-            .setTitle("ダイヤモンド - DIAMOND")
-            achat.setDescription("DIAMOND Corp. vous remercie pour cet échange.\nDétails de votre lot :")
-            .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
-            .setTimestamp();
-    if(interaction.customId.startsWith('Rose'))
-    {
-        if(userCasinoToken[indexDiamondUser] >= 20)
-        {
-            userCasinoToken[indexDiamondUser] -= 20;
-            achat.addField("Article acheté :", "1 rose rouge 🌹");
-            achat.addField("Jetons restants :", userCasinoToken[indexDiamondUser] + " 🪙");
-            userOwnedRose[indexDiamondUser]++; 
-            if(userOwnedRose[indexDiamondUser] > 6){addSecretGirl("Yukana Yame");}
-        }
-        else{achat.setDescription("Une erreur s'est produite lors de la transaction entre votre compte de jeton Casino et DIAMOND Corp.\nVotre achat a été annulé...");}
-    }
-    else if(interaction.customId.startsWith('Knife'))
-    {
-        if(userCasinoToken[indexDiamondUser] >= 35)
-        {
-            userCasinoToken[indexDiamondUser] -= 35;
-            achat.addField("Article acheté :", "1 couteau 🔪");
-            achat.addField("Jetons restants :", userCasinoToken[indexDiamondUser] + " 🪙");
-            userOwnedKnife[indexDiamondUser]++; 
-            if(userOwnedKnife[indexDiamondUser] > 2){addSecretGirl("Shuka Karino");} 
-        }
-        else{achat.setDescription("Une erreur s'est produite lors de la transaction entre votre compte de jeton Casino et DIAMOND Corp.\nVotre achat a été annulé...");}
-    }
-    else if(interaction.customId.startsWith('TeddyBear'))
-    {
-        if(userCasinoToken[indexDiamondUser] >= 65)
-        {
-            userCasinoToken[indexDiamondUser] -= 65;
-            achat.addField("Article acheté :", "1 ours en peluche 🧸");
-            achat.addField("Jetons restants :", userCasinoToken[indexDiamondUser] + " 🪙");
-            userOwnedTeddyBear[indexDiamondUser]++; 
-        }
-        else{achat.setDescription("Une erreur s'est produite lors de la transaction entre votre compte de jeton Casino et DIAMOND Corp.\nVotre achat a été annulé...");}
-    }else
-    {
-        achat.setDescription("Une erreur s'est produite lors de la transaction entre votre compte de jeton Casino et DIAMOND Corp.\nVotre achat a été annulé...");
-    }
+                while(userOwnedTeddyBear[place] > Tb)
+                {
+                stuff += "🧸  ";
+                Tb++
+                }}
 
-        var shopB = new Discord.MessageActionRow()
-        .addComponents(new Discord.MessageButton()
-                .setCustomId("CoinShop" + interaction.user.id)
-                .setLabel("Back to Coin Shop")
-                .setStyle("SECONDARY")
-                .setEmoji("🪙"))
-        .addComponents(new Discord.MessageButton()
-                .setCustomId("Lottery" + interaction.user.id)
-                .setLabel("Back Lottery Page")
-                .setStyle("SECONDARY")
-                .setEmoji("🎊"))
-        .addComponents(new Discord.MessageButton()
-                .setCustomId("ConnectC" + interaction.user.id)
-                .setLabel("Back Home")
-                .setStyle("SUCCESS")
-                .setEmoji("🏡"));
+            const Profile = new Discord.MessageEmbed()
+                .setColor("843dff")
+                .setTitle("ダイヤモンド - DIAMOND")
+                .setDescription("Vous êtes sur le point d'offrir un cadeau à " + nameGF[indexGF] + ".")
+                .setThumbnail(ppGF[indexGF])
+                .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
+                .setTimestamp();
 
-        await interaction.update({content: "*You actually love this app...*", embeds:[achat], components: [shopB]});
-    }
-    else if(interaction.customId === "GiftA" + interaction.user.id)
-    {
-        var stuff = "";
-        var place = userDiamondID.indexOf(interaction.user.id);
-        let Rs = 0;
-        let Kf = 0;
-        let Tb = 0;
-        var ChooseG = new Discord.MessageActionRow();
+            ChooseG.addComponents(new Discord.MessageButton()
+                    .setCustomId("RentGF" + interaction.user.id)
+                    .setLabel("Back to Date")
+                    .setStyle("SUCCESS")
+                    .setEmoji("🌆"));
 
-        if(userOwnedRose[place] > Rs){
-        ChooseG.addComponents(new Discord.MessageButton()
-            .setCustomId("RoseG" + interaction.user.id)
-            .setLabel("Offer 1")
-            .setStyle("PRIMARY")
-            .setEmoji("🌹"))
-            while(userOwnedRose[place] > Rs)
+            if(userOwnedRose[place] > 0 || userOwnedKnife[place] > 0 || userOwnedTeddyBear[place] > 0 )
             {
-            stuff += "🌹  ";
-            Rs++
-            }}
-
-        if(userOwnedKnife[place] > Kf){
-        ChooseG.addComponents(new Discord.MessageButton()
-            .setCustomId("KnifeG" + interaction.user.id)
-            .setLabel("Offer 1")
-            .setStyle("PRIMARY")
-            .setEmoji("🔪"))
-            while(userOwnedKnife[place] >Kf)
-            {
-            stuff += "🔪  ";
-            Kf++
-            }}
-        
-        if(userOwnedTeddyBear[place] > Tb){
-        ChooseG.addComponents(new Discord.MessageButton()
-            .setCustomId("TeddyBearG" + interaction.user.id)
-            .setLabel("Offer 1")
-            .setStyle("PRIMARY")
-            .setEmoji("🧸"))
-            while(userOwnedTeddyBear[place] > Tb)
-            {
-            stuff += "🧸  ";
-            Tb++
-            }}
-
-        const Profile = new Discord.MessageEmbed()
-            .setColor("843dff")
-            .setTitle("ダイヤモンド - DIAMOND")
-            .setDescription("Vous êtes sur le point d'offrir un cadeau à " + nameGF[indexGF] + ".")
-            .setThumbnail(ppGF[indexGF])
-            .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
-            .setTimestamp();
-
-        ChooseG.addComponents(new Discord.MessageButton()
-                .setCustomId("RentGF" + interaction.user.id)
-                .setLabel("Back to Date")
-                .setStyle("SUCCESS")
-                .setEmoji("🌆"));
-
-        if(userOwnedRose[place] > 0 || userOwnedKnife[place] > 0 || userOwnedTeddyBear[place] > 0 )
-        {
-            Profile.addField("Inventaire", stuff);
+                Profile.addField("Inventaire", stuff);
+            }
+            else{Profile.addField("Inventaire", "Vous ne possédez rien...");}
+                
+            await interaction.update({content: "*You seem to hesitate...*", embeds:[Profile], components: [ChooseG]});
         }
-        else{Profile.addField("Inventaire", "Vous ne possédez rien...");}
-            
-        await interaction.update({content: "*You seem to hesitate...*", embeds:[Profile], components: [ChooseG]});
-    }
-    else if(interaction.customId === "Succes" + interaction.user.id)
-    {
-        const Succes = new Discord.MessageEmbed()
-            .setColor("843dff")
-            .setTitle("ダイヤモンド - DIAMOND")
-            .setDescription("Terminez différentes tâches pour améliorer l'expérience des utilisateurs sur l'app DIMAOND et toucher des récompenses !")
-            .setThumbnail(ppGF[indexGF])
-            .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
-            .setTimestamp();
-    }
+        else if(interaction.customId === "Succes" + interaction.user.id)
+        {
+            const Succes = new Discord.MessageEmbed()
+                .setColor("843dff")
+                .setTitle("ダイヤモンド - DIAMOND")
+                .setDescription("Terminez différentes tâches pour améliorer l'expérience des utilisateurs sur l'app DIMAOND et toucher des récompenses !")
+                .setThumbnail(ppGF[indexGF])
+                .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
+                .setTimestamp();
+        }
     // suite GF
 
 
