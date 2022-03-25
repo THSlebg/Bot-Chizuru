@@ -306,7 +306,8 @@ Client.on("messageCreate", message => {
         else
         {
         var time = new Date();
-        usrName = message.content.split("g")[1];
+        usrName = message.content.slice(12, message.content.length);
+        //usrName = message.content.split("g")[1]; // full trolling
         usrName = usrName.split("|")[0];
         kkrValue = message.content.split("|")[0,1];
         const channelLogP = Client.channels.cache.find(channel => channel.name === channelLogName );
@@ -1012,7 +1013,7 @@ Client.on("interactionCreate", async interaction => {
 
             var diamondUserName = interaction.user.username + extra;
 
-            await interaction.update({content: "**INSTALLATION TERMINEE** \nConnexion à DIAMOND.app \n**Login : [" + diamondUserName + "]** \n**Password : **⏹⏹⏹⏹⏹⏹⏹", components: [Connect]});
+            await interaction.update({content: "**INSTALLATION TERMINÉE** \nConnexion à DIAMOND.app \n**Login : [" + diamondUserName + "]** \n**Password : **⏹⏹⏹⏹⏹⏹⏹", components: [Connect]});
         }
         else if(interaction.customId === "Disconnect" + interaction.user.id)
         {
