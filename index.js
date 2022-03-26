@@ -15,7 +15,7 @@ const Client = new Discord.Client({
 
 
 const prefix = "rent!";
-const botVersion = "0.4.2";
+const botVersion = "0.5.0";
 
 var commands = "\n - date \n - hi \n - help \n - version \n - embedHelp \n - event \n - setEvent \n - duel \n - roll \n - score \n - log \n - testLog \n - makeLog \n - setEmoji \n - patchnote";
 
@@ -198,7 +198,7 @@ Client.on("messageCreate", message => {
     }
     else if(message.content === prefix + "patchnote")
     {
-        message.channel.send("**Version " + botVersion + ":**\nLatest release :\n\n> Casino Page\n> Coin system\n> Secret Girls (3) more Added\n> Gacha\n> Dice Game\n> New items available\n> Specific features : Free Ticket RENT/Casino Roll & Awkward Present \n\n*Now working on :*\n\n> Multi-Instance Handling\n> Add Own GirlFriend");
+        message.channel.send("**Version " + botVersion + ":**\nLatest release :\n\n> Add 2 more Secret Girl (7 Secret Girls for 11 girls in total)\n> Success Feature : 5 Success \n> Casino Coin and Money Exchange\n> Add Fields for Profile\n> Bank feature (Money saving system)\n> Mono instance for players & Multi-Instance handling system\n> Throw again option in DiceGame\n> Display Currency when rolling Lucky 7\n> Cooldown on rent!work (doable each 5 sec)\n> Alpha Commands for alpha release\n\n**Now Working on :**\n\n> Multi-Server Instances\n> Cooldown on rent\n> Database Conception");
     }
     else if(message.content === prefix + "version")
     {
@@ -1159,19 +1159,24 @@ Client.on("interactionCreate", async interaction => {
                 if(userLovePoint[place])
                     Profile.addField("Love Points :", userLovePoint[place].toString());
 
-                Profile.addField("Inventaire Casino :", userCasinoToken[place] + " 🪙 " + userCasinoToken[place] + " 🎫");
+                Profile.addField("Inventaire Casino :", userCasinoToken[place] + " 🪙  " + userFreeCasinoTicket[place] + " 🎫");
 
                 let idx = "";
                 let ownedGF = "";
+                let found = 0;
                 ownedbyGFuserDiamondID.forEach(element => {
                     if(element == interaction.user.id)
                     {
-                        idx = ownedbyGFuserDiamondID.indexOf((interaction.user.id));
+                        idx = ownedbyGFuserDiamondID.indexOf(interaction.user.id, found);
+                        console.log(ownedbyGFuserDiamondID);
                         ownedGF += nameGF[idx] + "\n";
+                        found = idx + 1;
                     }
+                    idx++;
                 });
-
-                Profile.addField("GirlFriend marié(es) :", ownedGF);
+                if(ownedGF == ""){}
+                else{
+                Profile.addField("GirlFriend marié(es) :", ownedGF);}
 
                 var NavigationP = new Discord.MessageActionRow()
                     .addComponents(new Discord.MessageButton()
