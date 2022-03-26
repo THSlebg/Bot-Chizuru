@@ -204,7 +204,7 @@ Client.on("messageCreate", message => {
     }
     else if(message.content === prefix + "alpha")
     {
-        message.channel.send("**Alpha version :**\nPour commencer, faites rent!diamond");
+        message.channel.send("**Informations :**\nBienvenue sur l'alpha du bot, tout le staff vous remercie de votre participation.\nPour afficher la liste des commandes, tapez rent!help.\nSi vous souhaitez nous partager vos retours, tapez rent!feedback.\nPour commencer, tapez rent!diamond.");
     }
     else if(message.content.startsWith(prefix + "feedback"))
     {
@@ -355,7 +355,7 @@ Client.on("messageCreate", message => {
     else if (message.content === prefix + "embedHelp")
     {
         let commandTable = ["rent!date", "rent!hi", "rent!help", "rent!version", "rent!event", "rent!setEvent", "rent!log", "rent!testLog", "rent!makeLog", "rent!embedHelp", "rent!duel", "rent!roll", "rent!score", "rent!setEmoji", "rent!patchnote", "rent!feedback", "rent!alpha"];
-        let descrTable = ["Basic command, you can check if the bot is working", "Say Hello to Chizuru", "Display all bot's commands", "Display bot version", "Display current event information", "Custom current event | Args : **eventTitle**|**eventPeriod**|**eventDetails**|**eventEligibilty** ", "Change the log channel for bot's logs", "Send a log", "Send a custom log. Args : **memberName**|**kakeraAmount**", "Display all bot's commands into an embed form", "Commence un combat de Harem entre différents membres du serveur", "Set la valeur max pour les rolls lors des duels de Harem", "Fixe le score maximal à atteindre lors des duels de Harem", "Change l'emoji resprésentant les kakeras lorsque le bot envoie un message l'utilisant", "Display latest Version patchnote", "Send feedback to the bot's owner. Args: **<message>**", "Display Alpha version"];
+        let descrTable = ["Basic command, you can check if the bot is working", "Say Hello to Chizuru", "Display all bot's commands", "Display bot version", "Display current event information", "Custom current event | Args : **eventTitle**|**eventPeriod**|**eventDetails**|**eventEligibilty** ", "Change the log channel for bot's logs", "Send a log", "Send a custom log. Args : **memberName**|**kakeraAmount**", "Display all bot's commands into an embed form", "Commence un combat de Harem entre différents membres du serveur", "Set la valeur max pour les rolls lors des duels de Harem", "Fixe le score maximal à atteindre lors des duels de Harem", "Change l'emoji resprésentant les kakeras lorsque le bot envoie un message l'utilisant", "Display latest Version patchnote", "Send feedback to the bot's owner. Args: **<message>**", "Display Alpha information"];
 
         let i = 0;
 
@@ -469,10 +469,10 @@ Client.on("messageCreate", message => {
                 userOwnedKnife[nbDiamondUser] = 0;
                 userOwnedRose[nbDiamondUser] = 0;
                 userOwnedTeddyBear[nbDiamondUser] = 0;
-                userFreeRentTicket[nbDiamondUser] = 1; // TESTO
+                userFreeRentTicket[nbDiamondUser] = 0; // TESTO
                 userFreeCasinoTicket[nbDiamondUser] = 1; 
-                userCasinoToken[nbDiamondUser] = 500; // TESTO
-                userLovePoint[nbDiamondUser] = 5000; //TESTO
+                userCasinoToken[nbDiamondUser] = 10; // TESTO
+                userLovePoint[nbDiamondUser] = 0; //TESTO
                 paidDateUser[nbDiamondUser] = 0;
                 userCooldown[nbDiamondUser] = 0;
                 userEpargne[nbDiamondUser] = 0;
@@ -533,32 +533,38 @@ Client.on("messageCreate", message => {
             if(Date.now() - userCooldown[index] > 5000)
             {
                 let alea = Math.floor(Math.random() * 21);
-        
+                
                 if (alea < 2)
                 {
                     userBalance[index] -= 25000;
                     message.channel.send("Décidemment, vous faites vraiment pitié... Votre patron vous a foutu à la porte après que vous eûtes essayé d'enregistrer le numéro de votre collègue en prenant son téléphone en cachette... \nMalheureusement, ce dernier vous a échappé des mains, et il est désormais foutu !\n*Vous avez dû lui en racheter un, et en plus elle a pris le dernier modèle sorti...* - 25.000 :yen:");
                 }
-                else if (alea < 5)
-                {
-                    userBalance[index] += Math.floor(Math.random() * 5000) + 10000;
-                    message.channel.send("Vous vendez votre Tajine comme des petits pains... Qui l’eût cru ?\n Le résultat de cette journée vous a permis d'accumuler " + userBalance[index] + " :yen: au total !");
-                }
-                else if (alea < 11)
-                {
-                    userBalance[index] += Math.floor(Math.random() * 3000) + 3000;
-                    message.channel.send("Bon boulot ça ! \nTon porte-monnaie se remplit bien ! Tu as " + userBalance[index] + " :yen:");
-                }
-                else if (alea < 20)
-                {
-                    userBalance[index] += Math.floor(Math.random() * 3000) + 1500;
-                    message.channel.send("Quel taff épuisant ... Vous avez malgré tout gagné un peu de faf\nVous possédez " + userBalance[index] + " :yen:");
-                }
                 else
                 {
-                    userBalance[index] += Math.floor(Math.random() * 10000) + 50000;
-                    message.channel.send("Travailler pour le président Macron n'a jamais été aussi fructueux ! Vous avez discrètement détourné quelques fonds publics, mais c'est pour la bonne cause...\nVotre coffre-fort compte maintenant " + userBalance[index] + " :yen:");
+                    if (alea < 5)
+                    {
+                        userBalance[index] += Math.floor(Math.random() * 5000) + 10000;
+                        message.channel.send("Vous vendez votre Tajine comme des petits pains... Qui l’eût cru ?\n Le résultat de cette journée vous a permis d'accumuler " + userBalance[index] + " :yen: au total !");
+                    }
+                    else if (alea < 11)
+                    {
+                        userBalance[index] += Math.floor(Math.random() * 3000) + 3000;
+                        message.channel.send("Bon boulot ça ! \nTon porte-monnaie se remplit bien ! Tu as " + userBalance[index] + " :yen:");
+                    }
+                    else if (alea < 20)
+                    {
+                        userBalance[index] += Math.floor(Math.random() * 3000) + 1500;
+                        message.channel.send("Quel taff épuisant ... Vous avez malgré tout gagné un peu de faf\nVous possédez " + userBalance[index] + " :yen:");
+                    }
+                    else
+                    {
+                        userBalance[index] += Math.floor(Math.random() * 10000) + 50000;
+                        message.channel.send("Travailler pour le président Macron n'a jamais été aussi fructueux ! Vous avez discrètement détourné quelques fonds publics, mais c'est pour la bonne cause...\nVotre coffre-fort compte maintenant " + userBalance[index] + " :yen:");
+                    }
+                    userEpargne[index] *= 1.0005;
+                    userEpargne[index] = Math.round(userEpargne[index]);
                 }
+               
                 userCooldown[index] = Date.now();
             }
             else
@@ -569,14 +575,15 @@ Client.on("messageCreate", message => {
     }
     else if(message.content === prefix + "motherlode")
     {
-        var index = userDiamondID.indexOf(message.author.id);
-
-        if(!userDiamondID.includes(message.author.id)){}
-
-        else 
+        if(message.author.id === "257534244048338944" || message.author.id === "238332449367654401")
         {
-        userBalance[index] = userBalance[index] + 100000000000000;
-        message.channel.send("<@" + message.author.id + "> t'as pas honte de tricher comme ça ! Tu te rends compte qu'avoir " + userBalance[index] + " :yen: c'est louche ?!");
+            let index = userDiamondID.indexOf(message.author.id);
+
+            if(userDiamondID.includes(message.author.id))
+            {
+                userBalance[index] += 100000000000000;
+                message.channel.send("<@" + message.author.id + "> t'as pas honte de tricher comme ça ! Tu te rends compte qu'avoir " + userBalance[index] + " :yen: c'est louche ?!");
+            }
         }
     }
     else if(message.content.startsWith("<:kakeraT:609264180851376132>"))
@@ -1571,7 +1578,7 @@ Client.on("interactionCreate", async interaction => {
                 .setTitle("ダイヤモンド - DIAMOND")
                 .setDescription("Vous êtes sur le point d'offrir un cadeau à " + nameGF[indexGF] + ".")
                 .setThumbnail(ppGF[indexGF])
-                .setFooter("Diamond Inc. © - Bringing the best for you")
+                .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
                 .setTimestamp();
 
             ChooseG.addComponents(new Discord.MessageButton()
@@ -2045,81 +2052,89 @@ Client.on("interactionCreate", async interaction => {
         {
             var place = userDiamondID.indexOf(interaction.user.id);
 
-            const diceG = new Discord.MessageEmbed()
-                .setColor("843dff")
-                .setTitle("ダイヤモンド - DIAMOND")
-                .setDescription("*Chaque lancer de dé coûte 15 🪙\nSi vous prédisez lequel des 6 chiffres va être obtenu au lancer du dé, vous remportez* ***50*** 🪙")
-                .setThumbnail("https://i.pinimg.com/originals/f9/ae/52/f9ae5279e198738ac1dab5bf36d2f337.jpg")
-                .addField("🎲 Valeur possible au dé :", "1 - 2 - 3 - 4 - 5 - 6")
-                .addField("🪙 possédé :", userCasinoToken[place].toString())
-                .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
-                .setTimestamp();
+            
 
 
             diceBtn = new Discord.MessageActionRow();
 
-            if(interaction.customId === "DiceGame" + interaction.user.id)
+            if(userCasinoToken[place] >= 15)
             {
-            diceBtn
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("D1" + interaction.user.id)
-                .setStyle("PRIMARY")
-                .setEmoji("1️⃣"))
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("D2" + interaction.user.id)
-                .setStyle("PRIMARY")
-                .setEmoji("2️⃣"))
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("D3" + interaction.user.id)
-                .setStyle("PRIMARY")
-                .setEmoji("3️⃣"))
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("DiceGame1" + interaction.user.id)
-                .setLabel("4 - 5 - 6")
-                .setStyle("SUCCESS")
-                .setEmoji("▶"))
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("Lottery" + interaction.user.id)
-                .setLabel("Back Lottery Page")
-                .setStyle("SECONDARY")
-                .setEmoji("🎊"));
+                let diceG = new Discord.MessageEmbed()
+                    .setColor("843dff")
+                    .setTitle("ダイヤモンド - DIAMOND")
+                    .setDescription("*Chaque lancer de dé coûte 15 🪙\nSi vous prédisez lequel des 6 chiffres va être obtenu au lancer du dé, vous remportez* ***50*** 🪙")
+                    .setThumbnail("https://i.pinimg.com/originals/f9/ae/52/f9ae5279e198738ac1dab5bf36d2f337.jpg")
+                    .addField("🎲 Valeur possible au dé :", "1 - 2 - 3 - 4 - 5 - 6")
+                    .addField("🪙 possédé :", userCasinoToken[place].toString())
+                    .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
+                    .setTimestamp();
 
-            }
-            else if(interaction.customId === "DiceGame1" + interaction.user.id)
-            {
+                if(interaction.customId === "DiceGame" + interaction.user.id)
+                {
                 diceBtn
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("D4" + interaction.user.id)
-                .setStyle("PRIMARY")
-                .setEmoji("4️⃣"))
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("D5" + interaction.user.id)
-                .setStyle("PRIMARY")
-                .setEmoji("5️⃣"))
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("D6" + interaction.user.id)
-                .setStyle("PRIMARY")
-                .setEmoji("6️⃣"))
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("DiceGame" + interaction.user.id)
-                .setLabel("1 - 2 - 3")
-                .setStyle("SUCCESS")
-                .setEmoji("◀"))
-            .addComponents(new Discord.MessageButton()
-                .setCustomId("Lottery" + interaction.user.id)
-                .setLabel("Back Lottery Page")
-                .setStyle("SECONDARY")
-                .setEmoji("🎊"));
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("D1" + interaction.user.id)
+                    .setStyle("PRIMARY")
+                    .setEmoji("1️⃣"))
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("D2" + interaction.user.id)
+                    .setStyle("PRIMARY")
+                    .setEmoji("2️⃣"))
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("D3" + interaction.user.id)
+                    .setStyle("PRIMARY")
+                    .setEmoji("3️⃣"))
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("DiceGame1" + interaction.user.id)
+                    .setLabel("4 - 5 - 6")
+                    .setStyle("SUCCESS")
+                    .setEmoji("▶"))
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("Lottery" + interaction.user.id)
+                    .setLabel("Back Lottery Page")
+                    .setStyle("SECONDARY")
+                    .setEmoji("🎊"));
+
+                }
+                else if(interaction.customId === "DiceGame1" + interaction.user.id)
+                {
+                    diceBtn
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("D4" + interaction.user.id)
+                    .setStyle("PRIMARY")
+                    .setEmoji("4️⃣"))
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("D5" + interaction.user.id)
+                    .setStyle("PRIMARY")
+                    .setEmoji("5️⃣"))
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("D6" + interaction.user.id)
+                    .setStyle("PRIMARY")
+                    .setEmoji("6️⃣"))
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("DiceGame" + interaction.user.id)
+                    .setLabel("1 - 2 - 3")
+                    .setStyle("SUCCESS")
+                    .setEmoji("◀"))
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("Lottery" + interaction.user.id)
+                    .setLabel("Back Lottery Page")
+                    .setStyle("SECONDARY")
+                    .setEmoji("🎊"));
+                }
+                await interaction.update({content: "Mais ça va trop loin...", embeds:[diceG], components: [diceBtn]});
             }
             else
             {
                 diceBtn.addComponents(new Discord.MessageButton()
-                .setCustomId("Disconnect" + interaction.user.id)
-                .setLabel("Exit App")
-                .setStyle("SECONDARY")
-                .setEmoji("❌"));
+                    .setCustomId("Lottery" + interaction.user.id)
+                    .setLabel("Back Lottery Page")
+                    .setStyle("SECONDARY")
+                    .setEmoji("🎊"));
+                
+                await interaction.update({content: "Vous n'avez pas assez de 🪙 pour jouer au dé", components: [diceBtn]});
             }
-            await interaction.update({content: "Mais ça va trop loin...", embeds:[diceG], components: [diceBtn]});
+            
         }
         else if(interaction.customId === "D1" + interaction.user.id || interaction.customId === "D2" + interaction.user.id ||interaction.customId === "D3" + interaction.user.id || interaction.customId === "D4" + interaction.user.id || interaction.customId === "D5" + interaction.user.id || interaction.customId === "D6" + interaction.user.id)
         {
@@ -2592,7 +2607,7 @@ Client.on("interactionCreate", async interaction => {
                         .setCustomId("Withdraw" + interaction.user.id)
                         .setLabel("Retirer")
                         .setStyle("PRIMARY")
-                        .setEmoji("💰"))
+                        .setEmoji("💸"))
                 .addComponents(new Discord.MessageButton()
                         .setCustomId("Profile" + interaction.user.id)
                         .setLabel("Back To Profile")
