@@ -16,11 +16,6 @@ const Client = new Discord.Client({
 const prefix = "rent!";
 const botVersion = "0.4.2";
 
-var commands = "\n - date \n - hi \n - help \n - version \n - embedHelp \n - event \n - setEvent \n - duel \n - roll \n - score \n - log \n - testLog \n - makeLog \n - setEmoji \n - patchnote";
-
-let commandTable = ["rent!date", "rent!hi", "rent!help", "rent!version", "rent!event", "rent!setEvent", "rent!log", "rent!testLog", "rent!makeLog", "rent!embedHelp", "rent!duel", "rent!roll", "rent!score", "rent!setEmoji", "rent!patchnote"];
-let descrTable = ["Basic command, you can check if the bot is working", "Say Hello to Chizuru", "Display all bot's commands", "Display bot version", "Display current event information", "Custom current event | Args : **eventTitle**|**eventPeriod**|**eventDetails**|**eventEligibilty** ", "Change the log channel for bot's logs", "Send a log", "Send a custom log. Args : **memberName**|**kakeraAmount**", "Display all bot's commands into an embed form", "Commence un combat de Harem entre différents membres du serveur", "Set la valeur max pour les rolls lors des duels de Harem", "Fixe le score maximal à atteindre lors des duels de Harem", "Change l'emoji resprésentant les kakeras lorsque le bot envoie un message l'utilisant", "Display latest Version patchnote"];
-
 let nbPlayer = ["2P", "3P", "4P", "5P"];
 let descrPlayer = ["DUEL", "TRIANGLE AMOUREUX", "CLUB ECHANGISTE", "BATTLE ROYALE"];
 let valuePlayer = ["2", "3", "4", "5"];
@@ -132,6 +127,7 @@ let userOwnedTeddyBear = [];
 let userFreeRentTicket = [];
 let userFreeCasinoTicket = [];
 let userCasinoToken = [];
+let userEpargne = [];
 
 let dice = 0;
 
@@ -139,6 +135,8 @@ let papyk = "<@!257534244048338944>";
 let THS = "<@238332449367654401>";
 let admin =  papyk;
 let diamondUserConnected = [];
+
+let userCooldown = [];
 
 function addSecretGirl (GFname)
 {
@@ -198,6 +196,24 @@ Client.on("messageCreate", message => {
     {
         message.channel.send("Bot version running on your server : " + botVersion);
     }
+    else if(message.content === prefix + "alpha")
+    {
+        message.channel.send("**Alpha version :**\nPour commencer, faites rent!diamond");
+    }
+    else if(message.content.startsWith(prefix + "feedback"))
+    {
+        if(isUndefined(message.content.split(" ")[1]))
+        {
+            message.channel.send("Vous devez entrer un message : rent!feedback **<message>**");
+        }
+        else
+        {
+            let msg = message.content.split(" ").slice(1).join(" ");
+            let usrName = message.author.username;
+
+            Client.channels.cache.find(channel => channel.name === channelLogName ).send("**" + usrName + "** a envoyé un feedback : " + msg);
+        }
+    }
     else if(message.content === prefix + "hi")
     {
         message.channel.send("Hey, I'm Chizuru Ichinose, nice to meet you ♥\nI would love to get to know you more, call me whenever you want 👋");
@@ -212,6 +228,7 @@ Client.on("messageCreate", message => {
     }
     else if (message.content === prefix + "help")
     {
+        let commands = "\n - date \n - hi \n - help \n - version \n - embedHelp \n - event \n - setEvent \n - duel \n - roll \n - score \n - log \n - testLog \n - makeLog \n - setEmoji \n - patchnote\n - feedback\n - alpha";
         message.channel.send("**__List of commands :__**" + commands);
     }
     else if(message.content === prefix + "event")
@@ -331,6 +348,11 @@ Client.on("messageCreate", message => {
     }
     else if (message.content === prefix + "embedHelp")
     {
+        let commandTable = ["rent!date", "rent!hi", "rent!help", "rent!version", "rent!event", "rent!setEvent", "rent!log", "rent!testLog", "rent!makeLog", "rent!embedHelp", "rent!duel", "rent!roll", "rent!score", "rent!setEmoji", "rent!patchnote", "rent!feedback", "rent!alpha"];
+        let descrTable = ["Basic command, you can check if the bot is working", "Say Hello to Chizuru", "Display all bot's commands", "Display bot version", "Display current event information", "Custom current event | Args : **eventTitle**|**eventPeriod**|**eventDetails**|**eventEligibilty** ", "Change the log channel for bot's logs", "Send a log", "Send a custom log. Args : **memberName**|**kakeraAmount**", "Display all bot's commands into an embed form", "Commence un combat de Harem entre différents membres du serveur", "Set la valeur max pour les rolls lors des duels de Harem", "Fixe le score maximal à atteindre lors des duels de Harem", "Change l'emoji resprésentant les kakeras lorsque le bot envoie un message l'utilisant", "Display latest Version patchnote", "Send feedback to the bot's owner. Args: **<message>**", "Display Alpha version"];
+
+        let i = 0;
+
         const embed = new Discord.MessageEmbed()
             .setColor("eb4034")
             .setTitle("Command List :")
@@ -338,8 +360,8 @@ Client.on("messageCreate", message => {
             .setDescription("*Chizuru-san is so greatful, she lets you use all those following interactions freely with her !* ♥")
             .setThumbnail("https://i.pinimg.com/736x/09/06/bd/0906bdfcecb2a9665bde4d32879b92e5.jpg")
             .setTimestamp();
+        
 
-        let i = 0;
         commandTable.forEach(element => {
             embed.addField(element, descrTable[i]);
             i++;
@@ -446,6 +468,8 @@ Client.on("messageCreate", message => {
                 userCasinoToken[nbDiamondUser] = 500; // TESTO
                 userLovePoint[nbDiamondUser] = 5000; //TESTO
                 paidDateUser[nbDiamondUser] = 0;
+                userCooldown[nbDiamondUser] = 0;
+                userEpargne[nbDiamondUser] = 0;
                 nbDiamondUser++;
                 console.log(message.author.id);
                 message.channel.send({content: "*Votre téléphone vibre étrangement ?\nDans un grand flash blanc, votre téléphone vous propose de vous rediriger vers le lien suivant : https://diamond.app/rent \nCe lien semble inaccessible, cependant il semblerait que vous puissiez installer l'application* **DIAMOND**", components: [logIn]});
@@ -486,61 +510,46 @@ Client.on("messageCreate", message => {
                 }
         }
         else{message.channel.send("T'as deux vies tocard ?")}
-}
+    }
     else if(message.content === prefix + "work")
     {
-        var index = userDiamondID.indexOf(message.author.id);
-
-        if(!userDiamondID.includes(message.author.id)){}
-
-        else 
+        if(userDiamondID.includes(message.author.id))
         {
-            var alea = Math.floor(Math.random() * 21);
-            console.log(alea);
-            switch(alea.toString())
+            let index = userDiamondID.indexOf(message.author.id);
+            if(Date.now() - userCooldown[index] > 5000)
             {
-                case '0':
-                case '1':
-                userBalance[index] = userBalance[index] - 25000;
-                message.channel.send("Décidemment, vous faites vraiment pitié... Votre patron vous a foutu à la porte après que vous eûtes essayé d'enregistrer le numéro de votre collègue en prenant son téléphone en cachette... \nMalheureusement, ce dernier vous a lâché des mains, et il est désomais foutu !\n*Vous avez dû lui en racheter un, et en plus elle a pris le dernier modèle sorti...* - 25.000 :yen:");
-                break
-                case '2':
-                case '3':
-                case '4':
-                var thune = Math.floor(Math.random() * 5000) + 10000;
-                userBalance[index] = userBalance[index] + thune;
-                message.channel.send("Vous vendez votre Tajine comme des petits pains... Qui l’eût cru ?\nLe résultat de cette journée vous a permis d'accumuler " + userBalance[index] + " :yen: au total !");
-                break
-                case '5':
-                case '6':
-                case '7':
-                case '8':
-                case '9':
-                case '10':
-                var thune = Math.floor(Math.random() * 3000) + 3000;
-                userBalance[index] = userBalance[index] + thune;
-                message.channel.send("Bon boulot ça ! \nTon porte-monnaie se rempli bien ! Tu as " + userBalance[index] + " :yen:");
-                break
-                case '11':
-                case '12':
-                case '13':
-                case '14':
-                case '15':
-                case '16':
-                case '17':
-                case '18':
-                case '19':
-                var thune = Math.floor(Math.random() * 3000) + 1500;
-                userBalance[index] = userBalance[index] + thune;
-                message.channel.send("Quel taff épuisant... Vous avez malgré tout gagné un peu de faf\nVous possédez " + userBalance[index] + " :yen:");
-                break
-                case '20':
-                var thune = Math.floor(Math.random() * 10000) + 50000;
-                userBalance[index] += thune;
-                message.channel.send("Travailler pour le président Macron n'a jamais été aussi fructueux ! Vous avez discrètement détourné quelques fonds publics, mais c'est pour la bonne cause...\nVotre coffre-fort compte maintenant " + userBalance[index] + " :yen: ");
-                break;
-                default :
-                break;
+                let alea = Math.floor(Math.random() * 21);
+        
+                if (alea < 2)
+                {
+                    userBalance[index] -= 25000;
+                    message.channel.send("Décidemment, vous faites vraiment pitié... Votre patron vous a foutu à la porte après que vous eûtes essayé d'enregistrer le numéro de votre collègue en prenant son téléphone en cachette... \nMalheureusement, ce dernier vous a échappé des mains, et il est désormais foutu !\n*Vous avez dû lui en racheter un, et en plus elle a pris le dernier modèle sorti...* - 25.000 :yen:");
+                }
+                else if (alea < 5)
+                {
+                    userBalance[index] += Math.floor(Math.random() * 5000) + 10000;
+                    message.channel.send("Vous vendez votre Tajine comme des petits pains... Qui l’eût cru ?\n Le résultat de cette journée vous a permis d'accumuler " + userBalance[index] + " :yen: au total !");
+                }
+                else if (alea < 11)
+                {
+                    userBalance[index] += Math.floor(Math.random() * 3000) + 3000;
+                    message.channel.send("Bon boulot ça ! \nTon porte-monnaie se remplit bien ! Tu as " + userBalance[index] + " :yen:");
+                }
+                else if (alea < 20)
+                {
+                    userBalance[index] += Math.floor(Math.random() * 3000) + 1500;
+                    message.channel.send("Quel taff épuisant ... Vous avez malgré tout gagné un peu de faf\nVous possédez " + userBalance[index] + " :yen:");
+                }
+                else
+                {
+                    userBalance[index] += Math.floor(Math.random() * 10000) + 50000;
+                    message.channel.send("Travailler pour le président Macron n'a jamais été aussi fructueux ! Vous avez discrètement détourné quelques fonds publics, mais c'est pour la bonne cause...\nVotre coffre-fort compte maintenant " + userBalance[index] + " :yen:");
+                }
+                userCooldown[index] = Date.now();
+            }
+            else
+            {
+                message.channel.send("Vous êtes trop fatigué pour travailler, vous devez attendre " + (5000 - (Date.now() - userCooldown[index])) + " millisecondes avant de pouvoir travailler à nouveau !");
             }
         }
     }
@@ -1145,7 +1154,7 @@ Client.on("interactionCreate", async interaction => {
                 if(userLovePoint[place])
                     Profile.addField("Love Points :", userLovePoint[place].toString());
 
-                var NavigationP = new Discord.MessageActionRow()
+                let NavigationP = new Discord.MessageActionRow()
                     .addComponents(new Discord.MessageButton()
                         .setCustomId("ConnectC" + interaction.user.id)
                         .setLabel("Back Home")
@@ -1156,6 +1165,11 @@ Client.on("interactionCreate", async interaction => {
                         .setLabel("Back Home")
                         .setStyle("SUCCESS")
                         .setEmoji("🏆"))
+                    .addComponents(new Discord.MessageButton()
+                        .setCustomId("Bank" + interaction.user.id)
+                        .setLabel("Bank")
+                        .setStyle("PRIMARY")
+                        .setEmoji("💰"))
                     .addComponents(new Discord.MessageButton()
                         .setCustomId("Disconnect" + interaction.user.id)
                         .setLabel("Exit")
@@ -1955,6 +1969,7 @@ Client.on("interactionCreate", async interaction => {
                 userCasinoToken[place] += 33;
             }
 
+            pullREsult.addField("Portefeuille :", "\n" + userBalance[place] + " :yen:");
             if(userFreeCasinoTicket[place] > 0)
                 {   
                     casinoBtn.addComponents(new Discord.MessageButton()
@@ -2093,8 +2108,13 @@ Client.on("interactionCreate", async interaction => {
                 diceT.addField("♠ Résultat :", "*Votre prédiction était complètement erronée !*\nVous perdez **15** 🪙\n\nVous avez désormais : **" + userCasinoToken[place] + "** 🪙\n");
             }
             
-            diceTBtn.
-            addComponents(new Discord.MessageButton()
+            diceTBtn
+            .addComponents(new Discord.MessageButton()
+                .setCustomId("DiceGame" + interaction.user.id)
+                .setLabel("Throw again")
+                .setStyle("SUCCESS")
+                .setEmoji("🎲"))
+            .addComponents(new Discord.MessageButton()
                 .setCustomId("Lottery" + interaction.user.id)
                 .setLabel("Back Lottery Page")
                 .setStyle("SECONDARY")
@@ -2103,7 +2123,8 @@ Client.on("interactionCreate", async interaction => {
                 .setCustomId("Disconnect" + interaction.user.id)
                 .setLabel("Exit App")
                 .setStyle("SECONDARY")
-                .setEmoji("❌"));
+                .setEmoji("❌"))
+            ;
 
             await interaction.update({content: "J'ai pas les mots là...", embeds:[diceT], components: [diceTBtn]});
 
@@ -2145,10 +2166,10 @@ Client.on("interactionCreate", async interaction => {
                     .setStyle("SECONDARY")
                     .setEmoji("🎊"))
                 .addComponents(new Discord.MessageButton()
-                    .setCustomId("ConnectC" + interaction.user.id)
-                    .setLabel("Back Home")
+                    .setCustomId("CasinoExchange" + interaction.user.id)
+                    .setLabel("Echange jetons/argent")
                     .setStyle("SUCCESS")
-                    .setEmoji("🏡"));
+                    .setEmoji("💰"));
                 
             await interaction.update({content: "*Let's see what the token exchange shop provides...*", embeds:[CoinS], components: [NavigationCS]});
         }
@@ -2195,7 +2216,8 @@ Client.on("interactionCreate", async interaction => {
                 userOwnedTeddyBear[indexDiamondUser]++; 
             }
             else{achat.setDescription("Une erreur s'est produite lors de la transaction entre votre compte de jeton Casino et DIAMOND Corp.\nVotre achat a été annulé...");}
-        }else
+        }
+        else
         {
             achat.setDescription("Une erreur s'est produite lors de la transaction entre votre compte de jeton Casino et DIAMOND Corp.\nVotre achat a été annulé...");
         }
@@ -2291,22 +2313,173 @@ Client.on("interactionCreate", async interaction => {
             const Succes = new Discord.MessageEmbed()
                 .setColor("843dff")
                 .setTitle("ダイヤモンド - DIAMOND")
-                .setDescription("Terminez différentes tâches pour améliorer l'expérience des utilisateurs sur l'app DIMAOND et toucher des récompenses !")
+                .setDescription("Terminez différentes tâches pour améliorer l'expérience des utilisateurs sur l'app DIAMOND et toucher des récompenses !")
                 .setThumbnail(ppGF[indexGF])
                 .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
                 .setTimestamp();
         }
+        else if(interaction.customId === "CasinoExchange" + interaction.user.id)
+        {
+            const CasinoExchange = new Discord.MessageEmbed()
+                .setColor("843dff")
+                .setTitle("ダイヤモンド - DIAMOND")
+                .setDescription("Choissisez le type d'échange que vous souhaitez effectuer.")
+                .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
+                .setTimestamp();
+
+            var shopB = new Discord.MessageActionRow()
+            .addComponents(new Discord.MessageButton()
+                    .setCustomId("CasinoExchangeMJ" + interaction.user.id)
+                    .setLabel("Achat de jetons")
+                    .setStyle("SECONDARY")
+                    .setEmoji("🪙"))
+            .addComponents(new Discord.MessageButton()
+                    .setCustomId("CasinoExchangeJM" + interaction.user.id)
+                    .setLabel("Vente de jetons")
+                    .setStyle("SUCCESS")
+                    .setEmoji("💰"));
+
+            await interaction.update({content: "*You're not sure...*", embeds:[CasinoExchange], components: [shopB]});
+        }
+        else if(interaction.customId === "CasinoExchangeMJ" + interaction.user.id)
+        {
+            let select = new Discord.MessageSelectMenu()
+                .setCustomId("MoneyJetons" + interaction.user.id)
+                .setPlaceholder("Nombre de jetons à acheter")
+                .addOptions({label:"1 jeton", description:"2000 yens", value:"1"})
+                .addOptions({label:"5 jetons", description:"10000 yens", value:"5"})
+                .addOptions({label:"10 jetons", description: "20000 yens", value:"10"})
+                .addOptions({label:"25 jetons", description: "50000 yens", value:"25"})
+                .addOptions({label:"50 jetons", description: "100000 yens", value:"50"})
+                .addOptions({label:"100 jetons", description: "200000 yens", value:"100"})
+                .addOptions({label:"250 jetons", description: "500000 yens", value:"250"})
+                .addOptions({label:"500 jetons", description: "1000000 yens", value:"500"})
+                .addOptions({label:"1000 jetons", description: "2000000 yens", value:"1000"})
+                .addOptions({label:"5000 jetons", description: "5000000 yens", value:"5000"})
+                .addOptions({label:"10000 jetons", description: "10000000 yens", value:"10000"})
+                .addOptions({label:"25000 jetons", description: "50000000 yens", value:"25000"})
+                .addOptions({label:"50000 jetons", description: "100000000 yens", value:"50000"})
+                .addOptions({label:"100000 jetons", description: "200000000 yens", value:"100000"});
+            
+
+            let msg = new Discord.MessageActionRow()
+                .addComponents(select);
+
+            await interaction.update({content: "**Sélectionnez le nombre de jetons que vous souhaitez acheter**", embeds:[], components: [msg]});
+        }
+        else if(interaction.customId === "CasinoExchangeJM" + interaction.user.id)
+        {
+            let select = new Discord.MessageSelectMenu()
+                .setCustomId("JetonsMoney" + interaction.user.id)
+                .setPlaceholder("Nombre de jetons à vendre")
+                .addOptions({label:"1 jeton", description:"1000 yens", value:"1"})
+                .addOptions({label:"5 jetons", description:"5000 yens", value:"5"})
+                .addOptions({label:"10 jetons", description: "10000 yens", value:"10"})
+                .addOptions({label:"25 jetons", description: "25000 yens", value:"25"})
+                .addOptions({label:"50 jetons", description: "50000 yens", value:"50"})
+                .addOptions({label:"100 jetons", description: "100000 yens", value:"100"})
+                .addOptions({label:"250 jetons", description: "250000 yens", value:"250"})
+                .addOptions({label:"500 jetons", description: "500000 yens", value:"500"})
+                .addOptions({label:"1000 jetons", description: "1000000 yens", value:"1000"})
+                .addOptions({label:"5000 jetons", description: "2500000 yens", value:"5000"})
+                .addOptions({label:"10000 jetons", description: "5000000 yens", value:"10000"})
+                .addOptions({label:"25000 jetons", description: "25000000 yens", value:"25000"})
+                .addOptions({label:"50000 jetons", description: "50000000 yens", value:"50000"})
+                .addOptions({label:"100000 jetons", description: "100000000 yens", value:"100000"});
+            
+
+            let msg = new Discord.MessageActionRow()
+                .addComponents(select);
+
+            await interaction.update({content: "**Sélectionnez le nombre de jetons que vous souhaitez vendre**", embeds:[], components: [msg]});
+        }
+        else if(interaction.customId === "Bank" + interaction.user.id)
+        {
+            const Bank = new Discord.MessageEmbed()
+                .setColor("843dff")
+                .setTitle("ダイヤモンド - DIAMOND")
+                .setDescription("Vous pouvez déposer ou retirer de l'argent sur votre compte bancaire.")
+                .addField("Épargne:", userEpargne[userDiamondID.indexOf(interaction.user.id)] + " :yen:")
+                .addField("Portefeuille:", userBalance[userDiamondID.indexOf(interaction.user.id)] + " :yen:")
+                .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
+                .setTimestamp();
+
+            var bank = new Discord.MessageActionRow()
+                .addComponents(new Discord.MessageButton()
+                        .setCustomId("Deposit" + interaction.user.id)
+                        .setLabel("Déposer")
+                        .setStyle("SUCCESS")
+                        .setEmoji("💰"))
+                .addComponents(new Discord.MessageButton()
+                        .setCustomId("Withdraw" + interaction.user.id)
+                        .setLabel("Retirer")
+                        .setStyle("PRIMARY")
+                        .setEmoji("💰"))
+                .addComponents(new Discord.MessageButton()
+                        .setCustomId("Profile" + interaction.user.id)
+                        .setLabel("Back To Profile")
+                        .setStyle("SECONDARY")
+                        .setEmoji("🤹‍♀️"));
+
+            await interaction.update({content: "*You're not sure...*", embeds:[Bank], components: [bank]});
+        }
+        else if(interaction.customId === "Deposit" + interaction.user.id)
+        {
+            const Bank = new Discord.MessageEmbed()
+                .setColor("843dff")
+                .setDescription("Epargnez votre argent permet de toucher des intérêts lorsque vous travaillez.")
+                .setTitle("ダイヤモンド - DIAMOND")
+                .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
+                .setTimestamp();
+
+            let select = new Discord.MessageSelectMenu()
+                .setCustomId("DepositMoney" + interaction.user.id)
+                .setPlaceholder("Nombre de yens à déposer")
+                .addOptions({label:"1 yen", value:"1"})
+                .addOptions({label:"10 yens", value:"10"})
+                .addOptions({label:"100 yens", value:"100"})
+                .addOptions({label:"1000 yens", value:"1000"})
+                .addOptions({label:"10000 yens", value:"10000"})
+                .addOptions({label:"100000 yens", value:"100000"})
+                .addOptions({label:"1000000 yens", value:"1000000"})
+                .addOptions({label:"10000000 yens", value:"10000000"})
+                .addOptions({label:"100000000 yens", value:"100000000"})
+                .addOptions({label:"1000000000 yens", value:"1000000000"});
+            
+            let msg = new Discord.MessageActionRow()
+                .addComponents(select);
+
+            await interaction.update({content: "**Sélectionnez le montant que vous souhaitez déposer**", embeds:[Bank], components: [msg]});
+        }
+        else if(interaction.customId === "Withdraw" + interaction.user.id)
+        {
+            const Bank = new Discord.MessageEmbed()
+                .setColor("843dff")
+                .setDescription("Retirez votre argent pour vous payer des frais de service.")
+                .setTitle("ダイヤモンド - DIAMOND")
+                .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
+                .setTimestamp();
+
+            let select = new Discord.MessageSelectMenu()
+                .setCustomId("WithdrawMoney" + interaction.user.id)
+                .setPlaceholder("Nombre de yens à retirer")
+                .addOptions({label:"1 yen", value:"1"})
+                .addOptions({label:"10 yens", value:"10"})
+                .addOptions({label:"100 yens", value:"100"})
+                .addOptions({label:"1000 yens", value:"1000"})
+                .addOptions({label:"10000 yens", value:"10000"})
+                .addOptions({label:"100000 yens", value:"100000"})
+                .addOptions({label:"1000000 yens", value:"1000000"})
+                .addOptions({label:"10000000 yens", value:"10000000"})
+                .addOptions({label:"100000000 yens", value:"100000000"})
+                .addOptions({label:"1000000000 yens", value:"1000000000"});
+            
+            let msg = new Discord.MessageActionRow()
+                .addComponents(select);
+
+            await interaction.update({content: "**Sélectionnez le montant que vous souhaitez retirer**", embeds:[Bank], components: [msg]});
+        }
     // suite GF
-
-
-
-
-
-
-
-
-
-
 
     else if(interaction.customId === "Claim")
     {
@@ -2362,7 +2535,7 @@ Client.on("interactionCreate", async interaction => {
                 await interaction.update({content: "Something might went wrong...", components: []});
             }
         }
-        if(interaction.customId == "Bet")
+        else if(interaction.customId === "Bet")
         {
             var ready = new Discord.MessageActionRow()
             .addComponents(new Discord.MessageButton()
@@ -2390,6 +2563,141 @@ Client.on("interactionCreate", async interaction => {
                 break;
                 default :
                 await interaction.update({content: "Something might went wrong...", components: []});
+            }
+        }
+        else if(interaction.customId === "MoneyJetons" + interaction.user.id)
+        {
+            let index = userDiamondID.indexOf(interaction.user.id);
+            if(userBalance[index] >= (interaction.values[0] * 2000))
+            {
+                userBalance[index] -= (interaction.values[0] * 2000);
+                userCasinoToken[index] += interaction.values[0];
+
+                let msg = new Discord.MessageActionRow()
+                    .addComponents(new Discord.MessageButton()
+                        .setCustomId("CasinoExchangeMJ" + interaction.user.id)
+                        .setLabel("Exchange more")
+                        .setStyle("SUCCESS")
+                        .setEmoji("💰"))
+                    .addComponents(new Discord.MessageButton()
+                        .setCustomId("Lottery" + interaction.user.id)
+                        .setLabel("Back to Lottery")
+                        .setStyle("SECONDARY")
+                        .setEmoji("🎊"));
+
+                await interaction.update({content: "Vous avez acheté **" + interaction.values[0] + "** jetons", components: [msg]});
+            }
+            else
+            {
+                let msg = new Discord.MessageActionRow()
+                    .addComponents(new Discord.MessageButton()
+                        .setCustomId("Lottery" + interaction.user.id)
+                        .setLabel("Back to Lottery")
+                        .setStyle("SECONDARY")
+                        .setEmoji("🎊"));
+                await interaction.update({content: "Vous n'avez pas assez d'argent", components: [msg]});
+            }
+        }
+        else if(interaction.customId === "JetonsMoney" + interaction.user.id)
+        {
+            let index = userDiamondID.indexOf(interaction.user.id);
+            if(userCasinoToken[index] >= interaction.values[0])
+            {
+                userCasinoToken[index] -= interaction.values[0];
+                userBalance[index] += (interaction.values[0] * 1000);
+
+                let msg = new Discord.MessageActionRow()
+                    .addComponents(new Discord.MessageButton()
+                        .setCustomId("CasinoExchangeJM" + interaction.user.id)
+                        .setLabel("Exchange more")
+                        .setStyle("SUCCESS")
+                        .setEmoji("💰"))
+                    .addComponents(new Discord.MessageButton()
+                        .setCustomId("Lottery" + interaction.user.id)
+                        .setLabel("Back to Lottery")
+                        .setStyle("SECONDARY")
+                        .setEmoji("🎊"));
+
+                await interaction.update({content: "Vous avez vendu **" + interaction.values[0] + "** jetons", components: [msg]});
+            }
+            else
+            {
+                let msg = new Discord.MessageActionRow()
+                    .addComponents(new Discord.MessageButton()
+                        .setCustomId("Lottery" + interaction.user.id)
+                        .setLabel("Back to Lottery")
+                        .setStyle("SECONDARY")
+                        .setEmoji("🎊"));
+                await interaction.update({content: "Vous n'avez pas assez de jetons", components: [msg]});
+            }
+        }
+        else if(interaction.customId === "DepositMoney" + interaction.user.id)
+        {
+            let index = userDiamondID.indexOf(interaction.user.id);
+            if(userBalance[index] >= interaction.values[0])
+            {
+                userBalance[index] -= interaction.values[0];
+                userEpargne[index] += Number(interaction.values[0]);
+
+                let msg = new Discord.MessageActionRow()
+                    .addComponents(new Discord.MessageButton()
+                        .setCustomId("DepositMoney" + interaction.user.id)
+                        .setLabel("Deposit more")
+                        .setStyle("SUCCESS")
+                        .setEmoji("💰"))
+                    .addComponents(new Discord.MessageButton()
+                        .setCustomId("Bank" + interaction.user.id)
+                        .setLabel("Back to Bank")
+                        .setStyle("SECONDARY")
+                        .setEmoji("🏦"));
+                    
+                await interaction.update({content: "Vous avez déposé **" + interaction.values[0] + "** yens", embeds:[], components: [msg]});	
+            }
+            else
+            {
+                let msg = new Discord.MessageActionRow()
+                    .addComponents(new Discord.MessageButton()
+                        .setCustomId("Bank" + interaction.user.id)
+                        .setLabel("Back to Bank")
+                        .setStyle("SECONDARY")
+                        .setEmoji("🏦"));
+                await interaction.update({content: "Vous n'avez pas assez d'argent", embeds:[], components: [msg]});
+            }
+        }
+        else if(interaction.customId === "WithdrawMoney" + interaction.user.id)
+        {
+            let index = userDiamondID.indexOf(interaction.user.id);
+            userEpargne[index] *= 0.9;
+            if(userEpargne[index] >= interaction.values[0])
+            {
+                userEpargne[index] -= interaction.values[0];
+                userBalance[index] += Number(interaction.values[0]);
+
+                let msg = new Discord.MessageActionRow()
+                    .addComponents(new Discord.MessageButton()
+                        .setCustomId("WithdrawMoney" + interaction.user.id)
+                        .setLabel("Withdraw more")
+                        .setStyle("SUCCESS")
+                        .setEmoji("💰"))
+                    .addComponents(new Discord.MessageButton()
+                        .setCustomId("Bank" + interaction.user.id)
+                        .setLabel("Back to Bank")
+                        .setStyle("SECONDARY")
+                        .setEmoji("🏦"));
+                    
+                await interaction.update({content: "Vous avez retiré **" + interaction.values[0]+ "** yens", embeds:[], components: [msg]});	
+            }
+            else
+            {
+                userBalance[index] += userEpargne[index];
+                userEpargne[index] = 0;
+                let msg = new Discord.MessageActionRow()
+                    .addComponents(new Discord.MessageButton()
+                        .setCustomId("Bank" + interaction.user.id)
+                        .setLabel("Back to Bank")
+                        .setStyle("SECONDARY")
+                        .setEmoji("🏦"));
+                await interaction.update({content: "Vous avez retiré tout votre argent", embeds:[], components: [msg]});
             }
         }
     }
