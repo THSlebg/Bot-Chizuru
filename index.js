@@ -2,6 +2,7 @@ require('dotenv').config()
 const { table } = require("console");
 const { channel } = require("diagnostics_channel");
 const Discord = require("discord.js");
+const { title } = require('process');
 const { late } = require("zod");
 const Client = new Discord.Client({
     intents: 
@@ -95,26 +96,26 @@ let marryGF = ["https://i.redd.it/xrktzpgsllj51.jpg", "https://i.imgur.com/zsDTM
 let ownedbyGF = ["No one", "No one", "No one", "No one"];
 let ownedbyGFuserDiamondID = ["None", "None", "None", "None"];
 
-let nameGFSecret = ["Itsuki Nakano", "Yukino Yukinoshita", "Yukana Yame", "Aki Adagaki", "Shuka Karino"];
-let genderGFSecret = ["♀️", "♀️", "♀️", "♀️", "♀️"];
-let ageGFSecret = ["17", "17", "17", "16", "16"];
-let heightGFSecret = ["159 cm", "166 cm", "160 cm", "164 cm", "149 cm"];
-let personnalityGFSecret = ["Serious, Well-manered, Rancorous, Glottonous", "Prideful, Talented, Extremely Smart, Outspoken", "Sweet, Carefree, Gal, Playful", "Cruel, Self-aware, Guzzler, Flat", "Friendly, Deadly, Jealous, Tameable"];
-let imageGFSecret = ["https://i.imgur.com/WFJzBTC.gif", "https://i.imgur.com/HXRMEKd.gif", "https://i.imgur.com/GvuIgSJ.gif", "https://imgur.com/syJpkRe.gif", "https://imgur.com/UqmVKaP.gif"];
-let priceGFSecret = ["20000", "26000", "18000", "24000", "28000"];
-let rentedImageGFSecret = ["https://c.tenor.com/6DYdJKGxCdoAAAAC/nakano-itsuki-go-toubun-no-hanayome.gif", "https://i.pinimg.com/originals/e4/e8/bd/e4e8bddc5cf5bcb4b2a5d216da0a3b66.gif", "https://c.tenor.com/dciMBaLoRe0AAAAC/hajimete-no-gal-smile.gif", "https://data.whicdn.com/images/348245935/original.gif", "https://c.tenor.com/jVGbM5FRknsAAAAC/darwinsgame.gif"];
-let ppGFSecret = ["https://i.redd.it/0pn4put2p8661.jpg", "https://www.nautiljon.com/images/perso/00/99/yukinoshita_yukino_9599.jpg", "https://i.pinimg.com/564x/69/fc/1b/69fc1b9a39afff73a74fb3049a61cc28.jpg", "https://i.pinimg.com/originals/e0/0a/85/e00a85d7e42f81b5ab0caea47bbb827a.jpg", "https://i.pinimg.com/originals/2b/07/e1/2b07e12a0da374810b8a66d2a5cff28b.png"];
-let likeChocolateSecret = ["Happy", "Neutral", "Neutral", "Happy", "Angry"];
-let likeBookSecret = ["Neutral", "Happy", "Angry", "Neutral", "Neutral"];
-let likeScarfSecret = ["Angry", "Happy", "Happy", "Angry", "Neutral"];
-let likeRingSecret = ["Neutral", "Angry", "Happy", "Happy", "Happy"];
-let likeRoseSecret = ["Neutral", "Happy", "Neutral", "Angry", "Happy"];
-let likeKnifeSecret = ["Angry", "Neutral", "Angry", "Happy", "Happy"];
-let likeTeddyBearSecret = ["Neutral", "Happy", "Happy", "Angry", "Happy"];
-let priceGFLPSecret = [1500, 1765, 1445, 1495, 1830];
-let marryGFSecret = ["https://i.pinimg.com/736x/7c/6a/5b/7c6a5b57ebbbaf24b5c39df2e7f441c7.jpg", "https://static.zerochan.net/Yukinoshita.Yukino.full.2253104.jpg", "https://images5.alphacoders.com/103/1032303.jpg", "https://i.pinimg.com/236x/56/36/76/563676ea833afb5e22ee3fce83e14510--anime-meme-mom.jpg", "https://s3.zerochan.net/240/01/06/2812801.jpg"];
-let rentedImageGFHappySecret =["https://i.pinimg.com/originals/8d/3c/26/8d3c26c691419c47c45c49b521b39568.gif", "https://38.media.tumblr.com/1008d0881e5e92fa9c8f18eb91c766df/tumblr_np52popXiM1u9f4wvo1_540.gif", "https://c.tenor.com/SND5birWDXkAAAAC/hajimete-no-gal-smile.gif", "https://i.pinimg.com/originals/49/fd/f9/49fdf9e93bd214542be60ab9c5c4ac7e.gif", "https://64.media.tumblr.com/5964c7f87f60aad9863777bf9092609c/1f50096f9d1b8dbc-6d/s540x810/ebb90503170e9b106ffd1a16a012aa3f32899564.gif"];
-let rentedImageGFAngrySecret =["https://pa1.narvii.com/7097/dfcc2b8bc6c5818a78e320375a5b5cc7c51384f6r1-498-282_hq.gif", "https://64.media.tumblr.com/f7a62821963ea57b2e1510e667590591/tumblr_nmxml3T5Td1rcufwuo1_500.gif", "https://c.tenor.com/JDY8KhMlynwAAAAC/hajimete-no-gal-gal.gif", "https://c.tenor.com/JljBKC9XpawAAAAC/aki-adagaki.gif", "https://64.media.tumblr.com/975fa03a89c8ed737808d11a0a18d4a1/49f4ceb2ed5f82f6-5c/s400x600/1bde87deace3ce7be0cfba40ca8b49973f8759e7.gif"];
+let nameGFSecret = ["Itsuki Nakano", "Yukino Yukinoshita", "Yukana Yame", "Aki Adagaki", "Shuka Karino", "Yumeko Jabami", "Mikasa Ackerman"];
+let genderGFSecret = ["♀️", "♀️", "♀️", "♀️", "♀️", "♀️", "♀️"];
+let ageGFSecret = ["17", "17", "17", "16", "16", "17", "19"];
+let heightGFSecret = ["159 cm", "166 cm", "160 cm", "164 cm", "149 cm", "166 cm", "176 cm"];
+let personnalityGFSecret = ["Serious, Well-manered, Rancorous, Glottonous", "Prideful, Talented, Extremely Smart, Outspoken", "Sweet, Carefree, Gal, Playful", "Cruel, Self-aware, Guzzler, Flat", "Friendly, Deadly, Jealous, Tameable", "Upbeat, Charismatic, Gambler, Relentless", "Careful, Straightforrward, Emotional, Benevolent"];
+let imageGFSecret = ["https://i.imgur.com/WFJzBTC.gif", "https://i.imgur.com/HXRMEKd.gif", "https://i.imgur.com/GvuIgSJ.gif", "https://imgur.com/syJpkRe.gif", "https://imgur.com/UqmVKaP.gif", "https://i.imgur.com/s9YBg0C.gif", "https://i.imgur.com/Tbyb9Ct.gif"];
+let priceGFSecret = ["20000", "26000", "18000", "24000", "28000", "30000" , "28000"];
+let rentedImageGFSecret = ["https://c.tenor.com/6DYdJKGxCdoAAAAC/nakano-itsuki-go-toubun-no-hanayome.gif", "https://i.pinimg.com/originals/e4/e8/bd/e4e8bddc5cf5bcb4b2a5d216da0a3b66.gif", "https://c.tenor.com/dciMBaLoRe0AAAAC/hajimete-no-gal-smile.gif", "https://data.whicdn.com/images/348245935/original.gif", "https://c.tenor.com/jVGbM5FRknsAAAAC/darwinsgame.gif", "https://data.whicdn.com/images/309682324/original.gif", "https://thumbs.gfycat.com/LiquidPoshBarebirdbat-size_restricted.gif"];
+let ppGFSecret = ["https://i.redd.it/0pn4put2p8661.jpg", "https://www.nautiljon.com/images/perso/00/99/yukinoshita_yukino_9599.jpg", "https://i.pinimg.com/564x/69/fc/1b/69fc1b9a39afff73a74fb3049a61cc28.jpg", "https://i.pinimg.com/originals/e0/0a/85/e00a85d7e42f81b5ab0caea47bbb827a.jpg", "https://i.pinimg.com/originals/2b/07/e1/2b07e12a0da374810b8a66d2a5cff28b.png", "https://i.pinimg.com/280x280_RS/f9/b4/05/f9b40589c9f947b2b0afd8d97513cecd.jpg", "https://pbs.twimg.com/profile_images/1282727312962867202/qwlsuCka_400x400.jpg"];
+let likeChocolateSecret = ["Happy", "Neutral", "Neutral", "Happy", "Angry", "Neutral", "Angry"];
+let likeBookSecret = ["Neutral", "Happy", "Angry", "Neutral", "Neutral", "Angry", "Angry"];
+let likeScarfSecret = ["Angry", "Happy", "Happy", "Angry", "Neutral", "Neutral", "Happy"];
+let likeRingSecret = ["Neutral", "Angry", "Happy", "Happy", "Happy", "Happy", "Neutral"];
+let likeRoseSecret = ["Neutral", "Happy", "Neutral", "Angry", "Happy", "Angry", "Neutral"];
+let likeKnifeSecret = ["Angry", "Neutral", "Angry", "Happy", "Happy", "Neutral", "Happy"];
+let likeTeddyBearSecret = ["Neutral", "Happy", "Happy", "Angry", "Happy", "Happy", "Neutral"];
+let priceGFLPSecret = [1500, 1765, 1445, 1495, 1830, 2000, 1900];
+let marryGFSecret = ["https://i.pinimg.com/736x/7c/6a/5b/7c6a5b57ebbbaf24b5c39df2e7f441c7.jpg", "https://static.zerochan.net/Yukinoshita.Yukino.full.2253104.jpg", "https://images5.alphacoders.com/103/1032303.jpg", "https://i.pinimg.com/236x/56/36/76/563676ea833afb5e22ee3fce83e14510--anime-meme-mom.jpg", "https://s3.zerochan.net/240/01/06/2812801.jpg", "https://i.imgur.com/hAaQffV.png", "https://i.pinimg.com/originals/ca/57/af/ca57af7a78703126ab7957d6574192af.jpg"];
+let rentedImageGFHappySecret =["https://i.pinimg.com/originals/8d/3c/26/8d3c26c691419c47c45c49b521b39568.gif", "https://38.media.tumblr.com/1008d0881e5e92fa9c8f18eb91c766df/tumblr_np52popXiM1u9f4wvo1_540.gif", "https://c.tenor.com/SND5birWDXkAAAAC/hajimete-no-gal-smile.gif", "https://i.pinimg.com/originals/49/fd/f9/49fdf9e93bd214542be60ab9c5c4ac7e.gif", "https://64.media.tumblr.com/5964c7f87f60aad9863777bf9092609c/1f50096f9d1b8dbc-6d/s540x810/ebb90503170e9b106ffd1a16a012aa3f32899564.gif", "https://i.imgur.com/7szZZM1.gif", "https://giffiles.alphacoders.com/348/34873.gif"];
+let rentedImageGFAngrySecret =["https://pa1.narvii.com/7097/dfcc2b8bc6c5818a78e320375a5b5cc7c51384f6r1-498-282_hq.gif", "https://64.media.tumblr.com/f7a62821963ea57b2e1510e667590591/tumblr_nmxml3T5Td1rcufwuo1_500.gif", "https://c.tenor.com/JDY8KhMlynwAAAAC/hajimete-no-gal-gal.gif", "https://c.tenor.com/JljBKC9XpawAAAAC/aki-adagaki.gif", "https://64.media.tumblr.com/975fa03a89c8ed737808d11a0a18d4a1/49f4ceb2ed5f82f6-5c/s400x600/1bde87deace3ce7be0cfba40ca8b49973f8759e7.gif", "https://c.tenor.com/LgBWQk5HuSkAAAAC/kakegurui-look-up.gif", "https://c.tenor.com/xNrzukjvoHMAAAAC/mikasa-mad.gif"];
 
 
 
@@ -132,6 +133,11 @@ let userOwnedTeddyBear = [];
 let userFreeRentTicket = [];
 let userFreeCasinoTicket = [];
 let userCasinoToken = [];
+let userSuccess = [[]];
+let userMarriedOnce = [];
+let userWonJackpot = [];
+let userRentNb = [];
+
 
 let dice = 0;
 
@@ -446,6 +452,14 @@ Client.on("messageCreate", message => {
                 userCasinoToken[nbDiamondUser] = 500; // TESTO
                 userLovePoint[nbDiamondUser] = 5000; //TESTO
                 paidDateUser[nbDiamondUser] = 0;
+                userSuccess[nbDiamondUser, 0] = 0;
+                userSuccess[nbDiamondUser, 1] = 0;
+                userSuccess[nbDiamondUser, 2] = 0;
+                userSuccess[nbDiamondUser, 3] = 0;
+                userSuccess[nbDiamondUser, 4] = 0;
+                userMarriedOnce[nbDiamondUser] = 0;
+                userWonJackpot[nbDiamondUser] = 0;
+                userRentNb[nbDiamondUser] = 0;
                 nbDiamondUser++;
                 console.log(message.author.id);
                 message.channel.send({content: "*Votre téléphone vibre étrangement ?\nDans un grand flash blanc, votre téléphone vous propose de vous rediriger vers le lien suivant : https://diamond.app/rent \nCe lien semble inaccessible, cependant il semblerait que vous puissiez installer l'application* **DIAMOND**", components: [logIn]});
@@ -1145,6 +1159,20 @@ Client.on("interactionCreate", async interaction => {
                 if(userLovePoint[place])
                     Profile.addField("Love Points :", userLovePoint[place].toString());
 
+                Profile.addField("Inventaire Casino :", userCasinoToken[place] + " 🪙 " + userCasinoToken[place] + " 🎫");
+
+                let idx = "";
+                let ownedGF = "";
+                ownedbyGFuserDiamondID.forEach(element => {
+                    if(element == interaction.user.id)
+                    {
+                        idx = ownedbyGFuserDiamondID.indexOf((interaction.user.id));
+                        ownedGF += nameGF[idx] + "\n";
+                    }
+                });
+
+                Profile.addField("GirlFriend marié(es) :", ownedGF);
+
                 var NavigationP = new Discord.MessageActionRow()
                     .addComponents(new Discord.MessageButton()
                         .setCustomId("ConnectC" + interaction.user.id)
@@ -1153,7 +1181,7 @@ Client.on("interactionCreate", async interaction => {
                         .setEmoji("🏡"))
                     .addComponents(new Discord.MessageButton()
                         .setCustomId("Succes" + interaction.user.id)
-                        .setLabel("Back Home")
+                        .setLabel("Success")
                         .setStyle("SUCCESS")
                         .setEmoji("🏆"))
                     .addComponents(new Discord.MessageButton()
@@ -1249,16 +1277,19 @@ Client.on("interactionCreate", async interaction => {
             if(ownedbyGFuserDiamondID[indexGF] === interaction.user.id)
             {
                 paidDateUser[index] = 1;
+                userRentNb[index]++;
             }
             else if(userFreeRentTicket[index] > 0 && !paidDateUser[index])
             {
                 paidDateUser[index] = 1;
                 userFreeRentTicket[index]--;
+                userRentNb[index]++;
             }
             else if(userBalance[index] >= priceGF[indexGF] && !paidDateUser[index])
             {
                 paidDateUser[index] = 1;
                 userBalance[index] -= priceGF[indexGF];
+                userRentNb[index]++;
 
                 if(ownedbyGFuserDiamondID[indexGF] != "None")
                 {
@@ -1396,7 +1427,7 @@ Client.on("interactionCreate", async interaction => {
                     achat.addField("Article acheté :", "1 tablette de chocolat 🍫");
                     achat.addField("Porte-Monnaie :", userBalance[indexDiamondUser] + " :yen:");
                     userOwnedChocolate[indexDiamondUser]++; 
-                    if(userOwnedChocolate[indexDiamondUser] == 10){addSecretGirl("Itsuki Nakano");}
+                    if(userOwnedChocolate[indexDiamondUser] >= 10){addSecretGirl("Itsuki Nakano");}
                 }
                 else{achat.setDescription("Une erreur s'est produite lors de la transaction entre votre banque et DIAMOND Corp.\nVotre achat a été annulé...");}
             }
@@ -1409,7 +1440,7 @@ Client.on("interactionCreate", async interaction => {
                     achat.addField("Article acheté :", "1 livre d'histoire 📔");
                     achat.addField("Porte-Monnaie :", userBalance[indexDiamondUser] + " :yen:");
                     userOwnedBook[indexDiamondUser]++;
-                    if(userOwnedBook[indexDiamondUser] == 10){addSecretGirl("Yukino Yukinoshita");} 
+                    if(userOwnedBook[indexDiamondUser] >= 10){addSecretGirl("Yukino Yukinoshita");} 
                 }
                 else{achat.setDescription("Une erreur s'est produite lors de la transaction entre votre banque et DIAMOND Corp.\nVotre achat a été annulé...");}
             }
@@ -1422,6 +1453,7 @@ Client.on("interactionCreate", async interaction => {
                     achat.addField("Article acheté :", "1 écharpe rouge :scarf:");
                     achat.addField("Porte-Monnaie :", userBalance[indexDiamondUser] + " :yen:");
                     userOwnedScarf[indexDiamondUser]++;
+                    if(userOwnedBook[indexDiamondUser] >= 5){addSecretGirl("Mikasa Ackerman");} 
                 }
                 else{achat.setDescription("Une erreur s'est produite lors de la transaction entre votre banque et DIAMOND Corp.\nVotre achat a été annulé...");}
             }
@@ -1688,6 +1720,7 @@ Client.on("interactionCreate", async interaction => {
             userLovePoint[userDiamondID.indexOf(interaction.user.id)] = userLovePoint[userDiamondID.indexOf(interaction.user.id)] - priceGFLP[indexGF];
             userOwnedRing[userDiamondID.indexOf(interaction.user.id)] = userOwnedRing[userDiamondID.indexOf(interaction.user.id)] - 1;
             userBalance[userDiamondID.indexOf(interaction.user.id)] = userBalance[userDiamondID.indexOf(interaction.user.id)] - ((indexGF+1) * 100000);
+            userMarriedOnce[userDiamondID.indexOf(interaction.user.id)] = 1;
 
             const marry = new Discord.MessageEmbed()
                 .setColor("843dff")
@@ -1814,6 +1847,7 @@ Client.on("interactionCreate", async interaction => {
             else if(casinoRoll < 22)
             {
                 pullREsult.addField("Vos gains :", "\n**JACKPOT !** Vous avez gagné **500.000** :yen:");
+                userWonJackpot[place] = 1;
                 userBalance[place] += 500000;
             }
             else if(casinoRoll < 28)
@@ -1859,6 +1893,8 @@ Client.on("interactionCreate", async interaction => {
             else if(casinoRoll < 57)
             {
                 pullREsult.addField("Vos gains :", "\n**JACKPOT !** Vous avez gagné **500** 🪙");
+                userWonJackpot[place] = 1;
+                addSecretGirl("Yumeko Jabami");
                 userCasinoToken[place] += 500;
             }
             else if(casinoRoll < 59)
@@ -2084,7 +2120,7 @@ Client.on("interactionCreate", async interaction => {
 
             if(valueU == dice)
             {
-                userCasinoToken[place] = userCasinoToken[place] +50;
+                userCasinoToken[place] +50;
                 diceT.addField("♠ Résultat :", "*Votre prédiction était la bonne !*\nVous remportez **50** 🪙\n\nVous avez désormais : **" + userCasinoToken[place] + "** 🪙\n");
             }
             else
@@ -2288,13 +2324,150 @@ Client.on("interactionCreate", async interaction => {
         }
         else if(interaction.customId === "Succes" + interaction.user.id)
         {
+            
+            let place = userDiamondID.indexOf(interaction.user.id);
+            let descrS = ["Possédez simultanément **tous** les items du jeu", "Amassez 1.000.000 :yen:", "Se marier 1 fois :sparkling_heart:", "Gagner **1** fois un JACKPOT", "Rent **10** fois n'importe quelle fille"];
+            let titleS = ["Collectionneur :", "Philantrope :", "Get Married! :", "JACKPOOOOOOOOOT :", "Amoureux :"];
+            let autopilot = 0;
+            var titleTemp = "";
+
             const Succes = new Discord.MessageEmbed()
                 .setColor("843dff")
                 .setTitle("ダイヤモンド - DIAMOND")
                 .setDescription("Terminez différentes tâches pour améliorer l'expérience des utilisateurs sur l'app DIMAOND et toucher des récompenses !")
-                .setThumbnail(ppGF[indexGF])
+                .setThumbnail("https://cdn21.neko-sama.xyz/kanojo-okarishimasu-1-vostfr.jpg")
                 .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
                 .setTimestamp();
+
+            if(userSuccess[place, 0] == 0 && userOwnedChocolate > 0 && userOwnedBook > 0 && userOwnedScarf > 0 && userOwnedRing > 0 && userOwnedRose > 0 && userOwnedKnife > 0 && userOwnedTeddyBear > 0)
+            {
+                userSuccess[place, 0] = 1;
+            }
+            if(userSuccess[place, 1] == 0 && userBalance[place] > 999999)
+            {
+                userSuccess[place, 1] = 1;
+            }
+            if(userSuccess[place, 2] == 0 && userMarriedOnce[place] == 1)
+            {
+                userSuccess[place, 2] = 1;
+            }
+            if(userSuccess[place, 3] == 0 && userWonJackpot[place] == 1)
+            {
+                userSuccess[place, 3] = 1;
+            }
+            if(userSuccess[place, 4] == 0 && userRentNb[place] >= 10)
+            {
+                userSuccess[place, 4] = 1;
+            }
+
+            descrS.forEach(element => {
+                switch(userSuccess[place, autopilot])
+                {
+                    case 0:
+                        titleTemp = ":record_button: " + titleS[autopilot];
+                        break
+                    case 1:
+                        titleTemp = ":white_check_mark: " + titleS[autopilot];
+                        break
+                    case 2:
+                        titleTemp = ":trophy: " + titleS[autopilot];
+                        break
+                    default:
+                        titleTemp = "Erreur";
+                        break
+                }
+                Succes.addField(titleTemp, element);
+                autopilot++;
+            });
+
+            var ClaimS = new Discord.MessageActionRow()
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("ClaimS" + interaction.user.id)
+                    .setLabel("Claim Rewards")
+                    .setStyle("SUCCESS")
+                    .setEmoji("🏅"))
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("Profile" + interaction.user.id)
+                    .setLabel("Back to Profile")
+                    .setStyle("SECONDARY")
+                    .setEmoji("🤹‍♀️"));
+
+            await interaction.update({content: "*Nice rewards await me !*", embeds:[Succes], components: [ClaimS]});
+        }
+        else if(interaction.customId === "ClaimS" + interaction.user.id)
+        {
+            let place = userDiamondID.indexOf(interaction.user.id);
+            let nada = 0;
+            let indexC = 0;
+            let reward = "";
+            let tmpTable = [];
+            tmpTable.push(userSuccess[place, 0]);
+            tmpTable.push(userSuccess[place, 1]);
+            tmpTable.push(userSuccess[place, 2]);
+            tmpTable.push(userSuccess[place, 3]);
+            tmpTable.push(userSuccess[place, 4]);
+            console.log(tmpTable);
+            const SuccesC = new Discord.MessageEmbed()
+                .setColor("843dff")
+                .setTitle("ダイヤモンド - DIAMOND")
+                .setDescription("Détails de vos récompenses pour vos hauts faits sur notre application DIAMOND !\nNous espérons que vous appréciez votre expérience utilisateur !")
+                .setThumbnail("https://cdn21.neko-sama.xyz/kanojo-okarishimasu-1-vostfr.jpg")
+                .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
+                .setTimestamp();
+
+            var ClaimS = new Discord.MessageActionRow()
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("Profile" + interaction.user.id)
+                    .setLabel("Back to Profile")
+                    .setStyle("SUCCESS")
+                    .setEmoji("🤹‍♀️"));
+
+            tmpTable.forEach(element => {
+                switch(element)
+                {
+                    case 0:
+                        nada++;
+                        break
+                    case 1:
+                        userSuccess[place, indexC] = 2;
+                        switch(indexC)
+                        {
+                            case 0:
+                                userBalance[place] += 100000;
+                                reward += "+ 100.000 :yen:\n";
+                                break
+                            case 1:
+                                userOwnedRing[place] += 10;
+                                reward += "+ 10 :ring:\n";
+                                break
+                            case 2:
+                                userOwnedRose[place] += 5;
+                                reward += "+ 5 🌹\n";
+                                break
+                            case 3:
+                                userFreeCasinoTicket[place] += 25;
+                                reward += "+ 25 🎫\n";
+                                break
+                            case 4:
+                                userFreeRentTicket[place] += 1;
+                                reward += "+ 1 🎟️\n";
+                                break
+                            default:
+                                break
+                        }
+                        break;
+                    case 2:
+                        nada ++;
+                        break
+                    default:
+                        break  
+                }
+                indexC++;
+                console.log("nada:" + nada);
+                if(nada == 5){reward = "Aucune récompense disponible";}
+            });
+            SuccesC.addField("Détails de vos Gains :", reward);
+            await interaction.update({content: "*Let's see waht we've got here ...", embeds:[SuccesC], components: [ClaimS]});
         }
     // suite GF
 
