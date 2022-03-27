@@ -30,9 +30,9 @@ let usrName = "undefinedUserName";
 let kkrValue = "undefinedKakeraAmount";
 let kkrEmoji = "<:kakera:950050987412951051>";
 
-let eventTitle = "Pierres précieuses";
-let eventPeriod = "21/03/2022 | 00h00 (UTC+1) - 27/03/2022 | 23h59 (UTC+1)";
-let eventDescr = "Les réacts turquoises rapportent x4" + kkrEmoji + "et les vertes x3" + kkrEmoji;
+let eventTitle = "LOOTBOXESSS!!";
+let eventPeriod = "28/03/2022 | 00h00 (UTC+1) - 03/04/2022 | 23h59 (UTC+1)";
+let eventDescr = "Jusqu'à 7 kl offerte par jour.";
 let eventAva = "Tous les joueurs sauf multi-comptes.";
 let eventColor = "5bed07";
 let kkrValueEvent = []; // Event Paramater
@@ -196,7 +196,7 @@ Client.on("messageCreate", message => {
     }
     else if(message.content === prefix + "patchnote")
     {
-        message.channel.send("**Version " + botVersion + ":**\nLatest release :\n\n> Add 2 more Secret Girl (7 Secret Girls for 11 girls in total)\n> Success Feature : 5 Success \n> Casino Coin and Money Exchange\n> Add Fields for Profile\n> Bank feature (Money saving system)\n> Mono instance for players & Multi-Instance handling system\n> Throw again option in DiceGame\n> Display Currency when rolling Lucky 7\n> Cooldown on rent!work (doable each 5 sec)\n> Alpha Commands for alpha release\n\n**Now Working on :**\n\n> Multi-Server Instances\n> Cooldown on rent\n> Database Conception");
+        message.channel.send("**Version " + botVersion + ":**\nLatest release :\n\n> Add 2 more Secret Girl (7 Secret Girls for 11 girls in total)\n> Success Feature : 5 Success \n> Casino Coin and Money Exchange\n> Add Fields for Profile\n> Bank feature (Money saving system)\n> Mono instance for players & Multi-Instance handling system\n> Throw again option in DiceGame\n> Display Currency when rolling Lucky 7\n> Cooldown on rent!work (doable each 5 sec)\n> Alpha Commands for alpha release\n\n**Now Working on :**\n\n> Multi-Server Instances\n> Cooldown on rent\n> Database Conception\n> Auto-Disconnect after inactivity");
     }
     else if(message.content === prefix + "version")
     {
@@ -217,7 +217,7 @@ Client.on("messageCreate", message => {
             let msg = message.content.split(" ").slice(1).join(" ");
             let usrName = message.author.username;
 
-            Client.channels.cache.find(channel => channel.name === channelLogName ).send("**" + usrName + "** a envoyé un feedback : " + msg);
+            Client.channels.cache.find(channel => channel.name === "alpha-feedback" ).send("**" + usrName + "** a envoyé un feedback : " + msg);
         }
     }
     else if(message.content === prefix + "hi")
@@ -589,14 +589,14 @@ Client.on("messageCreate", message => {
     else if(message.content.startsWith("<:kakeraT:609264180851376132>"))
     {
         var extraction = Number((message.content.split("+")[1]).split("*")[0]);
-        kkrValueEvent.push(extraction*4);
+        kkrValueEvent.push(extraction*8);
         console.log(message);
         {
             const eventPopUp = new Discord.MessageEmbed()
                 .setColor("21eb13")
                 .setTitle(eventTitle)
                 .setURL("https://www.gouvernement.fr/argumentaire/mes-aidesgouvfr-un-site-pour-evaluer-ses-droits-aux-prestations-et-aides-sociales")
-                .addField(eventDescr + "\n\n**Voulez-vous récupérez votre récompenses ? (" + extraction*4 + kkrEmoji + ")**", "*Les admins ont accès aux logs et messages, tout abus, même s'il s'agit d'un exploit ou usebug, sera puni*")
+                .addField(eventDescr + "\n\n**Voulez-vous récupérez votre récompenses ? (" + extraction*8 + kkrEmoji + ")**", "*Les admins ont accès aux logs et messages, tout abus, même s'il s'agit d'un exploit ou usebug, sera puni*")
                 .setTimestamp();
     
             var claim = new Discord.MessageActionRow()
@@ -617,14 +617,14 @@ Client.on("messageCreate", message => {
     else if(message.content.startsWith("<:kakeraG:609264166381027329>"))
     {
         var extraction = Number((message.content.split("+")[1]).split("*")[0]);
-        kkrValueEvent.push(extraction*3);
+        kkrValueEvent.push(extraction*6);
         console.log(message);
         {
             const eventPopUp = new Discord.MessageEmbed()
                 .setColor("21eb13")
                 .setTitle(eventTitle)
                 .setURL("https://www.gouvernement.fr/argumentaire/mes-aidesgouvfr-un-site-pour-evaluer-ses-droits-aux-prestations-et-aides-sociales")
-                .addField(eventDescr + "\n\n**Voulez-vous récupérez votre récompenses ? (" + extraction*3 + kkrEmoji + ")**", "*Les admins ont accès aux logs et messages, tout abus, même s'il s'agit d'un exploit ou usebug, sera puni*")
+                .addField(eventDescr + "\n\n**Voulez-vous récupérez votre récompenses ? (" + extraction*6 + kkrEmoji + ")**", "*Les admins ont accès aux logs et messages, tout abus, même s'il s'agit d'un exploit ou usebug, sera puni*")
                 .setTimestamp();
     
             var claim = new Discord.MessageActionRow()
@@ -1169,13 +1169,13 @@ Client.on("interactionCreate", async interaction => {
                     .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
                     .setTimestamp();
 
-                if(userOwnedChocolate[place] || userOwnedBook[place] || userOwnedScarf[place] || userOwnedRing[place] || userOwnedRose[place] || userOwnedKnife[place] || userOwnedTeddyBear || userFreeRentTicket[place])
-                    Profile.addField("Inventaire :", stuff);
+                if(userOwnedChocolate[place] || userOwnedBook[place] || userOwnedScarf[place] || userOwnedRing[place] || userOwnedRose[place] || userOwnedKnife[place] || userOwnedTeddyBear[place] || userFreeRentTicket[place])
+                    Profile.addField("Inventaire :", stuff); 
 
                 if(userLovePoint[place])
-                    Profile.addField("Love Points :", userLovePoint[place].toString());
+                    Profile.addField("Love Points :", userLovePoint[place].toString()); 
 
-                Profile.addField("Inventaire Casino :", userCasinoToken[place] + " 🪙  " + userFreeCasinoTicket[place] + " 🎫");
+                Profile.addField("Inventaire Casino :", userCasinoToken[place] + " 🪙  " + userFreeCasinoTicket[place] + " 🎫"); 
 
                 let idx = "";
                 let ownedGF = "";
@@ -1190,9 +1190,12 @@ Client.on("interactionCreate", async interaction => {
                     }
                     idx++;
                 });
-                if(ownedGF == ""){}
-                else{
-                Profile.addField("GirlFriend marié(es) :", ownedGF);}
+
+                if(ownedGF === ""){}
+                else
+                {
+                Profile.addField("GirlFriend marié(es) :", ownedGF);
+                }
 
                 var NavigationP = new Discord.MessageActionRow()
                     .addComponents(new Discord.MessageButton()
@@ -1696,7 +1699,7 @@ Client.on("interactionCreate", async interaction => {
                 .setColor("843dff")
                 .setTitle("ダイヤモンド - DIAMOND")
                 .setDescription("Vous avez offert " + gift + " à " + nameGF[indexGF] + ".")
-                .addField("Love point :", userLovePoint[place].toString()) // TESTO
+                // .addField("Love point :", userLovePoint[place].toString()) // TESTO
                 .setThumbnail(ppGF[indexGF])
                 .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
                 .setTimestamp();
@@ -1996,7 +1999,7 @@ Client.on("interactionCreate", async interaction => {
             {
                 pullREsult.addField("Vos gains :", "\n1 🪙 et 5.000 :yen:");
                 userBalance[place] += 5000;
-                userCasinoToken[place]++;
+                userCasinoToken[place]++; // Anna aurait gagné 5000 jetons, peut-être ici
             }
             else if(casinoRoll < 97)
             {
@@ -2376,12 +2379,12 @@ Client.on("interactionCreate", async interaction => {
             const Succes = new Discord.MessageEmbed()
                 .setColor("843dff")
                 .setTitle("ダイヤモンド - DIAMOND")
-                .setDescription("Terminez différentes tâches pour améliorer l'expérience des utilisateurs sur l'app DIMAOND et toucher des récompenses !")
+                .setDescription("Terminez différentes tâches pour améliorer l'expérience des utilisateurs sur l'app DIAMOND et toucher des récompenses !")
                 .setThumbnail("https://cdn21.neko-sama.xyz/kanojo-okarishimasu-1-vostfr.jpg")
                 .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
                 .setTimestamp();
 
-            if(userSuccess[place, 0] == 0 && userOwnedChocolate > 0 && userOwnedBook > 0 && userOwnedScarf > 0 && userOwnedRing > 0 && userOwnedRose > 0 && userOwnedKnife > 0 && userOwnedTeddyBear > 0)
+            if(userSuccess[place, 0] == 0 && userOwnedChocolate[place] > 0 && userOwnedBook[place] > 0 && userOwnedScarf[place] > 0 && userOwnedRing[place] > 0 && userOwnedRose[place] > 0 && userOwnedKnife[place] > 0 && userOwnedTeddyBear[place] > 0)
             {
                 userSuccess[place, 0] = 1;
             }
