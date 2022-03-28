@@ -1197,12 +1197,7 @@ Client.on("interactionCreate", async interaction => {
                 Profile.addField("GirlFriend marié(es) :", ownedGF);
                 }
 
-                var NavigationP = new Discord.MessageActionRow()
-                    .addComponents(new Discord.MessageButton()
-                        .setCustomId("ConnectC" + interaction.user.id)
-                        .setLabel("Back Home")
-                        .setStyle("SUCCESS")
-                        .setEmoji("🏡"))
+                let NavigationP = new Discord.MessageActionRow()
                     .addComponents(new Discord.MessageButton()
                         .setCustomId("Succes" + interaction.user.id)
                         .setLabel("Success")
@@ -1213,6 +1208,11 @@ Client.on("interactionCreate", async interaction => {
                         .setLabel("Bank")
                         .setStyle("PRIMARY")
                         .setEmoji("💰"))
+                    .addComponents(new Discord.MessageButton()
+                        .setCustomId("ConnectC" + interaction.user.id)
+                        .setLabel("Back Home")
+                        .setStyle("SUCCESS")
+                        .setEmoji("🏡"))
                     .addComponents(new Discord.MessageButton()
                         .setCustomId("Disconnect" + interaction.user.id)
                         .setLabel("Exit")
@@ -2220,15 +2220,16 @@ Client.on("interactionCreate", async interaction => {
                     .setStyle("PRIMARY")
                     .setEmoji("🧸"))
                 .addComponents(new Discord.MessageButton()
-                    .setCustomId("Lottery" + interaction.user.id)
-                    .setLabel("Back Lottery Page")
-                    .setStyle("SECONDARY")
-                    .setEmoji("🎊"))
-                .addComponents(new Discord.MessageButton()
                     .setCustomId("CasinoExchange" + interaction.user.id)
                     .setLabel("Echange jetons/argent")
                     .setStyle("SUCCESS")
-                    .setEmoji("💰"));
+                    .setEmoji("💰"))
+                .addComponents(new Discord.MessageButton()
+                    .setCustomId("Lottery" + interaction.user.id)
+                    .setLabel("Back Lottery Page")
+                    .setStyle("SECONDARY")
+                    .setEmoji("🎊"));
+                
                 
             await interaction.update({content: "*Let's see what the token exchange shop provides...*", embeds:[CoinS], components: [NavigationCS]});
         }
@@ -2524,16 +2525,21 @@ Client.on("interactionCreate", async interaction => {
                 .setTimestamp();
 
             var shopB = new Discord.MessageActionRow()
-            .addComponents(new Discord.MessageButton()
-                    .setCustomId("CasinoExchangeMJ" + interaction.user.id)
-                    .setLabel("Achat de jetons")
-                    .setStyle("SECONDARY")
-                    .setEmoji("🪙"))
-            .addComponents(new Discord.MessageButton()
-                    .setCustomId("CasinoExchangeJM" + interaction.user.id)
-                    .setLabel("Vente de jetons")
-                    .setStyle("SUCCESS")
-                    .setEmoji("💰"));
+                .addComponents(new Discord.MessageButton()
+                        .setCustomId("CasinoExchangeMJ" + interaction.user.id)
+                        .setLabel("Buy tokens")
+                        .setStyle("DEFAULT")
+                        .setEmoji("🪙"))
+                .addComponents(new Discord.MessageButton()
+                        .setCustomId("CasinoExchangeJM" + interaction.user.id)
+                        .setLabel("Sell tokens")
+                        .setStyle("SUCCESS")
+                        .setEmoji("💰"))
+                .addComponents(new Discord.MessageButton()
+                        .setCustomId("CoinShop" + interaction.user.id)
+                        .setLabel("Back to shop")
+                        .setStyle("SECONDARY")
+                        .setEmoji("🏦"));
 
             await interaction.update({content: "*You're not sure...*", embeds:[CasinoExchange], components: [shopB]});
         }
@@ -2837,7 +2843,7 @@ Client.on("interactionCreate", async interaction => {
 
                 let msg = new Discord.MessageActionRow()
                     .addComponents(new Discord.MessageButton()
-                        .setCustomId("DepositMoney" + interaction.user.id)
+                        .setCustomId("Deposit" + interaction.user.id)
                         .setLabel("Deposit more")
                         .setStyle("SUCCESS")
                         .setEmoji("💰"))
@@ -2871,7 +2877,7 @@ Client.on("interactionCreate", async interaction => {
 
                 let msg = new Discord.MessageActionRow()
                     .addComponents(new Discord.MessageButton()
-                        .setCustomId("WithdrawMoney" + interaction.user.id)
+                        .setCustomId("Withdraw" + interaction.user.id)
                         .setLabel("Withdraw more")
                         .setStyle("SUCCESS")
                         .setEmoji("💰"))
