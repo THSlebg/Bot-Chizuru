@@ -20,7 +20,7 @@ Integrated RPG-game modifications :
 
 **Multi & Mono Instances explanations :**
 > Players can no longer open more than one instance of the game  
-> Players can no longer use instance then did'nt open by theirself (other user intances)
+> Players can no longer use instance they did not open by theirself (other user intances)
 
 **0.5.1 Fixes :**
 > Reorder some buttons for user comprehension  
