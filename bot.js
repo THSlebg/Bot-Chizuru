@@ -26,6 +26,7 @@ for (const file of commandFiles) {
 }
 
 client.once("ready", async () => {
+    client.user.setActivity('Bon rétablissement', { type: 'CUSTOM' })
     let commandMap = client.commands.map(element => {
         return new SlashCommandBuilder()
             .setName(element.name)
@@ -36,7 +37,7 @@ client.once("ready", async () => {
 
     const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
 
-    const data = await rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: commandMap });
+    await rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: commandMap });
 });
 
 client.on("interactionCreate", async interaction => {
