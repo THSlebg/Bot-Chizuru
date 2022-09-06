@@ -1,4 +1,4 @@
-require('dotenv').config()
+const version = require("../package.json").version;
 
 module.exports = {
     name: "patchnote",
@@ -6,7 +6,7 @@ module.exports = {
     option: null,
     execute(interaction) {
         return interaction.reply({
-            content: `this is version`
+            content: `The current version of this bot is ${version}.`
         });
     }
 }
