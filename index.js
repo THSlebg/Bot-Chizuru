@@ -217,7 +217,14 @@ Client.on("messageCreate", message => {
             let msg = message.content.split(" ").slice(1).join(" ");
             let usrName = message.author.username;
 
-            Client.channels.cache.find(channel => channel.name === "alpha-feedback" ).send("**" + usrName + "** a envoyé un feedback : " + msg);
+
+            try {
+                Client.channels.cache.find(channel => channel.name === "alpha-feedback" ).send("**" + usrName + "** a envoyé un feedback : " + msg);
+            } catch (error) {
+                message.channel.send("Une erreur est survenue, channel non trouvé.");
+            }
+            }
+
         }
     }
     else if(message.content === prefix + "hi")
