@@ -1,9 +1,7 @@
-const { EmbedBuilder } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
 
-let projectpath = path.join(__dirname, "..")
-let datapath = path.normalize(projectpath)
+let datapath = path.join(__dirname, "..").normalize()
 let rawdata = fs.readFileSync(path.join(datapath, "data/event_info.json"));
 const eventinfo = JSON.parse(rawdata)
 
