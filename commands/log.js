@@ -2,8 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder, ChannelType } = require('discord.js')
 const fs = require('fs');
 const path = require('path');
 
-let projectpath = path.join(__dirname, "..")
-let datapath = path.normalize(projectpath)
+let datapath = path.join(__dirname, "..").normalize()
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -11,19 +10,25 @@ module.exports = {
         .setDescription('Change channel for bot logs')
         .addChannelOption(option => option.setName('channel')
                 .setDescription('The channel name to write the log into')
+                .setRequired(true)
                 .addChannelTypes(ChannelType.GuildText)),
     async execute(interaction) {
-        let rawdata = fs.readFileSync(path.join(datapath, "data/serv_info.json"));
+        let rawdata = fs.readFileSync(path.join(datapath, "data/log_info.json"));
         const data = JSON.parse(rawdata);
-        data.channelLog = interaction.options.getString('channel');
-        fs.writeFile(path.join(datapath, "data/server_info.json"), JSON.stringify(data, null, 2), (err) => {
+        const old = data.id;
+        console.log(old)
+        data.id = interaction.options.getChannel('channel').id;
+        data.guild_id = interaction.options.getChannel('channel').guild_id;
+        data.name = interaction.options.getChannel('channel').name;
+        data.type = interaction.options.getChannel('channel').type;
+        fs.writeFile(path.join(datapath, "data/log_info.json"), JSON.stringify(data, null, 2), (err) => {
             if (err) {
                 console.log("Problème lors du chargement des données dans le fichier json", err)
                 return;
             }
             console.log("event_info.json updated");
         });
-        await interaction.reply('Log channel changed to ' + interaction.options.getString('channel'))
+        await interaction.reply('Log channel changed to <#' + data.id + '>. Previously was <#' + old + ">")
 
     }
 }

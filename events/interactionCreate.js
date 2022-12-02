@@ -5,6 +5,7 @@
 // const eventForm = require(reactionpath)
 
 const eventForm = require("../reaction/eventForm");
+const feedbackForm = require("../reaction/feedbackForm");
 
 module.exports = {
     name: 'interactionCreate',
@@ -33,9 +34,8 @@ module.exports = {
 
         const modal = interaction.customId
         console.log(modal)
-        if(modal === "eventForm"){
-            eventForm.execute(interaction)
-        }
+        if(modal === "eventForm"){eventForm.execute(interaction)}
+        else if(modal === "feedbackForm"){feedbackForm.execute(interaction)}
         }
     }
 }

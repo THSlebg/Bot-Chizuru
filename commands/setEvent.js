@@ -2,8 +2,7 @@ const { SlashCommandBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, Act
 const fs = require('fs');
 const path = require('path');
 
-let projectpath = path.join(__dirname, "..")
-let datapath = path.normalize(projectpath)
+let datapath = path.join(__dirname, "..").normalize()
 
 module.exports = {
     data: new SlashCommandBuilder()
