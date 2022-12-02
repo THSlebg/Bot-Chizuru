@@ -223,7 +223,6 @@ Client.on("messageCreate", message => {
             } catch (error) {
                 message.channel.send("Une erreur est survenue, channel non trouvé.");
             }
-            }
 
         }
     }
