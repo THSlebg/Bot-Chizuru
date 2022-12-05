@@ -1,6 +1,7 @@
 {
-    "mise" : "montant",
-    "nbJ" : "nbjoueur",
-    "roll" : "rollmax",
-    "score" : "scoremax"
+  "mise": "12",
+  "nbJ": "62",
+  "roll": "5656",
+  "score ": "",
+  "score": "5"
 }

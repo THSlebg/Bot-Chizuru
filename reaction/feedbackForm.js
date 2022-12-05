@@ -9,11 +9,13 @@ const feedbackinfo = JSON.parse(rawdata)
 
 module.exports = {
     async execute(interaction)  {
+        console.log(interaction.member.user)
         const embed = new EmbedBuilder()
-                .setColor("5f5f5f")
-                .setTitle(interaction.fields.getTextInputValue('object'))
-                .setDescription(interaction.fields.getTextInputValue('description'))
-                .setThumbnail(interaction.user.avatar.url)
+                .setColor("03ecfc")
+                .setTitle(interaction.member.user.username)
+                .addFields({name : interaction.fields.getTextInputValue('object'), value: interaction.fields.getTextInputValue('description')})
+                .setThumbnail(interaction.member.user.displayAvatarURL())
+                .setFooter({ text: 'Diamond Corp © • Feedback', iconURL: "https://w0.peakpx.com/wallpaper/22/825/HD-wallpaper-galaxy-diamond-logo-premium.jpg"})
                 .setTimestamp();
         
         try {
