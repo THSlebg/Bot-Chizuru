@@ -1,8 +1,5 @@
 require('dotenv').config()
-const { table } = require("console");
-const { channel } = require("diagnostics_channel");
 const Discord = require("discord.js");
-const { late } = require("zod");
 const Client = new Discord.Client({
     intents: 
     [
