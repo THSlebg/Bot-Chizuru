@@ -15,8 +15,22 @@ module.exports = {
             .setDescription(interaction.fields.getTextInputValue('description'))
             .setThumbnail(interaction.user.avatar.url)
             .setTimestamp();
+    
+    try {
+        const omegaguild = fs.readFileSync(path.join(datapath, "data/main_guild_info.json"));
+        const omegachannel = fs.readFileSync(path.join(datapath, "data/feedback_info.json"));
+        omegaguild.channels.get(omegachannel.feedbackChannel_id).send({embeds: [embed]})
+    } catch (error) {
+        interaction.reply({content: 'An error has occured while transfering your feedback to the devs. Try again later ...', ephemeral: true});
+        console.log(error);
+    }
+    finally {
+        interaction.reply({content: 'Message sent to developpers ! Thanks for sharing with us your opinion! ', ephemeral: true});
+    }
         
-    interaction.reply({content: 'Message sent to developpers ! Thanks for sharing with us your opinion! ', ephemeral: true});
-    interaction.guild.channels.cache.get(feedbackinfo.feedbackChannel_id).send({embeds: [embed]})
+    
+    
+    console.log(interaction.guild.channels.cache.get("957264445392949288"))
+    
     }
 }

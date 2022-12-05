@@ -1,8 +1,4 @@
 const { SlashCommandBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder } = require('discord.js');
-const fs = require('fs');
-const path = require('path');
-
-let datapath = path.join(__dirname, "..").normalize()
 
 const modal = new ModalBuilder()
             .setCustomId('feedbackForm')

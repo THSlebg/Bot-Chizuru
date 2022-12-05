@@ -4,7 +4,7 @@ module.exports = {
     data: new SlashCommandBuilder()
     .setName("patchnote")
     .setDescription("Shows the patchnotes for the current version of the bot."),
-    async execute(interaction) {
+    async execute(interaction) { // should read the readme.md file
         await interaction.reply({content : `**Version ${process.env.BOTVERSION}:**
 
 **Latest release :**

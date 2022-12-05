@@ -6,6 +6,8 @@
 
 const eventForm = require("../reaction/eventForm");
 const feedbackForm = require("../reaction/feedbackForm");
+const duelForm = require("../reaction/duelForm");
+
 
 module.exports = {
     name: 'interactionCreate',
@@ -34,8 +36,11 @@ module.exports = {
 
         const modal = interaction.customId
         console.log(modal)
-        if(modal === "eventForm"){eventForm.execute(interaction)}
-        else if(modal === "feedbackForm"){feedbackForm.execute(interaction)}
+
+        if      (modal === "eventForm")             {eventForm.execute(interaction)}
+        else if (modal === "feedbackForm")          {feedbackForm.execute(interaction)}
+        else if (modal === "duel")                  {duelForm.execute(interaction)}
+
         }
     }
 }
