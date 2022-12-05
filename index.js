@@ -311,15 +311,19 @@ Client.on("ready", () => {
 });
 
 Client.on("messageCreate", message => {
+    console.log(message.content);
     if (message.author.bot || !message.content.startsWith(prefix)) return;
-
+    
     switch(message.content)
     {
         case prefix:
             message.channel.send("Uhm, you seem lost, try running rent!help :wink: ");
             break;
         case prefix + "patchnote":
-            message.channel.send("**Version 0.3.1 :**\nLatest release :\n\n> Extended Shop Interest\n> Love point System Added\n> Secret Girls (2) Added \n*Now working on :*\n\n> Multi-Instance Handling\n> LovePoint Gameplay\n> Add Own GirlFriend\n> Get married");
+            message.channel.send("**Version " + botVersion + ":**\nLatest release :\n\n> Casino Page\n> Coin system\n> Secret Girls (3) more Added\n> Gacha\n> Dice Game\n> New items available\n> Specific features : Free Ticket RENT/Casino Roll & Awkward Present \n\n*Now working on :*\n\n> Multi-Instance Handling\n> Add Own GirlFriend");
+            break;
+        case prefix + "version":
+            message.channel.send("Bot version running on your server : " + botVersion);
             break;
         case prefix + "hi":
             message.channel.send("Hey, I'm Chizuru Ichinose, nice to meet you ♥\nI would love to get to know you more, call me whenever you want 👋");
@@ -334,7 +338,17 @@ Client.on("messageCreate", message => {
             message.channel.send("**__List of commands :__**" + commands);
             break;
         case prefix + "event":
-            message.channel.send({embeds:[event()]});
+            const event = new Discord.MessageEmbed()
+                .setColor(eventColor)
+                .setTitle("**ÉVÈNEMENT ACTIF** : " + eventTitle)
+                .setDescription("*Informations relatives à l'évènement en cours sur le serveur...*")
+                .setThumbnail("https://www.playerone.vg/wp-content/uploads/2020/08/Critica-de-Kanojo-Okarishimasu-destacada-El-Palomitron2-e1598033037864-370x305.jpg")
+                .addField("⌛ Période de l'évènement :", eventPeriod)
+                .addField("📃 Détails de l'évènement :", eventDescr)
+                .addField("🚹 Eligibilité : ", eventAva)
+                .setTimestamp();
+
+            message.channel.send({embeds:[event]});
             break;
         case prefix + "testLog":
             Client.channels.cache.find(channel => channel.name === channelLogName ).send("J'ai autre chose à faire... Tu vois bien que ça marche non ? Abruti...");
