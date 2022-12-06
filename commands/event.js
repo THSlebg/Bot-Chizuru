@@ -22,7 +22,7 @@ module.exports = {
             .setColor(eventColor)
             .setTitle("**ÉVÈNEMENT ACTIF** : " + eventTitle)
             .setDescription("*Informations relatives à l'évènement en cours sur le serveur...*")
-            .setThumbnail("https://www.playerone.vg/wp-content/uploads/2020/08/Critica-de-Kanojo-Okarishimasu-destacada-El-Palomitron2-e1598033037864-370x305.jpg") //maybe imgur link pour éviter le trolling
+            .setThumbnail("https://i.imgur.com/QHSeOgX.jpg")
             .addFields(
                 { name: "📃 Détails de l'évènement :", value: eventDescr },
                 { name: "⌛ Période de l'évènement :", value: eventPeriod },

@@ -15,7 +15,7 @@ module.exports = {
             .setTitle(interaction.member.user.username)
             .addFields({ name: interaction.fields.getTextInputValue('object'), value: interaction.fields.getTextInputValue('description') })
             .setThumbnail(interaction.member.user.displayAvatarURL())
-            .setFooter({ text: 'Diamond Corp © • Feedback', iconURL: "https://w0.peakpx.com/wallpaper/22/825/HD-wallpaper-galaxy-diamond-logo-premium.jpg" }) //imgur
+            .setFooter({ text: 'Diamond Corp © • Feedback', iconURL: "https://i.imgur.com/JhGXd01.jpg" })
             .setTimestamp();
 
         try {

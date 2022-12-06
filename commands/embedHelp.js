@@ -9,7 +9,7 @@ const embed = new EmbedBuilder()
     .setColor("eb4034")
     .setTitle("Command List :")
     .setDescription("*Chizuru-san is so greatful, she lets you use all those following interactions freely with her !* ♥")
-    .setThumbnail("https://i.pinimg.com/736x/09/06/bd/0906bdfcecb2a9665bde4d32879b92e5.jpg")
+    .setThumbnail("https://i.imgur.com/f7EbCcX.jpg")
     .setTimestamp();
 
 commandTable.forEach(element => {

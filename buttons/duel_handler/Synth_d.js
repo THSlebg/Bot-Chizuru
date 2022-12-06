@@ -19,7 +19,7 @@ module.exports = {
             .setColor("eb4034")
             .setTitle("🔪 Détails du combat : ")
             .setDescription("Pour modifier les valeurs max de score et de rolls, utilisez respectivement les commandes **rent!score** et **rent!roll**.")
-            .setThumbnail("https://i0.wp.com/9tailedkitsune.com/wp-content/uploads/2020/08/Snimka-obrazovky-394.png")
+            .setThumbnail("https://i.imgur.com/EI9kJ6a.jpg")
             .addFields({ name: "Score à atteindre :", value: duelinfo.score })
             .addFields({ name: "Roll max :", value: duelinfo.roll })
             .addFields({ name: "Mise :", value: duelinfo.mise })
