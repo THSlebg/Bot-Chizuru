@@ -25,8 +25,8 @@ module.exports = {
         })
     
     const embed = new EmbedBuilder()
-        .setTitle('Duel de Harem')
-        .setDescription('Pour lancer le combat tous les joueurs doivent se mettre **prêtes**"')
+        .setTitle('⚔ Duel de Harem')
+        .setDescription('Pour lancer le combat tous les joueurs doivent se mettre **prêts**')
         .addFields( {name: 'Joueurs prêts :', value: "0/" + duelinfo.nbJ},
                     {name: 'Rappel de la mise :', value: duelinfo.mise + "<:kakera:950050987412951051>"},
                     {name: 'Score et roll :', value: "Premier à " + duelinfo.score + " points et roll sur " + duelinfo.roll})
@@ -35,15 +35,17 @@ module.exports = {
     var ready = new ActionRowBuilder()
         .addComponents(
         new ButtonBuilder()
-            .setCustomId("Ready")
+            .setCustomId("Ready_d")
             .setLabel("Prêt !")
             .setStyle(ButtonStyle.Success)
             .setEmoji("🗡"),
         new ButtonBuilder()
-            .setCustomId("Stop")
+            .setCustomId("Cancel_d")
             .setLabel("Annuler le combat")
             .setStyle(ButtonStyle.Secondary)
             .setEmoji("❌"))
+
+    duelList.set(interaction.guild, new Map());
 
     interaction.reply({embeds: [embed], components: [ready]})
     }

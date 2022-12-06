@@ -1,13 +1,3 @@
-// const path = require('path');
-// let projectpath = path.join(__dirname, "..")
-// let datapath = path.normalize(projectpath)
-// let reactionpath = fs.readFileSync(path.join(datapath, "reaction/eventForm.js"));
-// const eventForm = require(reactionpath)
-
-const eventForm = require("../reaction/eventForm");
-const feedbackForm = require("../reaction/feedbackForm");
-const duelForm = require("../reaction/duelForm");
-
 
 module.exports = {
     name: 'interactionCreate',
@@ -32,15 +22,29 @@ module.exports = {
         }
         }
 
-        if(interaction.isModalSubmit()){
+        else if(interaction.isModalSubmit()){
 
         const modal = interaction.customId
-        console.log(modal)
+        console.log(modal + " received")
 
-        if      (modal === "eventForm")             {eventForm.execute(interaction)}
-        else if (modal === "feedbackForm")          {feedbackForm.execute(interaction)}
-        else if (modal === "duel")                  {duelForm.execute(interaction)}
+        if      (modal === "eventForm")             {require("../reaction/eventForm").execute(interaction)}
+        else if (modal === "feedbackForm")          {require("../reaction/feedbackForm").execute(interaction)}
+        else if (modal === "duel")                  {require("../reaction/duelForm").execute(interaction)}
 
         }
+
+        else if(interaction.isButton()){
+
+        const btnid = interaction.customId
+        console.log(btnid + " clicked")
+
+        if      (btnid === "Ready_d")                       {require("../buttons/duel_handler/Ready_d.js").execute(interaction)}
+        else if (btnid === "Cancel_d")                      {require("../buttons/duel_handler/Cancel_d.js").execute(interaction)}
+        else if (btnid === "Room_+" || btnid === "Room_n")  {require("../buttons/duel_handler/Room_d.js").execute(interaction)}
+        else if (btnid === "Synth_d")                       {require("../buttons/duel_handler/Synth_d.js").execute(interaction)}
+
+
+        }
+        else{return;}
     }
 }
