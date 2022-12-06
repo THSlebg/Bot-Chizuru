@@ -20,18 +20,41 @@ module.exports = {
         } else if (interaction.isModalSubmit()) {
             const modal = interaction.customId
             console.log(modal + " received")
-            //ola
-            if (modal === "eventForm") { require("../reaction/eventForm").execute(interaction) }
-            else if (modal === "feedbackForm") { require("../reaction/feedbackForm").execute(interaction) }
-            else if (modal === "duel") { require("../reaction/duelForm").execute(interaction) }
+
+            switch (modal) {
+                case "eventForm":
+                    require("../reaction/eventForm").execute(interaction)
+                    break;
+                case "feedbackForm":
+                    require("../reaction/feedbackForm").execute(interaction)
+                    break;
+                case "duel":
+                    require("../reaction/duelForm").execute(interaction)
+                    break;
+                default:
+                    break;
+            }
         } else if (interaction.isButton()) {
             const btnid = interaction.customId
             console.log(btnid + " clicked")
 
-            if (btnid === "Ready_d") { require("../buttons/duel_handler/Ready_d.js").execute(interaction) }
-            else if (btnid === "Cancel_d") { require("../buttons/duel_handler/Cancel_d.js").execute(interaction) }
-            else if (btnid === "Room_+" || btnid === "Room_n") { require("../buttons/duel_handler/Room_d.js").execute(interaction) }
-            else if (btnid === "Synth_d") { require("../buttons/duel_handler/Synth_d.js").execute(interaction) }
+            switch (btnid) {
+                case "Ready_d":
+                    require("../buttons/duel_handler/Ready_d.js").execute(interaction)
+                    break;
+                case "Cancel_d":
+                    require("../buttons/duel_handler/Cancel_d.js").execute(interaction)
+                    break;
+                case "Room_+":
+                case "Room_n":
+                    require("../buttons/duel_handler/Room_d.js").execute(interaction)
+                    break;
+                case "Synth_d":
+                    require("../buttons/duel_handler/Synth_d.js").execute(interaction)
+                    break;
+                default:
+                    break;
+            }
         } else return;
     }
 }
