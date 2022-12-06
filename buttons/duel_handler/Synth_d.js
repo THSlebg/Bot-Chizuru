@@ -2,14 +2,14 @@ const { EmbedBuilder, ButtonBuilder, ActionRowBuilder, ButtonStyle } = require('
 const fs = require('fs');
 const path = require('path');
 
-let datapath = path.join(__dirname, "../..").normalize()
-let rawdata = fs.readFileSync(path.join(datapath, "data/server/duel_info.json"));
-const duelinfo = JSON.parse(rawdata)
+const datapath = path.join(__dirname, "../..").normalize();
+const rawdata = fs.readFileSync(path.join(datapath, "data/server/duel_info.json"));
+const duelinfo = JSON.parse(rawdata);
 
 module.exports = {
     async execute(interaction) {
 
-        concat = "";
+        let concat = "";
         for (const x of duelList.get(interaction.guild).keys()) {
             concat += x.username;
             concat += "\n";
@@ -26,7 +26,7 @@ module.exports = {
             .addFields({ name: "Joueurs" + duelinfo.nbJ + " :", value: concat })
             .setTimestamp();
 
-        var Gogo = new ActionRowBuilder()
+        const Gogo = new ActionRowBuilder()
             .addComponents(new ButtonBuilder()
                 .setCustomId("Start_d")
                 .setLabel("Commencer le DUEL !")
@@ -36,8 +36,7 @@ module.exports = {
                 .setCustomId("Cancel_d")
                 .setLabel("Annuler le combat")
                 .setStyle(ButtonStyle.Secondary)
-                .setEmoji("❌")
-            );
+                .setEmoji("❌"));
 
         await interaction.update({ embeds: [resume], components: [Gogo] });
     }
