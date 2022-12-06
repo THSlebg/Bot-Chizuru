@@ -13,7 +13,7 @@ module.exports = {
         duelinfo.roll = interaction.fields.getTextInputValue('roll');
         duelinfo.score = interaction.fields.getTextInputValue('score');
 
-        console.log("Duel settings : \n" + duelinfo); // pour papyK
+        console.log("Duel settings : \n" + duelinfo); // pour papyK, mdr
 
         fs.writeFile(path.join(datapath, "data/server/duel_info.json"), JSON.stringify(duelinfo, null, 2), (err) => {
             if (err) {
