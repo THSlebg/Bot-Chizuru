@@ -47,7 +47,7 @@ module.exports = {
         const thirdrow = new ActionRowBuilder().addComponents(scoreMax);
         const fourthrow = new ActionRowBuilder().addComponents(rollMax);
 
-        modal.addComponents(firstrow, secondrow, thirdrow, fourthrow)
-        await interaction.showModal(modal)
-    },
+        modal.addComponents(firstrow, secondrow, thirdrow, fourthrow);
+        await interaction.showModal(modal);
+    }
 }

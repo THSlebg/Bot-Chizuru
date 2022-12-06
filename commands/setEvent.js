@@ -2,7 +2,7 @@ const { SlashCommandBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, Act
 const fs = require('fs');
 const path = require('path');
 
-let datapath = path.join(__dirname, "..").normalize()
+const datapath = path.join(__dirname, "..").normalize();
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -10,8 +10,8 @@ module.exports = {
         .setDescription('Set Up the new server event'),
     async execute(interaction) {
 
-        let rawdata = fs.readFileSync(path.join(datapath, "data/event_info.json"));
-        let data = JSON.parse(rawdata);
+        const rawdata = fs.readFileSync(path.join(datapath, "data/event_info.json"));
+        const data = JSON.parse(rawdata);
 
         const modal = new ModalBuilder()
             .setCustomId('eventForm')
@@ -49,14 +49,15 @@ module.exports = {
             .setRequired(false)
             .setStyle(TextInputStyle.Short);
 
+            // try tableau
         const firstrow = new ActionRowBuilder().addComponents(eventTitle);
         const secondrow = new ActionRowBuilder().addComponents(eventDesc);
         const thirdrow = new ActionRowBuilder().addComponents(eventTime);
         const fourthrow = new ActionRowBuilder().addComponents(eventAvala);
         const fifthrow = new ActionRowBuilder().addComponents(eventColor);
 
-        modal.addComponents(firstrow, secondrow, thirdrow, fourthrow, fifthrow)
+        modal.addComponents(firstrow, secondrow, thirdrow, fourthrow, fifthrow);
 
-        await interaction.showModal(modal)
-    },
+        await interaction.showModal(modal);
+    }
 }

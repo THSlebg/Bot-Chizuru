@@ -1,5 +1,4 @@
-require("dotenv").config()
-const { SlashCommandBuilder } = require('discord.js')
+const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -29,5 +28,5 @@ module.exports = {
         > Database Conception
         > Auto-Disconnect after inactivity
         > **Slash Commands** (mandatory for unverified discord bots)`});
-    },
+    }
 }

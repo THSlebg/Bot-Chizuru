@@ -3,12 +3,12 @@ module.exports = {
     once: false,
     execute(interaction) {
 
-        console.log(interaction.isChatInputCommand())
-        console.log(interaction.isModalSubmit())
+        console.log(interaction.isChatInputCommand());
+        console.log(interaction.isModalSubmit());
 
         if (interaction.isChatInputCommand()) {
             const command = interaction.client.commands.get(interaction.commandName);
-            console.log(command)
+            console.log(command);
             if (!command) return;
 
             try {
@@ -18,39 +18,39 @@ module.exports = {
                 interaction.reply({ content: "Something went wrong ... :/", ephemeral: true });
             }
         } else if (interaction.isModalSubmit()) {
-            const modal = interaction.customId
-            console.log(modal + " received")
+            const modal = interaction.customId;
+            console.log(modal + " received");
 
             switch (modal) {
                 case "eventForm":
-                    require("../reaction/eventForm").execute(interaction)
+                    require("../reaction/eventForm").execute(interaction);
                     break;
                 case "feedbackForm":
-                    require("../reaction/feedbackForm").execute(interaction)
+                    require("../reaction/feedbackForm").execute(interaction);
                     break;
                 case "duel":
-                    require("../reaction/duelForm").execute(interaction)
+                    require("../reaction/duelForm").execute(interaction);
                     break;
                 default:
                     break;
             }
         } else if (interaction.isButton()) {
-            const btnid = interaction.customId
-            console.log(btnid + " clicked")
+            const btnid = interaction.customId;
+            console.log(btnid + " clicked");
 
             switch (btnid) {
                 case "Ready_d":
-                    require("../buttons/duel_handler/Ready_d.js").execute(interaction)
+                    require("../buttons/duel_handler/Ready_d.js").execute(interaction);
                     break;
                 case "Cancel_d":
-                    require("../buttons/duel_handler/Cancel_d.js").execute(interaction)
+                    require("../buttons/duel_handler/Cancel_d.js").execute(interaction);
                     break;
                 case "Room_+":
                 case "Room_n":
-                    require("../buttons/duel_handler/Room_d.js").execute(interaction)
+                    require("../buttons/duel_handler/Room_d.js").execute(interaction);
                     break;
                 case "Synth_d":
-                    require("../buttons/duel_handler/Synth_d.js").execute(interaction)
+                    require("../buttons/duel_handler/Synth_d.js").execute(interaction);
                     break;
                 default:
                     break;

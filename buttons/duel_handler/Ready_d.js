@@ -3,17 +3,17 @@ const { EmbedBuilder, ButtonBuilder, ActionRowBuilder, ButtonStyle } = require('
 module.exports = {
     async execute(interaction) {
 
-        let pp = interaction.member.user.displayAvatarURL();
+        const pp = interaction.member.user.displayAvatarURL();
 
         if (!duelList.get(interaction.guild).has(interaction.member.user)) {
             const embedPlayer = new EmbedBuilder()
                 .setColor("000000")
                 .setTitle("Nouveau Joueur")
-                .setDescription(interaction.member.user.username + " es-tu prêt à en découdre ?")
+                .setDescription(interaction.member.user.username + ", es-tu prêt à en découdre ?")
                 .setThumbnail(pp)
                 .setTimestamp();
 
-            var confirm = new ActionRowBuilder()
+            const confirm = new ActionRowBuilder()
                 .addComponents(new ButtonBuilder()
                     .setCustomId("Room_+")
                     .setLabel("OUI")
@@ -35,7 +35,7 @@ module.exports = {
                 .setThumbnail(pp)
                 .setTimestamp();
 
-            var clc = new ActionRowBuilder()
+            const clc = new ActionRowBuilder()
                 .addComponents(new ButtonBuilder()
                     .setCustomId("Room_n")
                     .setLabel("Ok j'arrête...")

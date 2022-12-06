@@ -1,9 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 
-let datapath = path.join(__dirname, "..").normalize()
-let rawdata = fs.readFileSync(path.join(datapath, "data/event_info.json"));
-const eventinfo = JSON.parse(rawdata)
+const datapath = path.join(__dirname, "..").normalize();
+const rawdata = fs.readFileSync(path.join(datapath, "data/event_info.json"));
+const eventinfo = JSON.parse(rawdata);
 
 module.exports = {
     async execute(interaction) {
@@ -18,11 +18,11 @@ module.exports = {
 
         fs.writeFile(path.join(datapath, "data/event_info.json"), JSON.stringify(eventinfo, null, 2), (err) => {
             if (err) {
-                console.log("Problème lors du chargement des données dans le fichier json", err)
+                console.log("Problème lors du chargement des données dans le fichier json", err);
                 return;
             }
             console.log("event_info.json updated");
         });
-        interaction.reply('Event info updated!')
-    },
+        interaction.reply('Event info updated!');
+    }
 }

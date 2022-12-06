@@ -6,7 +6,7 @@ exports.registerEvents = (client) => {
     const eventsPath = path.join(__dirname, 'events');
     const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
 
-    console.log(eventFiles)
+    console.log(eventFiles);
 
     for (const file of eventFiles) {
         const filePath = path.join(eventsPath, file);
@@ -31,5 +31,3 @@ exports.registerCommands = (client) => {
         client.commands.set(command.data.name, command);
     }
 }
-
-

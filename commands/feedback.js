@@ -20,7 +20,7 @@ const eventDesc = new TextInputBuilder()
 const firstrow = new ActionRowBuilder().addComponents(eventTitle);
 const secondrow = new ActionRowBuilder().addComponents(eventDesc);
 
-modal.addComponents(firstrow, secondrow)
+modal.addComponents(firstrow, secondrow);
 
 module.exports = {
     data: new SlashCommandBuilder()
