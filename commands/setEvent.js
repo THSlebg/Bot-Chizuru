@@ -58,5 +58,5 @@ module.exports = {
         modal.addComponents(firstrow, secondrow, thirdrow, fourthrow, fifthrow)
 
         await interaction.showModal(modal)
-	},
+    },
 }

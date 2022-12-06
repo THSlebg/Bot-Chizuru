@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder, ChannelType } = require('discord.js');
+const { SlashCommandBuilder, ChannelType } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
 
@@ -9,9 +9,9 @@ module.exports = {
         .setName('log')
         .setDescription('Change channel for bot logs')
         .addChannelOption(option => option.setName('channel')
-                .setDescription('The channel name to write the log into')
-                .setRequired(true)
-                .addChannelTypes(ChannelType.GuildText)),
+            .setDescription('The channel name to write the log into')
+            .setRequired(true)
+            .addChannelTypes(ChannelType.GuildText)),
     async execute(interaction) {
         let rawdata = fs.readFileSync(path.join(datapath, "data/log_info.json"));
         const data = JSON.parse(rawdata);
@@ -29,6 +29,5 @@ module.exports = {
             console.log("event_info.json updated");
         });
         await interaction.reply('Log channel changed to <#' + data.id + '>. Previously was <#' + old + ">")
-
     }
 }

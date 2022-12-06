@@ -15,7 +15,7 @@ module.exports = {
     async execute(interaction) {
         let rawdata = fs.readFileSync(path.join(datapath, "data/log_info.json"));
         const data = JSON.parse(rawdata);
-        interaction.reply({content: 'Message sent to channel: <#' + data.id + '>', ephemeral: true});
+        interaction.reply({ content: 'Message sent to channel: <#' + data.id + '>', ephemeral: true });
         interaction.guild.channels.cache.get(data.id).send(interaction.options.getString('content'))
     }
 }

@@ -1,7 +1,7 @@
 require('dotenv').config()
 
-const { Client, GatewayCloseCodes, GatewayIntentBits } = require('discord.js');
-const client = new Client( { intents: GatewayIntentBits.Guilds});
+const { Client, GatewayIntentBits } = require('discord.js');
+const client = new Client({ intents: GatewayIntentBits.Guilds });
 const { registerEvents, registerCommands } = require('./utils.js');
 
 global.duelList = new Map();

@@ -5,5 +5,6 @@ module.exports = {
         .setName('date')
         .setDescription('Basic command, you can check if the bot is working'),
     async execute(interaction) {
-        await interaction.reply("I'm all yours for now!");}
+        await interaction.reply("I'm all yours for now!");
+    }
 }

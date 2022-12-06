@@ -1,6 +1,6 @@
 require('dotenv').config()
 const { REST } = require('@discordjs/rest');
-const { Routes } = require ('discord.js');
+const { Routes } = require('discord.js');
 const fs = require('node:fs');
 const path = require('node:path');
 
@@ -21,6 +21,6 @@ const rest = new REST({ version: '10' }).setToken(process.env.TOKEN)
 const guild_id = "500746367837274125"; // test serv Id
 const optc_guild = "238332843602739213";; // official serv
 
-rest.put(Routes.applicationGuildCommands("951907092304891955", guild_id), { body : commands })
+rest.put(Routes.applicationGuildCommands("951907092304891955", guild_id), { body: commands })
     .then(() => console.log('Commande envoyée bg!'))
     .catch(console.error);

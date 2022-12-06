@@ -11,12 +11,11 @@ module.exports = {
         eventinfo.eventDescr = interaction.fields.getTextInputValue('description');
         eventinfo.eventPeriod = interaction.fields.getTextInputValue('period');
         eventinfo.eventAva = interaction.fields.getTextInputValue('ave');
-        if (!interaction.fields.getTextInputValue('color')){
+        if (!interaction.fields.getTextInputValue('color'))
             eventinfo.eventColor = '5bed07';
-        }
-        else {
-        eventinfo.eventColor = interaction.fields.getTextInputValue('color');
-        }
+        else
+            eventinfo.eventColor = interaction.fields.getTextInputValue('color');
+
         fs.writeFile(path.join(datapath, "data/event_info.json"), JSON.stringify(eventinfo, null, 2), (err) => {
             if (err) {
                 console.log("Problème lors du chargement des données dans le fichier json", err)
