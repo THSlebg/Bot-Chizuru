@@ -5,31 +5,29 @@ const path = require('path');
 const projectpath = path.join(__dirname, "..");
 const datapath = path.normalize(projectpath);
 
+const event = infos.event;
+
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('event')
-        .setDescription('Display current server event information'),
+        .setName(event.name)
+        .setDescription(event.description),
     async execute(interaction) {
-        const rawdata = fs.readFileSync(path.join(datapath, "data/event_info.json"));
+        const rawdata = fs.readFileSync(path.join(datapath, event.infospath));
         const data = JSON.parse(rawdata);
-        const eventColor = data.eventColor;
-        const eventTitle = data.eventTitle;
-        const eventPeriod = data.eventPeriod;
-        const eventDescr = data.eventDescr;
-        const eventAva = data.eventAva;
 
-        const event = new EmbedBuilder()
-            .setColor(eventColor)
-            .setTitle("**ÉVÈNEMENT ACTIF** : " + eventTitle)
-            .setDescription("*Informations relatives à l'évènement en cours sur le serveur...*")
-            .setThumbnail("https://i.imgur.com/QHSeOgX.jpg")
+        const eventBuilder = new EmbedBuilder()
+            .setColor(data.eventColor)
+            .setTitle(event.embed.title + data.eventTitle)
+            .setDescription(event.embed.description)
+            .setThumbnail(event.embed.thumbnail)
             .addFields(
-                { name: "📃 Détails de l'évènement :", value: eventDescr },
-                { name: "⌛ Période de l'évènement :", value: eventPeriod },
-                { name: "🚹 Eligibilité : ", value: eventAva }
+                //maybe boucle
+                { name: event.embed.fields[0], value: data.eventDescr },
+                { name: event.embed.fields[1], value: data.eventPeriod },
+                { name: event.embed.fields[2], value: data.eventAva }
             )
             .setTimestamp();
 
-        await interaction.reply({ embeds: [event] });
+        await interaction.reply({ embeds: [eventBuilder] });
     }
 }

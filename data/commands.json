@@ -1,0 +1,216 @@
+{
+    "alpha": {
+        "name": "alpha",
+        "description": "Join the alpha, participate and enjoy",
+        "reply": "**Informations :** \nBienvenue sur l'alpha du bot, tout le staff vous remercie de votre participation.\nPour afficher la liste des commandes, faites /help.\nSi vous souhaitez nous partager vos retours, /feedback.\nPour commencer, faites /diamond."
+    },
+    "date": {
+        "name": "date",
+        "description": "Basic command, you can check if the bot is working",
+        "reply": "I'm all yours for now!"
+    },
+    "duel": {
+        "name": "duel",
+        "description": "Start a duel with other users",
+        "modal": {
+            "id": "duel",
+            "title": "Paramètres du Duel",
+            "rows": [
+                {
+                    "id": "bet",
+                    "label": "Mise :",
+                    "placeholder": "Max : 10.000",
+                    "style": 1,
+                    "min": 2,
+                    "max": 4
+                },
+                {
+                    "id": "nbplayer",
+                    "label": "Nombre de joueurs :",
+                    "placeholder": "Au moins 2, sinon t'es le némesis du fun ...",
+                    "style": 1,
+                    "min": 1,
+                    "max": 2
+                },
+                {
+                    "id": "score",
+                    "label": "Score à atteindre :",
+                    "placeholder": "Wahh, 25 ça rsique d'être long ...",
+                    "style": 1,
+                    "min": 1,
+                    "max": 1
+                },
+                {
+                    "id": "roll",
+                    "label": "Nombre de roll max :",
+                    "placeholder": "Valeur relative au plus petit harem habituellement",
+                    "style": 1,
+                    "min": 1,
+                    "max": 4
+                }
+            ]
+        }
+    },
+    "embedhelp": {
+        "name": "embedhelp",
+        "description": "Command list for esthetical triggered people",
+        "embed": {
+            "color": "eb4034",
+            "title": "Command List :",
+            "description": "*Chizuru-san is so greatful, she lets you use all those following interactions freely with her !* ♥",
+            "thumbnail": "https://i.imgur.com/f7EbCcX.jpg"
+        }
+    },
+    "event": {
+        "name": "event",
+        "description": "Display current server event information",
+        "infospath": "data/event_info.json",
+        "embed": {
+            "title": "**ÉVÈNEMENT ACTIF** : ",
+            "description": "*Informations relatives à l'évènement en cours sur le serveur...*",
+            "thumbnail": "https://i.imgur.com/QHSeOgX.jpg",
+            "fields": [
+                "📃 Détails de l'évènement :",
+                "⌛ Période de l'évènement :",
+                "🚹 Eligibilité : "
+            ]
+        }
+    },
+    "feedback": {
+        "name": "feedback",
+        "description": "Send a feedback to Chizuru's developers",
+        "modal": {
+            "id": "feedbackForm",
+            "title": "Chizuru is listening to you ...",
+            "rows": [
+                {
+                    "id": "object",
+                    "label": "Feedback Object",
+                    "placeholder": "What is your feedback about ?",
+                    "style": 1
+                },
+                {
+                    "id": "description",
+                    "label": "Feedback content",
+                    "placeholder": "Tell me more ...",
+                    "style": 2
+                }
+            ]
+        }
+    },
+    "help": {
+        "name": "help",
+        "description": "Display available commands",
+        "reply": "**__List of commands :__**\n - date \n - hi \n - help \n - version \n - embedHelp \n - event \n - setEvent \n - duel \n - roll \n - score \n - log \n - testLog \n - makeLog \n - setEmoji \n - patchnote\n - feedback\n - alpha"
+    },
+    "hi": {
+        "name": "hi",
+        "description": "Chizuru is glad to meet you",
+        "reply": "Hey, I'm Chizuru Ichinose, nice to meet you ♥\nI would love to get to know you more, call me whenever you want 👋"
+    },
+    "log": {
+        "name": "log",
+        "description": "Change channel for bot logs",
+        "infospath": "data/log_info.json",
+        "errmsg": "Problème lors du chargement des données dans le fichier json",
+        "successmsg": "log_info.json updated",
+        "reply": [
+            "Log channel changed to <#",
+            ">. Previously was <#",
+            ">."
+        ],
+        "channeloption": {
+            "name": "channel",
+            "description": "The channel name to write the log into",
+            "required": true,
+            "types": 0
+        }
+    },
+    "makelog": {
+        "name": "makelog",
+        "description": "send a custom log to log channel",
+        "reply": [
+            "Message sent to channel: <#",
+            ">.", 
+            true
+        ],
+        "stringoption": {
+            "name": "content",
+            "description": "the content to echo into the log message",
+            "required": true
+        }
+    },
+    "patchnote": {
+        "name": "patchnote",
+        "description": "Show the patchnotes for the current version of the bot.",
+        "readme": "README.md",
+        "charset": "utf8",
+        "errmsg": "Problème lors du chargement des données dans le fichier README.md",
+        "sep": "*"
+    },
+    "secret": {
+        "name": "secret",
+        "description": "no...",
+        "reply": "This is something that you should had never discovered... But at this point, maybe I should let you get a try... 💎 \nI'll be waiting for you darling..."
+    },
+    "setevent": {
+        "name": "setevent",
+        "description": "Set Up the new server event",
+        "modal": {
+            "id": "eventForm",
+            "title": "setEvent Form",
+            "rows": [
+                {
+                    "id": "title",
+                    "label": "Fill in the field your event title",
+                    "placeholder": "Yo l'ekip, ça bicrave ou quoi 2",
+                    "required": true,
+                    "style": 1
+                },
+                {
+                    "id": "description",
+                    "label": "Event details",
+                    "placeholder": "Raconte pas trop ta vie steuplé",
+                    "required": true,
+                    "style": 2
+                },
+                {
+                    "id": "period",
+                    "label": "Starting date - Ending Date",
+                    "placeholder": "Un début et une fin, pas plus du con",
+                    "required": true,
+                    "style": 1
+                },
+                {
+                    "id": "ave",
+                    "label": "Who can participate",
+                    "placeholder": "tkt ça va pas durer longtemps (comme avant en sah)",
+                    "required": true,
+                    "style": 1
+                },
+                {
+                    "id": "color",
+                    "label": "Side bar embed color",
+                    "placeholder": "123abc",
+                    "required": false,
+                    "style": 1
+                }
+            ]
+        }
+    },
+    "testlog": {
+        "name": "testlog",
+        "description": "send a test log to log channel",
+        "successmsg": "This is where my logs are sent ♥"
+    },
+    "version": {
+        "name": "version",
+        "description": "Display current bot version",
+        "reply": "Chizuru is so happy! She has been updated to version ",
+        "errmsg": "chizuru-19.1-20221203-nightly-instantnoodle-signed.zip",
+        "sep": [
+            "ersion",
+            " :"
+        ]
+    }
+}

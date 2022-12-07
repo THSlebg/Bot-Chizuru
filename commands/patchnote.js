@@ -1,32 +1,24 @@
+const fs = require('fs');
+
 const { SlashCommandBuilder } = require('discord.js');
+
+const patchnote = infos.patchnote;
+
+let datafile = patchnote.errmsg;
+fs.readFile(patchnote.readme, patchnote.charset, (err, datas) => {
+    if (err) {
+        console.error(err);
+        return;
+    }
+    datas = datas.toString();
+    datafile = datas.substring(datas.indexOf(patchnote.sep));    
+});
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("patchnote")
-        .setDescription("Shows the patchnotes for the current version of the bot."),
+        .setName(patchnote.name)
+        .setDescription(patchnote.description),
     async execute(interaction) { // should read the readme.md file
-        await interaction.reply({
-            content: `**Version ${process.env.BOTVERSION}:**
-
-**Latest release :**
-        
-        > Add 2 more Secret Girl (7 Secret Girls for 11 girls in total)
-        > Success Feature : 5 Success 
-        > Casino Coin and Money Exchange
-        > Add Fields for Profile
-        > Bank feature (Money saving system)
-        > Mono instance for players & Multi-Instance handling system
-        > Throw again option in DiceGame
-        > Display Currency when rolling Lucky 7
-        > Cooldown on rent!work (doable each 5 sec)
-        > Alpha Commands for alpha release
-        
-**Now Working on :**
-        
-        > Multi-Server Instances
-        > Cooldown on rent
-        > Database Conception
-        > Auto-Disconnect after inactivity
-        > **Slash Commands** (mandatory for unverified discord bots)`});
+        await interaction.reply(datafile);
     }
 }

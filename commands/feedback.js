@@ -1,31 +1,28 @@
-const { SlashCommandBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder } = require('discord.js');
+const { SlashCommandBuilder, ModalBuilder, TextInputBuilder, ActionRowBuilder } = require('discord.js');
+
+const feedback = infos.feedback;
 
 const modal = new ModalBuilder()
-    .setCustomId('feedbackForm')
-    .setTitle('Chizuru is listening to you ...');
+    .setCustomId(feedback.modal.id)
+    .setTitle(feedback.modal.title)
 
-const eventTitle = new TextInputBuilder()
-    .setCustomId('object')
-    .setLabel('Feedback Object')
-    .setRequired(true)
-    .setPlaceholder('What is your feedback about ?')
-    .setStyle(TextInputStyle.Short);
-
-const eventDesc = new TextInputBuilder()
-    .setCustomId('description')
-    .setLabel('Feedback content')
-    .setPlaceholder('Tell me more ...')
-    .setStyle(TextInputStyle.Paragraph);
-
-const firstrow = new ActionRowBuilder().addComponents(eventTitle);
-const secondrow = new ActionRowBuilder().addComponents(eventDesc);
-
-modal.addComponents(firstrow, secondrow);
+for (let i = 0; i < feedback.modal.rows.length; i++) {
+    const row = feedback.modal.rows[i];
+    modal.addComponents(
+        new ActionRowBuilder()
+            .addComponents(
+                new TextInputBuilder()
+                    .setCustomId(row.id)
+                    .setLabel(row.label)
+                    .setPlaceholder(row.placeholder)
+                    .setStyle(row.style)
+            ));
+}
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('feedback')
-        .setDescription("Send a feedback to Chizuru's developers"),
+        .setName(feedback.name)
+        .setDescription(feedback.description),
     async execute(interaction) {
         await interaction.showModal(modal);
     }

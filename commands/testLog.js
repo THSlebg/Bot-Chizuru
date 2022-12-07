@@ -2,16 +2,18 @@ const { SlashCommandBuilder } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
 
+const testlog = infos.testlog;
+
 const datapath = path.join(__dirname, "..").normalize();
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('testlog')
-        .setDescription('send log to lo log channel'),
+        .setName(testlog.name)
+        .setDescription(testlog.description),
     async execute(interaction) {
-        const rawdata = fs.readFileSync(path.join(datapath, "data/log_info.json"));
+        const rawdata = fs.readFileSync(path.join(datapath, infos.log.infospath));
         const data = JSON.parse(rawdata);
-        interaction.reply({ content: 'Message sent to channel: <#' + data.id + '>', ephemeral: true });
-        interaction.guild.channels.cache.get(data.id).send('This is where my logs are sent ♥');
+        interaction.reply({ content: infos.makelog.reply[0] + data.id + infos.makelog.reply[1], ephemeral: infos.makelog.reply[2] });
+        interaction.guild.channels.cache.get(data.id).send(testlog.successmsg);
     }
 }

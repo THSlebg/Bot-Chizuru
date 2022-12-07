@@ -1,10 +1,12 @@
 const { SlashCommandBuilder } = require('discord.js');
 
+const date = infos.date;
+
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('date')
-        .setDescription('Basic command, you can check if the bot is working'),
+        .setName(date.name)
+        .setDescription(date.description),
     async execute(interaction) {
-        await interaction.reply("I'm all yours for now!");
+        await interaction.reply(date.reply);
     }
 }

@@ -1,10 +1,12 @@
 const { SlashCommandBuilder } = require('discord.js');
 
+const secret = infos.secret;
+
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('secret')
-        .setDescription('no...'),
+        .setName(secret.name)
+        .setDescription(secret.description),
     async execute(interaction) {
-        await interaction.reply("This is something that you should had never discovered... But at this point, maybe I should let you get a try... 💎 \nI'll be waiting for you darling...");
+        await interaction.reply(secret.reply);
     }
 }

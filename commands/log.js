@@ -4,30 +4,34 @@ const path = require('path');
 
 const datapath = path.join(__dirname, "..").normalize()
 
+const log = infos.log;
+
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('log')
-        .setDescription('Change channel for bot logs')
-        .addChannelOption(option => option.setName('channel')
-            .setDescription('The channel name to write the log into')
-            .setRequired(true)
-            .addChannelTypes(ChannelType.GuildText)),
+        .setName(log.name)
+        .setDescription(log.description)
+        .addChannelOption(option => option.setName(log.channeloption.name)
+            .setDescription(log.channeloption.description)
+            .setRequired(log.channeloption.required)
+            .addChannelTypes(log.channeloption.types)),
     async execute(interaction) {
-        const rawdata = fs.readFileSync(path.join(datapath, "data/log_info.json"));
+        const rawdata = fs.readFileSync(path.join(datapath, log.infospath));
         const data = JSON.parse(rawdata);
         const old = data.id;
         console.log(old);
-        data.id = interaction.options.getChannel('channel').id;
-        data.guild_id = interaction.options.getChannel('channel').guild_id;
-        data.name = interaction.options.getChannel('channel').name;
-        data.type = interaction.options.getChannel('channel').type;
-        fs.writeFile(path.join(datapath, "data/log_info.json"), JSON.stringify(data, null, 2), (err) => {
+
+        //j'aime pas trop ça, mais ça marche
+        data.id = interaction.options.getChannel(log.channeloption.name).id;
+        data.name = interaction.options.getChannel(log.channeloption.name).name;
+        data.type = interaction.options.getChannel(log.channeloption.name).type;
+        
+        fs.writeFile(path.join(datapath, log.infospath), JSON.stringify(data, null, 2), (err) => {
             if (err) {
-                console.log("Problème lors du chargement des données dans le fichier json", err);
+                console.log(log.errmsg, err);
                 return;
             }
-            console.log("event_info.json updated");
+            console.log(log.successmsg);
         });
-        await interaction.reply('Log channel changed to <#' + data.id + '>. Previously was <#' + old + ">");
+        await interaction.reply(log.reply[0] + data.id + log.reply[1] + old + log.reply[2]);
     }
 }

@@ -5,11 +5,16 @@ const { Routes } = require('discord.js');
 const fs = require('node:fs');
 const path = require('node:path');
 
+const commandInfo = fs.readFileSync(path.join(__dirname, "/data/commands.json"));
+global.infos = JSON.parse(commandInfo);
+
 const commands = [];
 const commandsPath = path.join(__dirname, 'commands');
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 
-console.log(commandFiles)
+
+
+console.log(commandFiles);
 
 for (const file of commandFiles) {
     const filePath = path.join(commandsPath, file);

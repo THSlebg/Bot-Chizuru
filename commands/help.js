@@ -1,11 +1,12 @@
 const { SlashCommandBuilder } = require('discord.js');
 
+const help = infos.help;
+
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('help')
-        .setDescription('Display available commands'),
+        .setName(help.name)
+        .setDescription(help.description),
     async execute(interaction) {
-        const commands = "\n - date \n - hi \n - help \n - version \n - embedHelp \n - event \n - setEvent \n - duel \n - roll \n - score \n - log \n - testLog \n - makeLog \n - setEmoji \n - patchnote\n - feedback\n - alpha";
-        await interaction.reply("**__List of commands :__**" + commands);
+        await interaction.reply(help.reply);
     }
 }
