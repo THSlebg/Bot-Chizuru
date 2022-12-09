@@ -12,6 +12,7 @@ module.exports = {
         duelinfo.nbJ = interaction.fields.getTextInputValue('nbplayer');
         duelinfo.roll = interaction.fields.getTextInputValue('roll');
         duelinfo.score = interaction.fields.getTextInputValue('score');
+        duelinfo.replay = 0;
 
         console.log("Duel settings : \n" + duelinfo); // pour papyK, mdr
 
@@ -43,7 +44,8 @@ module.exports = {
                     .setLabel("Annuler le combat")
                     .setStyle(ButtonStyle.Secondary)
                     .setEmoji("❌"));
-
+        
+        
         duelList.set(interaction.guild, new Map());
 
         interaction.reply({ embeds: [embed], components: [ready] });

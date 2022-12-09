@@ -38,6 +38,13 @@ module.exports = {
             const btnid = interaction.customId;
             console.log(btnid + " clicked");
 
+            if (btnid.startsWith('Start_d')){
+                require("../buttons/duel_handler/Start_d.js").execute(interaction);
+            }
+            else if (btnid.startsWith('GG|')) {
+                require("../buttons/duel_handler/gg.js").execute(interaction);
+            }
+
             switch (btnid) {
                 case "Ready_d":
                     require("../buttons/duel_handler/Ready_d.js").execute(interaction);

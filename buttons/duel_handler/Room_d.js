@@ -43,7 +43,7 @@ module.exports = {
                 new ButtonBuilder()
                     .setCustomId('Synth_d')
                     .setLabel("Continuer")
-                    .setStyle(ButtonStyle.Success).setEmoji("💮"),
+                    .setStyle(ButtonStyle.Success).setEmoji("🥊"),
                 new ButtonBuilder()
                     .setCustomId("Cancel_d")
                     .setLabel("Annuler le combat")

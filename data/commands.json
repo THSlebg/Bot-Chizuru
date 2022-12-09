@@ -27,7 +27,7 @@
                 {
                     "id": "nbplayer",
                     "label": "Nombre de joueurs :",
-                    "placeholder": "Au moins 2, sinon t'es le némesis du fun ...",
+                    "placeholder": "Au moins 2, sinon t'es le némesis du fun ... (MAX : 5)",
                     "style": 1,
                     "min": 1,
                     "max": 2
