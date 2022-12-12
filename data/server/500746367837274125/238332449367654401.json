@@ -1,0 +1,33 @@
+{
+  "id": "238332449367654401",
+  "username": "THS",
+  "appname": "THSletombeur",
+  "taille": 148,
+  "balance": 27327,
+  "genre": "♀️",
+  "owned_chocolate": 0,
+  "owned_ring": 0,
+  "owned_scarf": 0,
+  "owned_book": 0,
+  "owned_knife": 0,
+  "owned_rose": 0,
+  "owned_teddybear": 0,
+  "owned_free_rent_ticket": 0,
+  "owned_free_casino_ticket": 0,
+  "casino_token": 10,
+  "love_point": 0,
+  "epargne": 0,
+  "married": false,
+  "won_jackpot": false,
+  "nb_rent": 0,
+  "work_cooldown": "",
+  "success": [
+    {
+      "Collectionneur": false,
+      "Philantrope": false,
+      "Get_Married": false,
+      "JACKPOOOOOOOOOT": false,
+      "Amoureux": false
+    }
+  ]
+}

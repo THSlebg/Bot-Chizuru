@@ -59,6 +59,15 @@ module.exports = {
                 case "Synth_d":
                     require("../buttons/duel_handler/Synth_d.js").execute(interaction);
                     break;
+                case "ConnectToDiamond":
+                    require("../buttons/diamond/ConnectToDiamond.js").execute(interaction);
+                    break;
+                case "Disconnect":
+                    require("../buttons/diamond/Disconnect.js").execute(interaction);
+                    break;
+                case "Home":
+                    require("../buttons/diamond/mainPage.js").execute(interaction);
+                    break;
                 default:
                     break;
             }

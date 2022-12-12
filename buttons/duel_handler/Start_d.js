@@ -93,7 +93,7 @@ module.exports = {
                             console.log(exception)
                         }
                         finally {
-                            interaction.update({embeds: [scoreG1], components: [buttons]});
+                            interaction.reply({embeds: [scoreG1], components: [buttons]});
                         }
                     }
                 }

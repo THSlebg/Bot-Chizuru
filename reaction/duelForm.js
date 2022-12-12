@@ -8,46 +8,52 @@ const duelinfo = JSON.parse(rawdata);
 
 module.exports = {
     async execute(interaction) {
-        duelinfo.mise = interaction.fields.getTextInputValue('bet');
-        duelinfo.nbJ = interaction.fields.getTextInputValue('nbplayer');
-        duelinfo.roll = interaction.fields.getTextInputValue('roll');
-        duelinfo.score = interaction.fields.getTextInputValue('score');
-        duelinfo.replay = 0;
 
-        console.log("Duel settings : \n" + duelinfo); // pour papyK, mdr
+        if(duelList.has(interaction.guild)){
+            interaction.reply("Un duel est déjà en cours sur ce serveur. Veuillez ré-essayer lorsque celui-ci aura conclu.");
+        }
+        else {
+            duelinfo.mise = interaction.fields.getTextInputValue('bet');
+            duelinfo.nbJ = interaction.fields.getTextInputValue('nbplayer');
+            duelinfo.roll = interaction.fields.getTextInputValue('roll');
+            duelinfo.score = interaction.fields.getTextInputValue('score');
+            duelinfo.replay = 0;
 
-        fs.writeFile(path.join(datapath, "data/server/duel_info.json"), JSON.stringify(duelinfo, null, 2), (err) => {
-            if (err) {
-                console.log("Problème lors du chargement des données dans le fichier duel_info.json", err);
-                return;
-            }
-            console.log("duel_info.json  updated");
-        });
+            console.log("Duel settings : \n" + duelinfo); // pour papyK, mdr
 
-        const embed = new EmbedBuilder()
-            .setTitle('⚔ Duel de Harem')
-            .setDescription('Pour lancer le combat tous les joueurs doivent se mettre **prêts**')
-            .addFields({ name: 'Joueurs prêts :', value: "0/" + duelinfo.nbJ },
-                { name: 'Rappel de la mise :', value: duelinfo.mise + "<:kakera:950050987412951051>" },
-                { name: 'Score et roll :', value: "Premier à " + duelinfo.score + " points et roll sur " + duelinfo.roll })
-            .setColor('d40f0f');
+            fs.writeFile(path.join(datapath, "data/server/duel_info.json"), JSON.stringify(duelinfo, null, 2), (err) => {
+                if (err) {
+                    console.log("Problème lors du chargement des données dans le fichier duel_info.json", err);
+                    return;
+                }
+                console.log("duel_info.json  updated");
+            });
 
-        const ready = new ActionRowBuilder()
-            .addComponents(
-                new ButtonBuilder()
-                    .setCustomId("Ready_d")
-                    .setLabel("Prêt !")
-                    .setStyle(ButtonStyle.Success)
-                    .setEmoji("🗡"),
-                new ButtonBuilder()
-                    .setCustomId("Cancel_d")
-                    .setLabel("Annuler le combat")
-                    .setStyle(ButtonStyle.Secondary)
-                    .setEmoji("❌"));
-        
-        
-        duelList.set(interaction.guild, new Map());
+            const embed = new EmbedBuilder()
+                .setTitle('⚔ Duel de Harem')
+                .setDescription('Pour lancer le combat tous les joueurs doivent se mettre **prêts**')
+                .addFields({ name: 'Joueurs prêts :', value: "0/" + duelinfo.nbJ },
+                    { name: 'Rappel de la mise :', value: duelinfo.mise + "<:kakera:950050987412951051>" },
+                    { name: 'Score et roll :', value: "Premier à " + duelinfo.score + " points et roll sur " + duelinfo.roll })
+                .setColor('d40f0f');
 
-        interaction.reply({ embeds: [embed], components: [ready] });
+            const ready = new ActionRowBuilder()
+                .addComponents(
+                    new ButtonBuilder()
+                        .setCustomId("Ready_d")
+                        .setLabel("Prêt !")
+                        .setStyle(ButtonStyle.Success)
+                        .setEmoji("🗡"),
+                    new ButtonBuilder()
+                        .setCustomId("Cancel_d")
+                        .setLabel("Annuler le combat")
+                        .setStyle(ButtonStyle.Secondary)
+                        .setEmoji("❌"));
+            
+            
+            duelList.set(interaction.guild, new Map());
+
+            interaction.reply({ embeds: [embed], components: [ready] });
+        }
     }
 }

@@ -4,6 +4,7 @@ module.exports = {
     async execute(interaction) {
         player = interaction.customId.split("|")[1]
         amount = interaction.customId.split("|")[2];
+        console.log("Duel canceled →" + duelList.delete(interaction.guild));
 
         const embed = new EmbedBuilder()
             .setTitle('Bravo !')
