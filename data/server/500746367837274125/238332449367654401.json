@@ -1,10 +1,10 @@
 {
   "id": "238332449367654401",
   "username": "THS",
-  "appname": "THSletombeur",
-  "taille": 148,
-  "balance": 27327,
-  "genre": "♀️",
+  "appname": "THSlebg",
+  "taille": 158,
+  "balance": 3484,
+  "genre": ":male_sign:",
   "owned_chocolate": 0,
   "owned_ring": 0,
   "owned_scarf": 0,
@@ -28,6 +28,16 @@
       "Get_Married": false,
       "JACKPOOOOOOOOOT": false,
       "Amoureux": false
+    }
+  ],
+  "owned_gf": [
+    {
+      "id": "",
+      "name": ""
+    },
+    {
+      "id": "",
+      "name": ""
     }
   ]
 }

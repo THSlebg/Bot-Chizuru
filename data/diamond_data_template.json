@@ -21,12 +21,21 @@
     "won_jackpot" : false,
     "nb_rent" : 0,
     "work_cooldown" : "",
-    "success" : [ {
+    "success" : [{
         "Collectionneur" : false,
         "Philantrope" : false,
         "Get_Married" : false,
         "JACKPOOOOOOOOOT" : false,
         "Amoureux" : false
-    }
+    }],
+    "owned_gf" :[
+        {
+            "id" : "",
+            "name" : ""
+        },
+        {
+            "id" : "",
+            "name" : ""
+        }
     ]
 }

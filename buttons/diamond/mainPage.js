@@ -40,10 +40,11 @@ module.exports = {
             
                     //paidDateUser[userDiamondID.indexOf(interaction.user.id)] = 0; - no double date or more per user
                 if (interaction.isChatInputCommand()){
-                    await interaction.reply({embeds:[Home], components: [Navigation]});
+                    interaction.reply({embeds:[Home], components: [Navigation]});
                 }
                 else {
-                    await interaction.update({content: " ", embeds:[Home], components: [Navigation]});
+                    interaction.reply({embeds:[Home], components: [Navigation]});
+                    interaction.message.delete();
                 }
     }
 }

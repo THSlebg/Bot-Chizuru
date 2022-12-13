@@ -68,6 +68,8 @@ module.exports = {
                 case "Home":
                     require("../buttons/diamond/mainPage.js").execute(interaction);
                     break;
+                case "Profile":
+                    require("../buttons/diamond/profilePage.js").execute(interaction);
                 default:
                     break;
             }
