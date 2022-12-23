@@ -2,11 +2,11 @@
 module.exports = {
     async execute(interaction) {
         if(interaction.message.interaction.user.id === interaction.member.user.id) {
-            interaction.update("...");
+            interaction.update({content: "...", embeds : [], components: []});
         }
-        else
+        else 
         {
-            interaction.reply("Je suis sincèrement désolé mon adorable " + interaction.member.user.username + " mais cette instance est reservé à une personne que j'apprécie bien plus que toi...");
+            interaction.reply({content: "Je suis sincèrement désolé mon adorable " + interaction.member.user.username + " mais cette instance est reservé à une personne que j'apprécie bien plus que toi...", ephemeral: true});
         }
     }
 }

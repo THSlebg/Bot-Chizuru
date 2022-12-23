@@ -38,9 +38,12 @@ module.exports = {
                     .setStyle(ButtonStyle.Secondary)
                     .setEmoji("❌"));
             
+                console.log(interaction);
                     //paidDateUser[userDiamondID.indexOf(interaction.user.id)] = 0; - no double date or more per user
                 if (interaction.isChatInputCommand()){
                     interaction.reply({embeds:[Home], components: [Navigation]});
+                }else if (interaction.message.embeds.length > 0){
+                    interaction.update({embeds:[Home], components: [Navigation]});
                 }
                 else {
                     interaction.reply({embeds:[Home], components: [Navigation]});

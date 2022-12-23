@@ -84,7 +84,6 @@ module.exports = {
 
             }
             else {
-                console.log('else');
                 require("../buttons/diamond/mainPage.js").execute(interaction);
             }
         } 

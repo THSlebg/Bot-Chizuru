@@ -1,0 +1,68 @@
+{
+    "chizuru" :
+    {
+        "married" : false,
+        "id" : "",
+        "date" : ""
+    },
+    "ruka" :
+    {
+        "married" : false,
+        "id" : "",
+        "date" : ""
+    },
+    "mami" :
+    {
+        "married" : false,
+        "id" : "",
+        "date" : ""
+    },
+    "sumi" :
+    {
+        "married" : false,
+        "id" : "",
+        "date" : ""
+    },
+    "itsuki" :
+    {
+        "married" : false,
+        "id" : "",
+        "date" : ""
+    },
+    "yukinon" :
+    {
+        "married" : false,
+        "id" : "",
+        "date" : ""
+    },
+    "yukana" :
+    {
+        "married" : false,
+        "id" : "",
+        "date" : ""
+    },
+    "aki" :
+    {
+        "married" : false,
+        "id" : "",
+        "date" : ""
+    },
+    "shuka" :
+    {
+        "married" : false,
+        "id" : "",
+        "date" : ""
+    },
+    "yumeko" :
+    {
+        "married" : false,
+        "id" : "",
+        "date" : ""
+    },
+    "mikasa" :
+    {
+        "married" : false,
+        "id" : "",
+        "date" : ""
+    }
+}

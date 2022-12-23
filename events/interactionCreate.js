@@ -3,13 +3,10 @@ module.exports = {
     once: false,
     execute(interaction) {
 
-        console.log(interaction.isChatInputCommand());
-        console.log(interaction.isModalSubmit());
-
         if (interaction.isChatInputCommand()) {
             const command = interaction.client.commands.get(interaction.commandName);
-            console.log(command);
             if (!command) return;
+            console.log(command);
 
             try {
                 command.execute(interaction);
@@ -70,6 +67,15 @@ module.exports = {
                     break;
                 case "Profile":
                     require("../buttons/diamond/profilePage.js").execute(interaction);
+                    break;
+                case 'GF':
+                case 'GF+':
+                case 'GF-':
+                    require("../buttons/diamond/showgirlfriends.js").execute(interaction);
+                    break;
+                case 'RentGF':
+                    require("../buttons/diamond/rent.js").execute(interaction);
+                    break;
                 default:
                     break;
             }

@@ -5,7 +5,6 @@ const path = require('path');
 
 module.exports ={
     async execute(interaction) {
-
         const datapath = path.join(__dirname, "../..").normalize();
         const rowdata = fs.readFileSync(path.join(datapath, 'data/server/' + interaction.guild.id + "/" + interaction.member.user.id +".json"));
         const userdata = JSON.parse(rowdata);
@@ -67,11 +66,6 @@ module.exports ={
         }
         var NavigationP = new ActionRowBuilder()
             .addComponents(new ButtonBuilder()
-                .setCustomId("Home")
-                .setLabel("Back Home")
-                .setStyle(ButtonStyle.Success)
-                .setEmoji("🏡"))
-            .addComponents(new ButtonBuilder()
                 .setCustomId("Succes" + interaction.user.id)
                 .setLabel("Success")
                 .setStyle(ButtonStyle.Success)
@@ -82,10 +76,15 @@ module.exports ={
                 .setStyle(ButtonStyle.Primary)
                 .setEmoji("💰"))
             .addComponents(new ButtonBuilder()
-                .setCustomId("Disconnect" + interaction.user.id)
+                .setCustomId("Disconnect")
                 .setLabel("Exit")
                 .setStyle(ButtonStyle.Secondary)
-                .setEmoji("❌"));
+                .setEmoji("❌"))
+            .addComponents(new ButtonBuilder()
+                .setCustomId("Home")
+                .setLabel("Back Home")
+                .setStyle(ButtonStyle.Success)
+                .setEmoji("🏡"));
                     
         interaction.update({embeds:[Profile], components: [NavigationP]});
             

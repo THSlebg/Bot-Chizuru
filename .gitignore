@@ -1,6 +1,7 @@
 .env
 .vscode/
 node_modules/
+data/server/
 package.json
 package-lock.json
 *.bat
