@@ -56,9 +56,9 @@ module.exports = {
                 .setEmoji("◀"));
 
             if (userRent.has(interaction.member.user.id)) {
-                if(userRent.get(interaction.member.user.id)[1] === pos) {
+                if(porteclés[userRent.get(interaction.member.user.id)[1]] === pos) {
                     NavigationGF.addComponents(new ButtonBuilder()
-                        .setCustomId("Date")
+                        .setCustomId("Date_resume")
                         .setLabel("Resume Date")
                         .setStyle(ButtonStyle.Success)
                         .setEmoji("⏯"));}

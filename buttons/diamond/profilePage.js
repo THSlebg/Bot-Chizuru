@@ -76,15 +76,15 @@ module.exports ={
                 .setStyle(ButtonStyle.Primary)
                 .setEmoji("💰"))
             .addComponents(new ButtonBuilder()
-                .setCustomId("Disconnect")
-                .setLabel("Exit")
-                .setStyle(ButtonStyle.Secondary)
-                .setEmoji("❌"))
-            .addComponents(new ButtonBuilder()
                 .setCustomId("Home")
                 .setLabel("Back Home")
                 .setStyle(ButtonStyle.Success)
-                .setEmoji("🏡"));
+                .setEmoji("🏡"))
+            .addComponents(new ButtonBuilder()
+                .setCustomId("Disconnect")
+                .setLabel("Exit")
+                .setStyle(ButtonStyle.Secondary)
+                .setEmoji("❌"));
                     
         interaction.update({embeds:[Profile], components: [NavigationP]});
             

@@ -14,6 +14,7 @@ const gfInfo = fs.readFileSync(path.join(__dirname, "/data/girlfriend/girlfriend
 global.gf = JSON.parse(gfInfo);
 
 global.duelList = new Map();
+global.blitzList = new Map();
 global.index = new Map();
 global.userRent = new Map();
 

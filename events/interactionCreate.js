@@ -28,6 +28,9 @@ module.exports = {
                 case "duel":
                     require("../reaction/duelForm").execute(interaction);
                     break;
+                case "blitz_modal":
+                    require("../reaction/blitzForm").execute(interaction);
+                    break;
                 default:
                     break;
             }
@@ -40,6 +43,12 @@ module.exports = {
             }
             else if (btnid.startsWith('GG|')) {
                 require("../buttons/duel_handler/gg.js").execute(interaction);
+            }
+            if (btnid.startsWith('Start_b')){
+                require("../buttons/blitz_handler/Start_b.js").execute(interaction);
+            }
+            else if (btnid.startsWith('GGb|')) {
+                require("../buttons/blitz_handler/ggb.js").execute(interaction);
             }
 
             switch (btnid) {
@@ -55,6 +64,19 @@ module.exports = {
                     break;
                 case "Synth_d":
                     require("../buttons/duel_handler/Synth_d.js").execute(interaction);
+                    break;
+                case "Ready_b":
+                    require("../buttons/blitz_handler/Ready_b.js").execute(interaction);
+                    break;
+                case "Cancel_b":
+                    require("../buttons/blitz_handler/Cancel_b.js").execute(interaction);
+                    break;
+                case "Room_+b":
+                case "Room_nb":
+                    require("../buttons/blitz_handler/Room_b.js").execute(interaction);
+                    break;
+                case "Synth_b":
+                    require("../buttons/blitz_handler/Synth_b.js").execute(interaction);
                     break;
                 case "ConnectToDiamond":
                     require("../buttons/diamond/ConnectToDiamond.js").execute(interaction);
@@ -75,6 +97,10 @@ module.exports = {
                     break;
                 case 'RentGF':
                     require("../buttons/diamond/rent.js").execute(interaction);
+                    break;
+                case 'Date':
+                case 'Date_resume':
+                    require("../buttons/diamond/date.js").execute(interaction);
                     break;
                 default:
                     break;

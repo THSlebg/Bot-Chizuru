@@ -2,6 +2,10 @@ const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("
 const fs = require('fs');
 const path = require('path');
 
+function getRndInteger(min, max) {
+    return Math.floor(Math.random() * (max - min) ) + min;
+  }
+
 module.exports =  {
     async execute(interaction) {
         if(interaction.message.interaction.user.id === interaction.member.user.id){
@@ -13,6 +17,7 @@ module.exports =  {
             indexgirl = Number(interaction.message.embeds[0].data.footer.text.substring(45, interaction.message.embeds[0].data.footer.text.indexOf('/')));
             girl = gf[Object.keys(gf)[indexgirl-1]];
             console.log(girl);
+            console.log(getRndInteger(10000001, 99999999))
             
             const RGF = new EmbedBuilder()
             .setColor("843dff")
@@ -20,7 +25,7 @@ module.exports =  {
             .addFields({name: "Purchase:", value: "You have rented " + girl.name + " for one hour."},
             {name: "Paiement Recap:", value: girl.price + " :yen:"},
             {name: 'Rented by:', value: interaction.member.user.username})
-            .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
+            .setFooter({text:"Diamond Inc. © - Bringing the best for you - Order number: " + getRndInteger(10000001, 99999999) + "x" + (indexgirl-1).toString()})
             .setTimestamp();
 
             const start = new ActionRowBuilder()
@@ -35,19 +40,19 @@ module.exports =  {
                     .setStyle(ButtonStyle.Success)
                     .setEmoji('🏡'));
 
-            console.log("thune :" + userdata.balance + "prix fille : " + girl.price)
+            console.log("thune :" + userdata.balance + " prix fille : " + girl.price)
             if(!userRent.has(interaction.member.user.id)){
                 if(userdata.owned_free_rent_ticket > 0){
                     userdata.owned_free_rent_ticket = userdata.owned_free_rent_ticket - 1;
-                    userRent.set(interaction.member.user.id, [Date.now(), "Neutral", 0]);
+                    //userRent.set(interaction.member.user.id, [Date.now(), indexgirl, "Neutral", 0]);
                     interaction.update({embeds: [RGF], components: [start]});
                 }
                 else if(userdata.balance > girl.price){
                     userdata.balance = userdata.balance - girl.price;
-                    userRent.set(interaction.member.user.id, [Date.now(), "Neutral", 0]);
+                    //userRent.set(interaction.member.user.id, [Date.now(), indexgirl, "Neutral", 0]);
                     interaction.update({embeds: [RGF], components: [start]});
                 }
-                // add condition if owned by user by being married with
+                // add condition if owned by user by being married with → makes rent free
                 else {
 
                     const noMoney = new EmbedBuilder()
