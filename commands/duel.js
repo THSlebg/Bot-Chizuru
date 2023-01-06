@@ -1,5 +1,8 @@
 const { SlashCommandBuilder, ModalBuilder, TextInputBuilder, ActionRowBuilder } = require('discord.js');
+const fs = require('fs');
+const path = require('path');
 
+const datapath = path.join(__dirname, "..").normalize();
 const duel = infos.duel;
 
 module.exports = {
@@ -7,6 +10,9 @@ module.exports = {
         .setName(duel.name)
         .setDescription(duel.description),
     async execute(interaction) {
+
+        const rawdata = fs.readFileSync(path.join(datapath, duel.infospath[0] + interaction.guild.id + duel.infospath[1]))
+        const data = JSON.parse(rawdata);
 
         const modal = new ModalBuilder()
             .setCustomId(duel.modal.id)
@@ -24,6 +30,7 @@ module.exports = {
                             .setStyle(row.style)
                             .setMinLength(row.min)
                             .setMaxLength(row.max)
+                            .setValue(data[row.id])
                             ));
         }
  

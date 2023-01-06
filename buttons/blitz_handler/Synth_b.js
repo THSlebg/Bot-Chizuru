@@ -2,6 +2,8 @@ const { EmbedBuilder, ButtonBuilder, ActionRowBuilder, ButtonStyle, Collection }
 const fs = require('fs');
 const path = require('path');
 
+const datapath = path.join(__dirname, "../..").normalize();
+const blitzinfos = infos.blitz;
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -10,8 +12,7 @@ function getRandomInt(max) {
 module.exports = {
     async execute(interaction) {
 
-        const datapath = path.join(__dirname, "../..").normalize();
-        const rawdata = fs.readFileSync(path.join(datapath, "data/server/blitz_info.json"));
+        const rawdata = fs.readFileSync(path.join(datapath, blitzinfos.infospath[0] + interaction.guild.id + blitzinfos.infospath[1]));
         const blitz_info = JSON.parse(rawdata);
         
         if(blitz_info.replay != 0){
@@ -20,7 +21,7 @@ module.exports = {
                 console.log("je reset" + blitzList.get(interaction.guild).get(x))
             }
             blitz_info.replay = 0,
-            fs.writeFile(path.join(datapath, "data/server/blitz_info.json"), JSON.stringify(blitz_info, null, 2), (err) => {
+            fs.writeFile(path.join(datapath, blitzinfos.infospath[0] + interaction.guild.id + blitzinfos.infospath[1]), JSON.stringify(blitz_info, null, 2), (err) => {
                 if (err) {
                     console.log("Problème lors du chargement des données dans le fichier blitz_info.json", err);
                     return;
@@ -45,7 +46,7 @@ module.exports = {
         console.log("chiffres" + chiffres)
         
         const resume = new EmbedBuilder()
-            .setColor("eb4034")
+            .setColor("821fcf")
             .setTitle("🔪 Détails du Blitz : ")
             .setDescription("Le Blitz est un mode pour les joueurs confirmés, assurez-vous de pas être un noob avant de participer")
             .setThumbnail("https://i.imgur.com/EI9kJ6a.jpg")

@@ -3,25 +3,28 @@ const fs = require('fs');
 const path = require('path');
 
 const datapath = path.join(__dirname, "..").normalize();
-const rawdata = fs.readFileSync(path.join(datapath, "data/server/duel_info.json"));
-const duelinfo = JSON.parse(rawdata);
+const duelinfos = infos.duel;
 
 module.exports = {
     async execute(interaction) {
 
         if(duelList.has(interaction.guild)){
-            interaction.reply("Un duel est déjà en cours sur ce serveur. Veuillez ré-essayer lorsque celui-ci aura conclu.");
+            interaction.reply("Un **duel** est déjà en cours sur ce serveur. Veuillez ré-essayer lorsque celui-ci aura conclu.");
         }
         else {
-            duelinfo.mise = interaction.fields.getTextInputValue('bet');
-            duelinfo.nbJ = interaction.fields.getTextInputValue('nbplayer');
+
+            const rawdata = fs.readFileSync(path.join(datapath, duelinfos.infospath[0] + interaction.guild.id + duelinfos.infospath[1]));
+            const duelinfo = JSON.parse(rawdata);
+
+            duelinfo.mise = interaction.fields.getTextInputValue('mise');
+            duelinfo.nbJ = interaction.fields.getTextInputValue('nbJ');
             duelinfo.roll = interaction.fields.getTextInputValue('roll');
             duelinfo.score = interaction.fields.getTextInputValue('score');
             duelinfo.replay = 0;
 
             console.log("Duel settings : \n" + duelinfo); // pour papyK, mdr
 
-            fs.writeFile(path.join(datapath, "data/server/duel_info.json"), JSON.stringify(duelinfo, null, 2), (err) => {
+            fs.writeFile(path.join(datapath, duelinfos.infospath[0] + interaction.guild.id + duelinfos.infospath[1]), JSON.stringify(duelinfo, null, 2), (err) => {
                 if (err) {
                     console.log("Problème lors du chargement des données dans le fichier duel_info.json", err);
                     return;

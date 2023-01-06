@@ -1,7 +1,7 @@
 {
-  "color": "5bed07",
-  "title": "?",
-  "period": "?",
-  "description": "?",
-  "ave": "?"
+  "eventTitle": "none",
+  "eventDescr": "null",
+  "eventPeriod": "null",
+  "eventAva": "null",
+  "eventColor": "5bed07"
 }

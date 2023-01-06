@@ -12,7 +12,7 @@ module.exports = {
         .setName(setevent.name)
         .setDescription(setevent.description),
     async execute(interaction) {
-        const rawdata = fs.readFileSync(path.join(datapath, infos.event.infospath));
+        const rawdata = fs.readFileSync(path.join(datapath, infos.event.infospath[0] + interaction.guild.id + infos.event.infospath[1]));
         const data = JSON.parse(rawdata);
 
         const modal = new ModalBuilder()

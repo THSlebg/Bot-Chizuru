@@ -3,25 +3,29 @@ const fs = require('fs');
 const path = require('path');
 
 const datapath = path.join(__dirname, "..").normalize();
-const rawdata = fs.readFileSync(path.join(datapath, "data/server/blitz_info.json"));
-const blitz_info = JSON.parse(rawdata);
+const blitzinfos = infos.blitz;
 
 module.exports = {
     async execute(interaction) {
 
+
         if(blitzList.has(interaction.guild)){
-            interaction.reply("Un duel est déjà en cours sur ce serveur. Veuillez ré-essayer lorsque celui-ci aura conclu.");
+            interaction.reply("Un **blitz** est déjà en cours sur ce serveur. Veuillez ré-essayer lorsque celui-ci aura conclu.");
         }
         else {
-            blitz_info.mise = interaction.fields.getTextInputValue('bet');
-            blitz_info.nbJ = interaction.fields.getTextInputValue('nbplayer');
+                        
+            const rawdata = fs.readFileSync(path.join(datapath, blitzinfos.infospath[0] + interaction.guild.id + blitzinfos.infospath[1]));
+            const blitz_info = JSON.parse(rawdata);
+
+            blitz_info.mise = interaction.fields.getTextInputValue('mise');
+            blitz_info.nbJ = interaction.fields.getTextInputValue('nbJ');
             blitz_info.roll = interaction.fields.getTextInputValue('roll');
             blitz_info.score = interaction.fields.getTextInputValue('score');
             blitz_info.replay = 0;
 
             console.log("Duel settings : \n" + blitz_info); // pour papyK, mdr
 
-            fs.writeFile(path.join(datapath, "data/server/blitz_info.json"), JSON.stringify(blitz_info, null, 2), (err) => {
+            fs.writeFile(path.join(datapath, blitzinfos.infospath[0] + interaction.guild.id + blitzinfos.infospath[1]), JSON.stringify(blitz_info, null, 2), (err) => {
                 if (err) {
                     console.log("Problème lors du chargement des données dans le fichier blitz_info.json", err);
                     return;

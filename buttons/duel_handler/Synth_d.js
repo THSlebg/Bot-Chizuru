@@ -2,12 +2,13 @@ const { EmbedBuilder, ButtonBuilder, ActionRowBuilder, ButtonStyle } = require('
 const fs = require('fs');
 const path = require('path');
 
+const duelinfos = infos.duel;
+const datapath = path.join(__dirname, "../..").normalize();
 
 module.exports = {
     async execute(interaction) {
 
-        const datapath = path.join(__dirname, "../..").normalize();
-        const rawdata = fs.readFileSync(path.join(datapath, "data/server/duel_info.json"));
+        const rawdata = fs.readFileSync(path.join(datapath, duelinfos.infospath[0] + interaction.guild.id + duelinfos.infospath[1]));
         const duelinfo = JSON.parse(rawdata);
         
         if(duelinfo.replay != 0){
@@ -16,7 +17,7 @@ module.exports = {
                 console.log("je reset" + duelList.get(interaction.guild).get(x))
             }
             duelinfo.replay = 0,
-            fs.writeFile(path.join(datapath, "data/server/duel_info.json"), JSON.stringify(duelinfo, null, 2), (err) => {
+            fs.writeFile(path.join(datapath, duelinfos.infospath[0] + interaction.guild.id + duelinfos.infospath[1]), JSON.stringify(duelinfo, null, 2), (err) => {
                 if (err) {
                     console.log("Problème lors du chargement des données dans le fichier duel_info.json", err);
                     return;

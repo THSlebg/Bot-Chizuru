@@ -25,8 +25,8 @@ for (const file of commandFiles) {
 const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
 
 const guild_id = "500746367837274125"; // test serv Id
-// const optc_guild = "238332843602739213";; // official serv
+const optc_guild = "238332843602739213"; // official serv
 
-rest.put(Routes.applicationGuildCommands("951907092304891955", guild_id), { body: commands })
+rest.put(Routes.applicationGuildCommands("951907092304891955", "559447751755169792"), { body: commands })
     .then(() => console.log('Commande envoyée bg!'))
     .catch(console.error);

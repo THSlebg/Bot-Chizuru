@@ -1,8 +1,9 @@
 const { EmbedBuilder, ButtonBuilder, ActionRowBuilder, ButtonStyle } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
-
-
+const datapath = path.join(__dirname, "../..").normalize();
+const duelinfos = infos.duel;
+const loginfos = infos.log;
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -11,8 +12,7 @@ function getRandomInt(max) {
 module.exports = {
     async execute(interaction) {
 
-        const datapath = path.join(__dirname, "../..").normalize();
-        const rawdata = fs.readFileSync(path.join(datapath, "data/server/duel_info.json"));
+        const rawdata = fs.readFileSync(path.join(datapath, duelinfos.infospath[0] + interaction.guild.id + duelinfos.infospath[1]));
         const duelinfo = JSON.parse(rawdata);
 
         if(!(interaction.customId === 'Start_d')) {
@@ -48,12 +48,12 @@ module.exports = {
                                             {name: 'Roll de round : ', value: '$mmi ' + (getRandomInt(duelinfo.roll)).toString()}
                                             );
     
-                        interaction.update({embeds: [scoreG1], components: [buttons]});
+                        interaction.reply({embeds: [scoreG1], components: [buttons]});
                     }
                     else{
 
                         const logpath = path.join(__dirname, "../..").normalize();
-                        const loglog = fs.readFileSync(path.join(logpath, "data/log_info.json"));
+                        const loglog = fs.readFileSync(path.join(logpath, loginfos.infospath[0] + interaction.guild.id + loginfos.infospath[1]));
                         const loginfo = JSON.parse(loglog);
 
                         gain = duelinfo.mise * (duelinfo.nbJ - 1);
@@ -79,7 +79,7 @@ module.exports = {
                                 
                         duelinfo.replay = 1;
                         console.log(duelinfo.replay);
-                        fs.writeFile(path.join(datapath, "data/server/duel_info.json"), JSON.stringify(duelinfo, null, 2), (err) => {
+                        fs.writeFile(path.join(datapath, duelinfos.infospath[0] + interaction.guild.id + duelinfos.infospath[1]), JSON.stringify(duelinfo, null, 2), (err) => {
                             if (err) {
                                 console.log("Problème lors du chargement des données dans le fichier duel_info.json", err);
                                 return;

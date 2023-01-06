@@ -6,6 +6,10 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 
+const datapath = path.join(__dirname, "../..").normalize();
+const loginfos = infos.log;
+const blitzinfos = infos.blitz;
+
 rnd = getRandomInt(250)+1;
 
 eventList = 
@@ -51,8 +55,7 @@ eventList =
 module.exports = {
     async execute(interaction) {
 
-        const datapath = path.join(__dirname, "../..").normalize();
-        const rawdata = fs.readFileSync(path.join(datapath, "data/server/blitz_info.json"));
+        const rawdata = fs.readFileSync(path.join(datapath, blitzinfos.infospath[0] + interaction.guild.id + blitzinfos.infospath[1]));
         const blitz_info = JSON.parse(rawdata);
 
         if(!(interaction.customId === 'Start_b')) {
@@ -79,21 +82,21 @@ module.exports = {
                         }
 
                         const scoreG1 = new EmbedBuilder()
-                                .setColor("eb4034")
+                                .setColor("821fcf")
                                 .setTitle("🔪 Progression du Blitz : ")
                                 .setDescription("La tension est palpable...")
                                 .addFields( {name: 'Score à atteindre :', value: blitz_info.score},
                                             {name: 'Rappel mise :', value: blitz_info.mise},
                                             {name: 'Score : ', value: listS},
-                                            {name: 'Evenement du round : ', value: eventList[Math.floor(Math.random() * eventList.length)]}
+                                            {name: 'Evenement du round : ', value: "*" + eventList[Math.floor(Math.random() * eventList.length)] + "*"}
                                             );
     
-                        interaction.update({embeds: [scoreG1], components: [buttons]});
+                        interaction.reply({embeds: [scoreG1], components: [buttons]});
                     }
                     else{
 
                         const logpath = path.join(__dirname, "../..").normalize();
-                        const loglog = fs.readFileSync(path.join(logpath, "data/log_info.json"));
+                        const loglog = fs.readFileSync(path.join(logpath, loginfos.infospath[0] + interaction.guild.id + loginfos.infospath[1]));
                         const loginfo = JSON.parse(loglog);
 
                         gain = blitz_info.mise * (blitz_info.nbJ - 1);
@@ -119,7 +122,7 @@ module.exports = {
                                 
                         blitz_info.replay = 1;
                         console.log(blitz_info.replay);
-                        fs.writeFile(path.join(datapath, "data/server/blitz_info.json"), JSON.stringify(blitz_info, null, 2), (err) => {
+                        fs.writeFile(path.join(datapath, blitzinfos.infospath[0] + interaction.guild.id + blitzinfos.infospath[1]), JSON.stringify(blitz_info, null, 2), (err) => {
                             if (err) {
                                 console.log("Problème lors du chargement des données dans le fichier blitz_info.json", err);
                                 return;
@@ -159,7 +162,7 @@ module.exports = {
             }
 
             const scoreG1 = new EmbedBuilder()
-                .setColor("eb4034")
+                .setColor("821fcf")
                 .setTitle("🔪 Progression du Blitz : ")
                 .setDescription("Première manche, rien n'est encore joué !")
                 .addFields( {name: 'Score à atteindre :', value: blitz_info.score},

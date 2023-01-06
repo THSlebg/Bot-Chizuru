@@ -12,12 +12,13 @@
     "duel": {
         "name": "duel",
         "description": "Start a duel with other users",
+        "infospath" : ["data/server/","/servinfo/duel_info.json"],
         "modal": {
             "id": "duel",
             "title": "Paramètres du Duel",
             "rows": [
                 {
-                    "id": "bet",
+                    "id": "mise",
                     "label": "Mise :",
                     "placeholder": "Max : 10.000",
                     "style": 1,
@@ -25,7 +26,7 @@
                     "max": 4
                 },
                 {
-                    "id": "nbplayer",
+                    "id": "nbJ",
                     "label": "Nombre de joueurs :",
                     "placeholder": "Au moins 2, sinon t'es le némesis du fun ... (MAX : 5)",
                     "style": 1,
@@ -64,7 +65,7 @@
     "event": {
         "name": "event",
         "description": "Display current server event information",
-        "infospath": "data/event_info.json",
+        "infospath": ["data/server/","/servinfo/event_info.json"],
         "embed": {
             "title": "**ÉVÈNEMENT ACTIF** : ",
             "description": "*Informations relatives à l'évènement en cours sur le serveur...*",
@@ -111,7 +112,7 @@
     "log": {
         "name": "log",
         "description": "Change channel for bot logs",
-        "infospath": "data/log_info.json",
+        "infospath": ["data/server/","/servinfo/log_info.json"],
         "errmsg": "Problème lors du chargement des données dans le fichier json",
         "successmsg": "log_info.json updated",
         "reply": [
@@ -161,35 +162,35 @@
             "title": "setEvent Form",
             "rows": [
                 {
-                    "id": "title",
+                    "id": "eventTitle",
                     "label": "Fill in the field your event title",
                     "placeholder": "Yo l'ekip, ça bicrave ou quoi 2",
                     "required": true,
                     "style": 1
                 },
                 {
-                    "id": "description",
+                    "id": "eventDescr",
                     "label": "Event details",
                     "placeholder": "Raconte pas trop ta vie steuplé",
                     "required": true,
                     "style": 2
                 },
                 {
-                    "id": "period",
+                    "id": "eventPeriod",
                     "label": "Starting date - Ending Date",
                     "placeholder": "Un début et une fin, pas plus du con",
                     "required": true,
                     "style": 1
                 },
                 {
-                    "id": "ave",
+                    "id": "eventAva",
                     "label": "Who can participate",
                     "placeholder": "tkt ça va pas durer longtemps (comme avant en sah)",
                     "required": true,
                     "style": 1
                 },
                 {
-                    "id": "color",
+                    "id": "eventColor",
                     "label": "Side bar embed color",
                     "placeholder": "123abc",
                     "required": false,
@@ -212,5 +213,48 @@
             "ersion",
             " :"
         ]
+    },
+    "blitz": {
+        "name": "blitz",
+        "description": "Start a new blitz !",
+        "infospath": ["data/server/","/servinfo/blitz_info.json"],
+        "modal": {
+            "id": "blitz_modal",
+            "title": "Paramètres du Blitz",
+            "rows": [
+                {
+                    "id": "mise",
+                    "label": "Mise :",
+                    "placeholder": "Max : 10.000",
+                    "style": 1,
+                    "min": 2,
+                    "max": 4
+                },
+                {
+                    "id": "nbJ",
+                    "label": "Nombre de participants :",
+                    "placeholder": "Au moins 2, sinon t'es le némesis du fun ... (MAX : 5)",
+                    "style": 1,
+                    "min": 1,
+                    "max": 2
+                },
+                {
+                    "id": "score",
+                    "label": "Score à atteindre :",
+                    "placeholder": "Wahh, 25 ça rsique d'être long ...",
+                    "style": 1,
+                    "min": 1,
+                    "max": 1
+                },
+                {
+                    "id": "roll",
+                    "label": "Nombre de roll max (personnages blitz):",
+                    "placeholder": "Valeur relative au plus petit harem habituellement",
+                    "style": 1,
+                    "min": 1,
+                    "max": 4
+                }
+            ]
+        }
     }
 }

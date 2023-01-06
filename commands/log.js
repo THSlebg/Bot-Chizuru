@@ -15,7 +15,7 @@ module.exports = {
             .setRequired(log.channeloption.required)
             .addChannelTypes(log.channeloption.types)),
     async execute(interaction) {
-        const rawdata = fs.readFileSync(path.join(datapath, log.infospath));
+        const rawdata = fs.readFileSync(path.join(datapath, log.infospath[0] + interaction.guild.id + log.infospath[1]));
         const data = JSON.parse(rawdata);
         const old = data.id;
         console.log(old);
@@ -25,7 +25,7 @@ module.exports = {
         data.name = interaction.options.getChannel(log.channeloption.name).name;
         data.type = interaction.options.getChannel(log.channeloption.name).type;
         
-        fs.writeFile(path.join(datapath, log.infospath), JSON.stringify(data, null, 2), (err) => {
+        fs.writeFile(path.join(datapath, log.infospath[0] + interaction.guild.id + log.infospath[1]), JSON.stringify(data, null, 2), (err) => {
             if (err) {
                 console.log(log.errmsg, err);
                 return;

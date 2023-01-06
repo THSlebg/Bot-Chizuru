@@ -12,7 +12,7 @@ module.exports = {
         .setName(event.name)
         .setDescription(event.description),
     async execute(interaction) {
-        const rawdata = fs.readFileSync(path.join(datapath, event.infospath));
+        const rawdata = fs.readFileSync(path.join(datapath, event.infospath[0] + interaction.guild.id + event.infospath[1]));
         const data = JSON.parse(rawdata);
 
         const eventBuilder = new EmbedBuilder()

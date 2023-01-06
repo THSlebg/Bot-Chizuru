@@ -1,19 +1,25 @@
 const { SlashCommandBuilder, ModalBuilder, TextInputBuilder, ActionRowBuilder } = require('discord.js');
+const fs = require('fs');
+const path = require('path');
 
-const duel = infos.duel;
+const datapath = path.join(__dirname, "..").normalize();
+const blitz = infos.blitz;
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("blitz")
-        .setDescription("Start a new blitz"),
+        .setName(blitz.name)
+        .setDescription(blitz.description),
     async execute(interaction) {
 
-        const modal = new ModalBuilder()
-            .setCustomId("blitz_modal")
-            .setTitle("Paramètre du Blitz !");
+        const rawdata = fs.readFileSync(path.join(datapath, blitz.infospath[0] + interaction.guild.id + blitz.infospath[1]))
+        const data = JSON.parse(rawdata);
 
-        for (let i = 0; i < duel.modal.rows.length; i++) {
-            const row = duel.modal.rows[i];
+        const modal = new ModalBuilder()
+            .setCustomId(blitz.modal.id)
+            .setTitle(blitz.modal.title);
+
+        for (let i = 0; i < blitz.modal.rows.length; i++) {
+            const row = blitz.modal.rows[i];
             modal.addComponents(
                 new ActionRowBuilder()
                     .addComponents(
@@ -24,6 +30,7 @@ module.exports = {
                             .setStyle(row.style)
                             .setMinLength(row.min)
                             .setMaxLength(row.max)
+                            .setValue(data[row.id])
                             ));
         }
  

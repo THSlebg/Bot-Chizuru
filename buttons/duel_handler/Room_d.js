@@ -3,11 +3,13 @@ const fs = require('fs');
 const path = require('path');
 
 const datapath = path.join(__dirname, "../..").normalize();
-const rawdata = fs.readFileSync(path.join(datapath, "data/server/duel_info.json"));
-const duelinfo = JSON.parse(rawdata);
+const duelinfos = infos.duel;
 
 module.exports = {
     async execute(interaction) {
+     
+        const rawdata = fs.readFileSync(path.join(datapath, duelinfos.infospath[0] + interaction.guild.id + duelinfos.infospath[1]));
+        const duelinfo = JSON.parse(rawdata);
 
         if (interaction.customId === 'Room_+') {
             duelList.get(interaction.guild).set(interaction.member.user, 0);

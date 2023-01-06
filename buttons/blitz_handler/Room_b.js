@@ -3,11 +3,13 @@ const fs = require('fs');
 const path = require('path');
 
 const datapath = path.join(__dirname, "../..").normalize();
-const rawdata = fs.readFileSync(path.join(datapath, "data/server/blitz_info.json"));
-const blitz_info = JSON.parse(rawdata);
+const blitzinfos = infos.blitz
 
 module.exports = {
     async execute(interaction) {
+
+        const rawdata = fs.readFileSync(path.join(datapath, blitzinfos.infospath[0] + interaction.guild.id + blitzinfos.infospath[1]));
+        const blitz_info = JSON.parse(rawdata);
 
         if (interaction.customId === 'Room_+b') {
             blitzList.get(interaction.guild).set(interaction.member.user, 0);
@@ -21,7 +23,7 @@ module.exports = {
                 { name: 'Joueurs prêts :', value: "**" + blitzList.get(interaction.guild).size + "**/" + blitz_info.nbJ },
                 { name: 'Rappel de la mise :', value: blitz_info.mise + "<:kakera:950050987412951051>" },
                 { name: 'Score et roll :', value: "Premier à " + blitz_info.score + " points et roll sur " + blitz_info.roll })
-            .setColor('d40f0f');
+            .setColor('821fcf');
             
         let ready;
         
