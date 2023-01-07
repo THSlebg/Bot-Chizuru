@@ -24,16 +24,16 @@ eventList =
                 "Le combat se jouera avec deux personnages, chacun ajoute à sa puissance totale celle de son personnage plus celle du personnage " + rnd.toString() + " de son harem",
                 "Inverse l'ordre des chiffres composant la puissance de chaque personnage",
                 "Le personnage avec l'image la plus tendancieuse : puissance x50",
-                "Chaque personnage voit sa puissance multiplié par 30 s'il n'est pas humain (mi-race acceptée)",
+                "Chaque personnage voit sa puissance multipliée par 30 s'il n'est pas humain (mi-race acceptée)",
                 "Puissance +250 si le personnage possède une arme sur son image (une arme hein!!)",
                 "Le rang like devient la puissance de chaque personnage",
-                "Le personnage avec le nom le plus court : puissance x2 (rien si égalité)",
+                "Le personnage avec le nom le plus court : puissance x5 (rien si égalité)",
                 "La puissance de chaque personnage est multipliée par son nombre d'alias (alias custom exclu)",
                 "Chaque joueur peut changer ou non de personage apres reveal lors de cette manche, avec un autre de ses personnages encore non joué",
                 "Si le personnage à la plus grande puissance n'a pas plus du double du 2nd meilleur personnage de la manche, égalité, et + 1 round à l'affrontement",
                 "Puissance x5 si votre personnage possède 2 fois ou plus le même chiffre dans sa puissance",
-                "Puissance : -150 par clef",
-                "Puissance x2 si le personnage est rollable dans 2 roulettes",
+                "Puissance : -250 par clef(s)",
+                "Puissance x5 si le personnage est rollable dans 2 roulettes",
                 "Puissance x10 si le personnage provient du bundle hentai",
                 "$divorce le personnage joué fait remporter le round (égalité si tous les joueurs le font)",
                 "Vous pouvez ajoutez des kakera pour augmenter la puissance de votre personnage pour ce round (1 kkr = 1 puissance). Les joueurs dévoilent simultanéement le montant qu'il souhaite investir, et ce 1 seul fois durant le round",
@@ -47,9 +47,10 @@ eventList =
                 "Chaque joueur peut librement incrémenter ou décrementer le nombre d'invocation (-1/0/+1) avant le reveal",
                 "Chaque joueur peut inverser librement l'ordre des chiffres composant le nombre d'invocation joué",
                 "Chaque image (hors cutom) ajoute +20 à la puissance du personnage joué",
-                "Puissance x2 si le personnage est à la fois maculin et féminin",
+                "Puissance x4 si le personnage est à la fois maculin et féminin",
                 "Puissance x3 si un autre personnage est présent sur l'image du personnage",
-                "Puissance +250 si le personnage porte des lunettes"
+                "Puissance +450 si le personnage porte des lunettes",
+                "Puissance x10 si le personnage fait parti du bundle IRL"
 ];
 
 module.exports = {

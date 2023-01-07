@@ -37,7 +37,7 @@ module.exports = {
 
             const clc = new ActionRowBuilder()
                 .addComponents(new ButtonBuilder()
-                    .setCustomId("Room_n")
+                    .setCustomId("Room_nb")
                     .setLabel("Ok j'arrête...")
                     .setStyle(ButtonStyle.Secondary)
                     .setEmoji("🆗"));

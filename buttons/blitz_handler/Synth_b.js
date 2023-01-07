@@ -36,10 +36,11 @@ module.exports = {
             concat += "\n";
         }
 
+        nb = (blitz_info.score-1)*blitz_info.nbJ+1;
         chiffres = '';
-        for (let i=0; i< 5; i++) 
+        for (let i=0; i< nb; i++) 
         {
-            let tub = getRandomInt(blitz_info.roll).toString() + '\n';
+            let tub = (getRandomInt(blitz_info.roll-1)+1).toString() + '\n';
             console.log('tub : ' + tub);
             chiffres = chiffres.concat(tub);
         }
