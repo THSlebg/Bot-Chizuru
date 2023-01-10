@@ -2,7 +2,8 @@
 module.exports = {
     async execute(interaction) {
         if(interaction.message.interaction.user.id === interaction.member.user.id) {
-            interaction.update({content: "...", embeds : [], components: []});
+            // interaction.update({content: "...", embeds : [], components: []});
+            interaction.message.delete();
         }
         else 
         {

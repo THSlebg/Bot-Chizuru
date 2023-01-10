@@ -2,9 +2,10 @@ const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("
 const fs = require('fs');
 const path = require('path');
 
+const datapath = path.join(__dirname, "../..").normalize();
+
 module.exports = {
     async execute(interaction) {
-        const datapath = path.join(__dirname, "../..").normalize();
         const rowdata = fs.readFileSync(path.join(datapath, 'data/server/' + interaction.guild.id + "/" + interaction.member.user.id +".json"));
         const userdata = JSON.parse(rowdata);
 
@@ -14,13 +15,23 @@ module.exports = {
         }
         else
         {
+
             if (interaction.customId === "Date" && !userRent.has(interaction.member.user.id)) 
                 {
                     indexgirl = Number(interaction.message.embeds[0].data.footer.text.substring(interaction.message.embeds[0].data.footer.text.indexOf('x')+1));
                     console.log("index girl : " + indexgirl);
                     userRent.set(interaction.member.user.id, [Date.now(), indexgirl, "Neutral", 0]);
+                    userdata.balance -= gf[Object.keys(gf)[indexgirl]].price;
+                    fs.writeFileSync(path.join(datapath, 'data/server/' + interaction.guild.id + "/" + interaction.member.user.id +".json"), JSON.stringify(userdata, null, 2), (err) => {
+                        if (err) {
+                            console.log("Problème lors de l'initialisation du fichier .json du joueur : " + interaction.member.user.username + ", ID : "  + interaction.member.user.id, err);
+                            return;
+                        }
+                        console.log(interaction.member.user.id + ".json  updated");
+                    });
                 }
-            girl = gf[Object.keys(gf)[userRent.get(interaction.member.user.id)[1]]];
+
+            let girl = gf[Object.keys(gf)[userRent.get(interaction.member.user.id)[1]]];
 
             const RGF = new EmbedBuilder()
                 .setColor("843dff")
