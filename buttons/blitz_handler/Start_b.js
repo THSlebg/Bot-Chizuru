@@ -45,12 +45,16 @@ eventList =
                 "Sur ce round, chaque joueur doit jouer le chiffre le plus élévé qu'il lui reste",
                 "Le joueur peut invoquer pour l'aider le personnage correspondant à son nombre joué depuis un autre harem non joueur avant le reveal. Les puissances se cumulent et forme la puissance totale du joueur pour ce round",
                 "Chaque joueur peut librement incrémenter ou décrementer le nombre d'invocation (-1/0/+1) avant le reveal",
-                "Chaque joueur peut inverser librement l'ordre des chiffres composant le nombre d'invocation joué",
+                "Chaque joueur peut inverser librement l'ordre des chiffres composant le nombre d'invocation joué (ex: 102 → 210)",
                 "Chaque image (hors cutom) ajoute +20 à la puissance du personnage joué",
                 "Puissance x4 si le personnage est à la fois maculin et féminin",
                 "Puissance x3 si un autre personnage est présent sur l'image du personnage",
                 "Puissance +450 si le personnage porte des lunettes",
-                "Puissance x10 si le personnage fait parti du bundle IRL"
+                "Puissance x10 si le personnage fait parti du bundle IRL",
+                "Puissance +555 si le personnage porte une jupe, Puissance -333 s'il porte un pantalon",
+                "Tétons qui pointent : Puissance x4",
+                "Puissance +750 si soutif visible (même partiellement)",
+                "Le joueur qui gagne cette manche est libre d'annuler ou de doubler les conséquences de l'event du round suivant"
 ];
 
 module.exports = {

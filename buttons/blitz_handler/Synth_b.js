@@ -44,7 +44,7 @@ module.exports = {
             console.log('tub : ' + tub);
             chiffres = chiffres.concat(tub);
         }
-        console.log("chiffres" + chiffres)
+        console.log("chiffres :\n" + chiffres)
         
         const resume = new EmbedBuilder()
             .setColor("821fcf")

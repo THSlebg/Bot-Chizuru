@@ -233,7 +233,7 @@
                 {
                     "id": "nbJ",
                     "label": "Nombre de participants :",
-                    "placeholder": "Au moins 2, sinon t'es le némesis du fun ... (MAX : 5)",
+                    "placeholder": "MAX : 5",
                     "style": 1,
                     "min": 1,
                     "max": 2
@@ -241,7 +241,7 @@
                 {
                     "id": "score",
                     "label": "Score à atteindre :",
-                    "placeholder": "Wahh, 25 ça rsique d'être long ...",
+                    "placeholder": "Plus le score est élevé, plus le nombre de personnage seraa important",
                     "style": 1,
                     "min": 1,
                     "max": 1
@@ -256,5 +256,16 @@
                 }
             ]
         }
+    },
+    "blitzrule" :{
+        "name" : "blitzrules",
+        "descr" : "show blitz rules",
+        "title" : "Règlement du blitz :",
+        "description": "Détails des règles du nouveau mode PvP. Celui se veut plus stratégique et équilibré.",
+        "objectif" : ["✳ Objectif :","Le but est d'être le premier joueur à atteindre le score défini en début de partie. Chaque joueur remporte 1 point par manche gagnée."],
+        "prep" : ["⏯ Préparation de la partie :","Autant de nombre sont tirés au sort qu'il y de nombre potentiels de round (basé sur la valeur de max roll saisi dans le formulaire de l'affrontement \n Ces nombres désigenent les persoannges de chaque qu'il est libre d'aller en prendre connaissance dans un salon textuel qui lui est dédié, avec la commande $mmi nombre."],
+        "game" : ["🕑 Déroulement d'une manche :","Chaque manche, un event aléatoire est déclaré, et les joueurs choissisent le chiffre (aussi appelé chiffre d'invocation) qui déterminera leur personnage en conséquence.\n La manche  est remportée par le joueur avec le personnage ayant la puissance la plus élévée. La puissance est calculé de la mnière suivante : valeur en kakera du personnage (influencée ou non par l'event du round).\n Le gagnant de la manche est déterminé après reveal des cartes de chacun et calcul de leur puissance. Celui-ci se voit octroyé 1 point."],
+        "win" : ["🏆 Victoire et récompenses : ","Le joueur qui atteint en premier le score défini en début de partie gagne. Il remporte un montant de kakera équivalent à : mise de départ * nombre d'adversaires."],
+        "thumbnail" : "https://risibank.fr/cache/medias/0/27/2774/277486/full.png"
     }
 }

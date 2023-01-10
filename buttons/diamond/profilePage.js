@@ -50,7 +50,7 @@ module.exports ={
         const Profile = new EmbedBuilder()
                     .setColor("843dff")
                     .setTitle("ダイヤモンド - DIAMOND")
-                    .setDescription("*Profil de " + interaction.member.user.username + "*")
+                    .setDescription("*Profil de " + userdata.appname + "*")
                     .setThumbnail(interaction.member.user.avatarURL())
                     .addFields({name: "Genre :", value: userdata.genre},
                     {name: "Taille :", value: (userdata.taille).toString() + " cm"},
