@@ -102,6 +102,15 @@ module.exports = {
                 case 'Date_resume':
                     require("../buttons/diamond/date.js").execute(interaction);
                     break;
+                case "Shop":
+                    require("../buttons/diamond/shop.js").execute(interaction);
+                    break;
+                case "Buy_chocolate":
+                case "Buy_book":
+                case "Buy_scarf":
+                case "Buy_ring":
+                    require("../buttons/diamond/shop_buy.js").execute(interaction);
+                    break;
                 default:
                     break;
             }
