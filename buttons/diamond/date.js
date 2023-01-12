@@ -4,17 +4,50 @@ const path = require('path');
 
 const datapath = path.join(__dirname, "../..").normalize();
 
+const buttonList = ["Date_resume", "ChocolateG", "BookG", "ScarfG", "RingG"];
+
 module.exports = {
     async execute(interaction) {
         const rowdata = fs.readFileSync(path.join(datapath, 'data/server/' + interaction.guild.id + "/" + interaction.member.user.id +".json"));
         const userdata = JSON.parse(rowdata);
 
-        if(!(interaction.customId === "Date" && !userRent.has(interaction.member.user.id)) && !(interaction.customId === "Date_resume"  && userRent.has(interaction.member.user.id)))
+        if(!(interaction.customId === "Date" && !userRent.has(interaction.member.user.id)) && !(buttonList.includes(interaction.customId)  && userRent.has(interaction.member.user.id)))
         {
             interaction.reply({content: "Selon la politique d'utilisation de Diamond Inc. ©, les doubles dates ou toutes formes de multi-dating via l'application sont prohibés.", ephemeral: true});
         }
         else
         {
+
+            let tmp;
+            
+            switch (interaction.customId) {
+                case "ChocolateG":
+                    tmp = userRent.get(interaction.member.user.id);
+                    tmp[2] = gf[Object.keys(gf)[indexgirl]].likeChocolate;
+                    tmp[3] += 1;
+                    userRent.set(interaction.member.user.id, tmp);
+                    break;
+                case "BookG":
+                    tmp = userRent.get(interaction.member.user.id);
+                    tmp[2] = gf[Object.keys(gf)[indexgirl]].likeBook;
+                    tmp[3] += 1;
+                    userRent.set(interaction.member.user.id, tmp);
+                    break;
+                case "ScarfG":
+                    tmp = userRent.get(interaction.member.user.id);
+                    tmp[2] = gf[Object.keys(gf)[indexgirl]].likeScarf;
+                    tmp[3] += 1;
+                    userRent.set(interaction.member.user.id, tmp);
+                    break;
+                case "RingG":
+                    tmp = userRent.get(interaction.member.user.id);
+                    tmp[2] = gf[Object.keys(gf)[indexgirl]].likeRing;
+                    tmp[3] += 1;
+                    userRent.set(interaction.member.user.id, tmp);
+                    break;
+                default:
+                    break;
+            }
 
             if (interaction.customId === "Date" && !userRent.has(interaction.member.user.id)) 
                 {

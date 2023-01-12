@@ -55,7 +55,8 @@ eventList =
                 "Tétons qui pointent : Puissance x4",
                 "Puissance +750 si soutif visible (même partiellement)",
                 "Le joueur qui gagne cette manche est libre d'annuler ou de doubler les conséquences de l'event du round suivant",
-                "Le joueur avec le moins de clefs gagne. En cas d'égalité, la puissance la plus élevé remporte la manche"
+                "Le joueur avec le moins de clefs gagne. En cas d'égalité, la puissance la plus élevé remporte la manche",
+                "Puissance = 0 si nombre de cléfs > 1"
 ];
 
 module.exports = {
