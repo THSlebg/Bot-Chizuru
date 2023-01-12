@@ -56,7 +56,15 @@ eventList =
                 "Puissance +750 si soutif visible (même partiellement)",
                 "Le joueur qui gagne cette manche est libre d'annuler ou de doubler les conséquences de l'event du round suivant",
                 "Le joueur avec le moins de clefs gagne. En cas d'égalité, la puissance la plus élevé remporte la manche",
-                "Puissance = 0 si nombre de cléfs > 1"
+                "Puissance = 0 si nombre de cléfs > 1",
+                "Chaque joueur inverse de droite à gauche l'ordre des chiffres composant le nombre d'invocation",
+                "Puissance : + 150 par bundle auquels le personnage appartient",
+                "Puissance - 404 par gif présent dans les images du personnage joué",
+                "Chaque joueur $kl 10, + 100 de Puissance au personnage joué par niveau de wish protect acquis (kl remboursés)",
+                "Puissance x2 si le personnage est dans la wishlist d'un joueur présent dasn cet affrontement",
+                "Puissance -1 au personnage joué par free react faite par le joueur jouant ce personnage",
+                "Puissance des personnages x2 pour les joueurs ayant perdus la manche précdente",
+                "Puissance = #Rang Claims - #Rang Like"
 ];
 
 module.exports = {
