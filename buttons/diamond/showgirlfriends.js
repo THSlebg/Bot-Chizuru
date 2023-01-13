@@ -88,7 +88,7 @@ module.exports = {
                 .setStyle(ButtonStyle.Success)
                 .setEmoji("💲"));
             }
-            if(userdata.love_point >= gf.lovePoint) // && ownedbyGF[indexGF] === "No one" -- check if the gf isn't already married
+            if(userdata.love_point >= gf[pos].lovePoint) // && ownedbyGF[indexGF] === "No one" -- check if the gf isn't already married
             {
                 NavigationGF.addComponents(new ButtonBuilder()
                     .setCustomId("Marry")

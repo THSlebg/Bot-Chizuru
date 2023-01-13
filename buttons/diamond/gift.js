@@ -11,29 +11,7 @@ module.exports =  {
             
             const rowdata = fs.readFileSync(path.join(datapath, 'data/server/' + interaction.guild.id + "/" + interaction.member.user.id +".json"));
             const userdata = JSON.parse(rowdata);
-
-            stuff = ""
-            const ChooseG = new ActionRowBuilder();
-            console.log("size : " + emoji.size) // validé
-
-            for (const x of emoji.keys())
-            {
-                if(userdata[x] > 0)
-                {
-                    ChooseG.addComponents(new ButtonBuilder()
-                        .setCustomId(emoji.get(x)[1])
-                        .setLabel("Offer 1")
-                        .setStyle(ButtonStyle.Primary)
-                        .setEmoji(emoji.get(x)[0]))
-
-                    for(i=0; i < userdata[x]; i++)
-                    {
-                        stuff += emoji.get(x)[0] + " ";
-                    }
-                }
-            }
-
-            if (stuff === ""){stuff = "Vous ne possédez rien...";}
+            
             const girl = gf[Object.keys(gf)[userRent.get(interaction.user.id)[1]]];
 
             const Gift = new EmbedBuilder()
@@ -43,6 +21,42 @@ module.exports =  {
                 .setThumbnail(girl.ppIMG)
                 .setFooter({text:"Diamond Inc. © - Bringing the best for you"})
                 .setTimestamp();
+
+            stuff = "";
+            const ChooseG = new ActionRowBuilder();
+            console.log("size : " + emoji.size) // validé
+
+            for (const x of emoji.keys())
+            {
+                if(userdata[x] > 0)
+                {
+                    button = new ButtonBuilder()
+                        .setCustomId(emoji.get(x)[1])
+                        .setLabel("Offer 1")
+                        .setStyle(ButtonStyle.Primary)
+                        .setEmoji(emoji.get(x)[0]);
+                    
+                    console.log("nb cadeaux : " + userRent.get(interaction.member.user.id)[3]);
+                    if (userRent.get(interaction.member.user.id)[3] > 5)
+                    {
+                        button.setDisabled();
+                    }
+
+                    ChooseG.addComponents(button);
+
+                    for(i=0; i < userdata[x]; i++)
+                    {
+                        stuff += emoji.get(x)[0] + " ";
+                    }
+                }
+            }
+
+            if (userRent.get(interaction.member.user.id)[3] > 5)
+                    {
+                        Gift.addFields({name : "Impossible de donner plus de cadeaux", value: "Vous avez atteint la limite de cadeaux que vous pouvez offrir par date ..."});
+                    }
+                    
+            if (stuff === ""){stuff = "Vous ne possédez rien...";}
 
             ChooseG.addComponents(new ButtonBuilder()
                 .setCustomId("Date_resume")
