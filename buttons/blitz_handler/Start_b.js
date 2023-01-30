@@ -56,7 +56,7 @@ eventList =
                 "Puissance +750 si soutif visible (même partiellement)",
                 "Le joueur qui gagne cette manche est libre d'annuler ou de doubler les conséquences de l'event du round suivant",
                 "Le joueur avec le moins de clefs gagne. En cas d'égalité, la puissance la plus élevé remporte la manche",
-                "Puissance = 0 si nombre de cléfs > 1",
+                "Puissance = 0 si nombre de cléfs > au numéro du round",
                 "Chaque joueur inverse de droite à gauche l'ordre des chiffres composant le nombre d'invocation",
                 "Puissance : + 150 par bundle auquels le personnage appartient",
                 "Puissance - 404 par gif présent dans les images du personnage joué",
@@ -184,7 +184,8 @@ module.exports = {
                     {name: 'Rappel mise :', value: blitz_info.mise},
                     {name: 'Score : ', value: listS},{name: 'Evenement du round : ', value: eventList[Math.floor(Math.random() * eventList.length)]}
                 );
-                interaction.update({embeds: [scoreG1], components: [buttons]});
+
+            interaction.update({embeds: [scoreG1], components: [buttons]});
         }
     }
 }
