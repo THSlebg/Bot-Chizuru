@@ -104,6 +104,9 @@ module.exports = {
                 case 'BookG':
                 case 'ScarfG':
                 case 'RingG':
+                case 'KnifeG':
+                case 'RoseG':
+                case 'TeddyG':
                     require("../buttons/diamond/date.js").execute(interaction);
                     break;
                 case "Shop":
@@ -116,6 +119,7 @@ module.exports = {
                     require("../buttons/diamond/shop_buy.js").execute(interaction);
                     break;
                 case "Gift":
+                case "GiftA":
                     require("../buttons/diamond/gift.js").execute(interaction);
                     break;
                 default:

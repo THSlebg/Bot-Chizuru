@@ -4,7 +4,7 @@ const path = require('path');
 
 const datapath = path.join(__dirname, "../..").normalize();
 
-const buttonList = ["Date_resume", "ChocolateG", "BookG", "ScarfG", "RingG"];
+const buttonList = ["Date_resume", "ChocolateG", "BookG", "ScarfG", "RingG", "KnifeG", "RoseG", "TeddyG"];
 
 const coeff = new Map ([["Start", 0.25],["Angry", -0.5],["Neutral", 1],["Happy", 2.25]]);
 
@@ -53,6 +53,30 @@ module.exports = {
                     tmp[2] = gf[Object.keys(gf)[indexgirl]].likeRing;
                     tmp[3] += 1;
                     userdata.owned_ring -= 1;
+                    userRent.set(interaction.member.user.id, tmp);
+                    spy = true;
+                    break;
+                case "KnifeG":
+                    tmp = userRent.get(interaction.member.user.id);
+                    tmp[2] = gf[Object.keys(gf)[indexgirl]].likeKnife;
+                    tmp[3] += 1;
+                    userdata.owned_knife -= 1;
+                    userRent.set(interaction.member.user.id, tmp);
+                    spy = true;
+                    break;
+                case "RoseG":
+                    tmp = userRent.get(interaction.member.user.id);
+                    tmp[2] = gf[Object.keys(gf)[indexgirl]].likeRose;
+                    tmp[3] += 1;
+                    userdata.owned_rose -= 1;
+                    userRent.set(interaction.member.user.id, tmp);
+                    spy = true;
+                    break;
+                case "TeddyG":
+                    tmp = userRent.get(interaction.member.user.id);
+                    tmp[2] = gf[Object.keys(gf)[indexgirl]].likeTeddybear;
+                    tmp[3] += 1;
+                    userdata.owned_teddybear -= 1;
                     userRent.set(interaction.member.user.id, tmp);
                     spy = true;
                     break;

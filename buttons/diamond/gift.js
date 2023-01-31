@@ -4,6 +4,7 @@ const path = require('path');
 
 const datapath = path.join(__dirname, "../..").normalize();
 const emoji = new Map([["owned_chocolate", ["🍫", "ChocolateG"]], ["owned_book", ["📔", "BookG"]], ["owned_scarf", ["🧣", "ScarfG"]], ["owned_ring", ["💍", "RingG"]]]);
+const emojiA = new Map([["owned_knife", ["🔪", "KnifeG"]], ["owned_rose", ["🌹", "RoseG"]], ["owned_teddybear", ["🧸", "TeddyG"]]]);
 
 module.exports =  {
     async execute(interaction) {
@@ -25,16 +26,29 @@ module.exports =  {
             stuff = "";
             const ChooseG = new ActionRowBuilder();
             console.log("size : " + emoji.size) // validé
+            gift = new Map();
 
-            for (const x of emoji.keys())
+            switch (interaction.customId) {
+                case 'Gift':
+                    gift = emoji;
+                    break;
+                case 'GiftA':
+                    gift = emojiA;
+                    console.log('awkward mode : on' + gift.get("owned_rose")[1]);
+                    break;
+                default:
+                    break;
+            }
+
+            for (const x of gift.keys())
             {
                 if(userdata[x] > 0)
                 {
                     button = new ButtonBuilder()
-                        .setCustomId(emoji.get(x)[1])
+                        .setCustomId(gift.get(x)[1])
                         .setLabel("Offer 1")
                         .setStyle(ButtonStyle.Primary)
-                        .setEmoji(emoji.get(x)[0]);
+                        .setEmoji(gift.get(x)[0]);
                     
                     console.log("nb cadeaux : " + userRent.get(interaction.member.user.id)[3]);
                     if (userRent.get(interaction.member.user.id)[3] > 5)
@@ -46,7 +60,7 @@ module.exports =  {
 
                     for(i=0; i < userdata[x]; i++)
                     {
-                        stuff += emoji.get(x)[0] + " ";
+                        stuff += gift.get(x)[0] + " ";
                     }
                 }
             }
